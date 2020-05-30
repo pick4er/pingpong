@@ -2,6 +2,7 @@ import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 
+import ConsolePanel from 'components/ConsolePanel'
 import { requestAction } from 'flux/modules/requests'
 
 function ConsolePage(props) {
@@ -20,13 +21,9 @@ function ConsolePage(props) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="request">
-        <textarea name="request" />
-      </label>
-
-      <button type="submit">request</button>
-    </form>
+    <div>
+      <ConsolePanel />
+    </div>
   )
 }
 
