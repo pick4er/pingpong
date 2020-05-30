@@ -74,7 +74,12 @@ function CodeEditor(props) {
   }
 
   const onRequest = () => {
-    requestEditor.performLint()
+    const response = requestEditor.performLint()
+    const value = requestEditor.getValue()
+    const errors = CodeMirror.lint.json(value)
+    if (errors.length === 0) {
+      makeRequest(JSON.parse(value))
+    }
   }
 
   return (

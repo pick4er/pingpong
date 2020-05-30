@@ -106,6 +106,8 @@ export const setHistory = (payload) => ({
 })
 
 // Middleware
-export const requestAction = (body) => async () => {
-  await apiRequest(body)
+export const requestAction = (body) => async (dispatch) => {
+  const response = await apiRequest(body)
+    .catch(e => { debugger })
+  dispatch(setResponse(JSON.stringify(response)))
 }
