@@ -1,2 +1,5 @@
+import React from 'react';
 
-export default () => "Ping pong sensei";
+import LoginPage from 'pages/Login';
+
+export default () => <LoginPage />;
