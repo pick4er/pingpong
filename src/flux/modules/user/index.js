@@ -1,13 +1,18 @@
+import Cookies from 'cookies-js'
 import { createSelector } from 'reselect';
-import { loginRequest } from 'api';
+import { loginRequest, sendsay } from 'api';
+
+import { TOKEN_KEY } from 'dictionary'
 
 // Actions
 const SET_IS_LOADING = 'USER/SET_IS_LOADING'
 const SET_ERROR = 'USER/SET_ERROR'
+const SET_TOKEN = 'USER/SET_TOKEN'
 
 const initialState = {
   isLoading: undefined,
   error: undefined,
+  token: undefined,
 }
 
 export default function reducer(
@@ -24,6 +29,11 @@ export default function reducer(
       return {
         ...state,
         error: payload
+      }
+    case SET_TOKEN:
+      return {
+        ...state,
+        token: payload
       }
     default:
       return state
@@ -43,7 +53,17 @@ export const selectError = createSelector(
   ({ error }) => error
 )
 
-// Action createors
+export const selectToken = createSelector(
+  selectUserModule,
+  ({ token }) => token
+)
+
+export const selectIsAuth = createSelector(
+  selectToken,
+  token => !!token
+)
+
+// Action creators
 export const setIsLoading = payload => ({
   type: SET_IS_LOADING,
   payload
@@ -51,6 +71,11 @@ export const setIsLoading = payload => ({
 
 export const setError = payload => ({
   type: SET_ERROR,
+  payload
+})
+
+export const setToken = payload => ({
+  type: SET_TOKEN,
   payload
 })
 
@@ -64,4 +89,6 @@ export const loginAction = credentials => async (dispatch, getState) => {
       dispatch(setError(e))
     })
   dispatch(setIsLoading(false))
+
+  Cookies.set(TOKEN_KEY, sendsay.session)
 }
