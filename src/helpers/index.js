@@ -1,3 +1,5 @@
 import isProduction from './isProduction'
+import deepClone from './deepClone'
+import RequestsHistory from './RequestsHistory'
 
-export { isProduction }
+export { isProduction, deepClone, RequestsHistory }

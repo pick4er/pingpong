@@ -31,7 +31,7 @@ function initCodeEditor(requestEl, responseEl) {
     autoCloseBrackets: true,
     lint: {
       lintOnChange: false,
-      selfContain: true
+      selfContain: true,
     },
     selfContain: false,
   })
@@ -74,7 +74,8 @@ function CodeEditor(props) {
   }
 
   const onRequest = () => {
-    const response = requestEditor.performLint()
+    requestEditor.performLint()
+
     const value = requestEditor.getValue()
     const errors = CodeMirror.lint.json(value)
     if (errors.length === 0) {
