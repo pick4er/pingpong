@@ -1,5 +1,5 @@
 function NotFoundPage() {
-  return "NotFound"
+  return 'NotFound'
 }
 
 export default NotFoundPage

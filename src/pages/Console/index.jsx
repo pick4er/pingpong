@@ -1,8 +1,8 @@
-import React from 'react';
-import T from 'prop-types';
+import React from 'react'
+import T from 'prop-types'
 import { connect } from 'react-redux'
 
-import { requestAction } from 'flux/modules/requests';
+import { requestAction } from 'flux/modules/requests'
 
 function ConsolePage(props) {
   const { request } = props
@@ -25,9 +25,7 @@ function ConsolePage(props) {
         <textarea name="request" />
       </label>
 
-      <button type="submit">
-        request
-      </button>
+      <button type="submit">request</button>
     </form>
   )
 }
@@ -40,4 +38,7 @@ const mapDispatchToProps = {
   request: requestAction,
 }
 
-export default connect(null, mapDispatchToProps)(ConsolePage)
+export default connect(
+  null,
+  mapDispatchToProps
+)(ConsolePage)

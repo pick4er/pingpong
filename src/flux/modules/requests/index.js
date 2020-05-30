@@ -1,5 +1,5 @@
-import { createSelector } from 'reselect';
-import { apiRequest } from 'api';
+import { createSelector } from 'reselect'
+import { apiRequest } from 'api'
 
 // Actions
 const SET_ERROR = 'REQUESTS/SET_ERROR'
@@ -24,27 +24,27 @@ export default function reducer(
     case SET_ERROR:
       return {
         ...state,
-        error: payload
+        error: payload,
       }
     case SET_IS_LOADING:
       return {
         ...state,
-        isLoading: payload
+        isLoading: payload,
       }
     case SET_REQUEST:
       return {
         ...state,
-        request: payload
+        request: payload,
       }
     case SET_RESPONSE:
       return {
         ...state,
-        response: payload
+        response: payload,
       }
     case SET_HISTORY:
       return {
         ...state,
-        history: payload
+        history: payload,
       }
     default:
       return state
@@ -52,7 +52,7 @@ export default function reducer(
 }
 
 // Selectors
-const selectRequestsModule = state => state.requests
+const selectRequestsModule = (state) => state.requests
 
 export const selectIsLoading = createSelector(
   selectRequestsModule,
@@ -80,36 +80,32 @@ export const selectHistory = createSelector(
 )
 
 // Action creators
-export const setIsLoading = payload => ({
+export const setIsLoading = (payload) => ({
   type: SET_IS_LOADING,
-  payload
+  payload,
 })
 
-export const setError = payload => ({
+export const setError = (payload) => ({
   type: SET_ERROR,
-  payload
+  payload,
 })
 
-export const setRequest = payload => ({
+export const setRequest = (payload) => ({
   type: SET_REQUEST,
-  payload
+  payload,
 })
 
-export const setResponse = payload => ({
+export const setResponse = (payload) => ({
   type: SET_RESPONSE,
-  payload
+  payload,
 })
 
-export const setHistory = payload => ({
+export const setHistory = (payload) => ({
   type: SET_HISTORY,
-  payload
+  payload,
 })
 
 // Middleware
-export const requestAction = body => async (dispatch, getState) => {
-  const response = await apiRequest(body)
-    .catch(e => {
-      debugger
-    })
-  debugger
+export const requestAction = (body) => async () => {
+  await apiRequest(body)
 }

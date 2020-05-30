@@ -7,7 +7,6 @@ import {
   compose,
 } from 'redux'
 
-import history from 'router/history'
 import user from 'flux/modules/user'
 import requests from 'flux/modules/requests'
 import { isProduction } from 'helpers'
@@ -21,6 +20,13 @@ sendsay.session = token
 
 const initialState = { user: { token } }
 const reducers = combineReducers({ user, requests })
-const middleware = compose(applyMiddleware(thunk), devTools())
+const middleware = compose(
+  applyMiddleware(thunk),
+  devTools()
+)
 
-export default createStore(reducers, initialState, middleware)
+export default createStore(
+  reducers,
+  initialState,
+  middleware
+)
