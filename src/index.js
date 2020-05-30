@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ import store from 'flux'
 import routes from 'router'
 import history from 'router/history'
 
-import 'styles/index.scss';
+import 'styles/index.scss'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,4 +19,4 @@ ReactDOM.render(
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
-);
+)

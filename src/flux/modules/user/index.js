@@ -1,6 +1,6 @@
 import Cookies from 'cookies-js'
-import { createSelector } from 'reselect';
-import { loginRequest, sendsay } from 'api';
+import { createSelector } from 'reselect'
+import { loginRequest, sendsay } from 'api'
 
 import { TOKEN_KEY } from 'dictionary'
 
@@ -28,12 +28,12 @@ export default function reducer(
     case SET_ERROR:
       return {
         ...state,
-        error: payload
+        error: payload,
       }
     case SET_TOKEN:
       return {
         ...state,
-        token: payload
+        token: payload,
       }
     default:
       return state
@@ -41,7 +41,7 @@ export default function reducer(
 }
 
 // Selectors
-const selectUserModule = state => state.user
+const selectUserModule = (state) => state.user
 
 export const selectIsLoading = createSelector(
   selectUserModule,
@@ -60,34 +60,35 @@ export const selectToken = createSelector(
 
 export const selectIsAuth = createSelector(
   selectToken,
-  token => !!token
+  (token) => !!token
 )
 
 // Action creators
-export const setIsLoading = payload => ({
+export const setIsLoading = (payload) => ({
   type: SET_IS_LOADING,
-  payload
+  payload,
 })
 
-export const setError = payload => ({
+export const setError = (payload) => ({
   type: SET_ERROR,
-  payload
+  payload,
 })
 
-export const setToken = payload => ({
+export const setToken = (payload) => ({
   type: SET_TOKEN,
-  payload
+  payload,
 })
 
 // Middleware
-export const loginAction = credentials => async (dispatch, getState) => {
+export const loginAction = (credentials) => async (
+  dispatch
+) => {
   dispatch(setIsLoading(true))
   dispatch(setError(undefined))
 
-  const response = await loginRequest(credentials)
-    .catch(e => {
-      dispatch(setError(e))
-    })
+  await loginRequest(credentials).catch((e) => {
+    dispatch(setError(e))
+  })
   dispatch(setIsLoading(false))
 
   Cookies.set(TOKEN_KEY, sendsay.session)

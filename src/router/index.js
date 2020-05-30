@@ -1,13 +1,13 @@
-import Login from 'pages/Login';
-import Console from 'pages/Console';
-import NotFound from 'pages/NotFound';
+import Login from 'pages/Login'
+import Console from 'pages/Console'
+import NotFound from 'pages/NotFound'
 
 export default [
   {
     id: 'login',
     path: '/login',
     exact: true,
-    component: Login
+    component: Login,
   },
   {
     id: 'console',
@@ -19,5 +19,5 @@ export default [
     id: 'not-found',
     path: '*',
     component: NotFound,
-  }
+  },
 ]

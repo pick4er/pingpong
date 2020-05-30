@@ -1,11 +1,11 @@
-import React from 'react';
-import T from 'prop-types';
-import { connect } from 'react-redux';
+import React from 'react'
+import T from 'prop-types'
+import { connect } from 'react-redux'
 
-import { loginAction } from 'flux/modules/user';
+import { loginAction } from 'flux/modules/user'
 
 function LoginPage(props) {
-  const { login, request } = props
+  const { login } = props
 
   const onSubmit = ($event) => {
     $event.preventDefault()
@@ -22,19 +22,25 @@ function LoginPage(props) {
     <form onSubmit={onSubmit}>
       <label htmlFor="login">
         Login:
-        <input name="login" type="text" autoComplete="off" />
+        <input
+          name="login"
+          type="text"
+          autoComplete="off"
+        />
       </label>
       <label htmlFor="sublogin">
         Sublogin:
-        <input name="sublogin" type="text" autoComplete="off" />
+        <input
+          name="sublogin"
+          type="text"
+          autoComplete="off"
+        />
       </label>
       <label htmlFor="password">
         Password:
         <input name="password" type="password" />
       </label>
-      <button type="submit">
-        login
-      </button>
+      <button type="submit">login</button>
     </form>
   )
 }
