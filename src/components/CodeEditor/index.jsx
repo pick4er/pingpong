@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import CodeMirror from 'codemirror'
 import beautify from 'js-beautify'
+import jsonlint from 'jsonlint-mod'
 
 import {
   selectRequest,
@@ -12,17 +13,32 @@ import {
 
 import './index.scss'
 import 'codemirror/lib/codemirror.css'
+import 'codemirror/addon/lint/lint.css'
 import 'codemirror/mode/javascript/javascript'
+import 'codemirror/addon/edit/closebrackets'
+import 'codemirror/addon/lint/lint'
+import 'codemirror/addon/lint/json-lint'
+
+window.jsonlint = jsonlint
 
 let requestEditor
 let responseEditor
 function initCodeEditor(requestEl, responseEl) {
   requestEditor = CodeMirror.fromTextArea(requestEl, {
-    mode: 'javascript',
+    mode: { name: 'javascript', json: true },
+    lineWrapping: true,
+    scrollbarStyle: null,
+    autoCloseBrackets: true,
+    lint: true,
   })
   responseEditor = CodeMirror.fromTextArea(responseEl, {
-    mode: 'javascript',
-    readOnly: true,
+    mode: {
+      name: 'javascript',
+      json: true,
+    },
+    readonly: true,
+    lineWrapping: true,
+    scrollbarStyle: null,
   })
 }
 
@@ -41,8 +57,11 @@ function CodeEditor(props) {
 
   useEffect(() => {
     requestEditor.setValue(beautify(requestText))
+  }, [requestText])
+
+  useEffect(() => {
     responseEditor.setValue(beautify(responseText))
-  }, [requestText, responseText])
+  }, [responseText])
 
   const onBeautify = () => {
     requestEditor.setValue(
@@ -50,9 +69,7 @@ function CodeEditor(props) {
     )
   }
 
-  const onRequest = () => {
-    makeRequest(requestEditor.getValue())
-  }
+  const onRequest = () => {}
 
   return (
     <div>
