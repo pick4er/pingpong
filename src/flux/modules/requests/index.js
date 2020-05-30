@@ -12,8 +12,8 @@ const initialState = {
   history: new WeakMap(),
   error: undefined,
   isLoading: undefined,
-  response: undefined,
-  request: undefined,
+  response: '',
+  request: '',
 }
 
 export default function reducer(

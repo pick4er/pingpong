@@ -1,0 +1,16 @@
+
+.CodeEditor--textareas {
+  display: flex;
+  flex-flow: row nowrap;
+
+  .CodeMirror {
+    flex-grow: 1;
+    max-width: 50%;
+  }
+}
+
+.CodeEditor--actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
