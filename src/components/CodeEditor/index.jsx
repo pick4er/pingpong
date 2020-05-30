@@ -29,12 +29,9 @@ function initCodeEditor(requestEl, responseEl) {
     lineWrapping: true,
     scrollbarStyle: null,
     autoCloseBrackets: true,
-    lintOnChange: false,
     lint: {
-      getAnnotations: function (text, options, instance) {
-        const errors = CodeMirror.lint.json(text)
-        return { message: 'error', severity: 'warning', from: 0, to: 0 }
-      }
+      lintOnChange: false,
+      selfContain: true
     },
     selfContain: false,
   })
