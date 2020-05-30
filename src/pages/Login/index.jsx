@@ -2,7 +2,7 @@ import React from 'react';
 import T from 'prop-types';
 import { connect } from 'react-redux';
 
-import { login as loginAction } from 'flux/modules/user';
+import { loginAction } from 'flux/modules/user';
 
 function LoginPage(props) {
   const { login } = props
@@ -20,11 +20,11 @@ function LoginPage(props) {
     <form onSubmit={onSubmit}>
       <label htmlFor="login">
         Login:
-        <input name="login" type="text" />
+        <input name="login" type="text" autocomplete="off" />
       </label>
       <label htmlFor="sublogin">
         Sublogin:
-        <input name="sublogin" type="text" />
+        <input name="sublogin" type="text" autocomplete="off" />
       </label>
       <label htmlFor="password">
         Password:

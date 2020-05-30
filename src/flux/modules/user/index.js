@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { login as loginRequest } from 'fetch/api';
+import { loginRequest } from 'api';
 
 // Actions
 const SET_IS_LOADING = 'USER/SET_IS_LOADING'
@@ -55,7 +55,13 @@ export const setError = payload => ({
 })
 
 // Middleware
-export const login = credentials => async (dispatch, getState) => {
+export const loginAction = credentials => async (dispatch, getState) => {
+  dispatch(setIsLoading(true))
+  dispatch(setError(undefined))
+
   const response = await loginRequest(credentials)
-  debugger
+    .catch(e => {
+      dispatch(setError(e))
+    })
+  dispatch(setIsLoading(false))
 }
