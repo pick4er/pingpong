@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
+import cx from 'classnames'
 
 import Input from 'elements/Input'
 import { loginAction } from 'flux/modules/user'
@@ -10,6 +11,8 @@ import {
   startsWithLetter,
   moreThanXSymbols,
 } from 'helpers/validators'
+
+import './index.scss'
 
 const validators = {
   login: [
@@ -33,7 +36,7 @@ const validators = {
 function LoginForm(props) {
   const [showErrors, setShowErrors] = useState(false)
 
-  const { login } = props
+  const { login, className } = props
 
   const onSubmit = ($event) => {
     $event.preventDefault()
@@ -47,12 +50,20 @@ function LoginForm(props) {
     $event.target.reset()
   }
 
+  const classNames = cx({
+    'login-form': true,
+    [className]: className,
+  })
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={classNames}>
+      <h5 className="login-form__header">API-консолька</h5>
+
       <Input
         isRequired
         name="login"
         label="Логин"
+        className="login-form__input"
         showErrors={showErrors}
         validators={validators.login}
         type="text"
@@ -61,6 +72,7 @@ function LoginForm(props) {
       <Input
         name="sublogin"
         label="Сублогин"
+        className="login-form__input"
         showErrors={showErrors}
         validators={validators.sublogin}
         type="text"
@@ -70,6 +82,7 @@ function LoginForm(props) {
         isRequired
         label="Пароль"
         name="password"
+        className="login-form__input"
         showErrors={showErrors}
         validators={validators.password}
         type="password"
@@ -80,8 +93,13 @@ function LoginForm(props) {
   )
 }
 
+LoginForm.defaultProps = {
+  className: '',
+}
+
 LoginForm.propTypes = {
   login: T.func.isRequired,
+  className: T.string,
 }
 
 const mapDispatchToProps = {

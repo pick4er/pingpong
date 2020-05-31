@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import T from 'prop-types'
+import cx from 'classnames'
 
 import './index.scss'
 
@@ -14,6 +15,7 @@ function Input(props) {
     showErrors,
     validators,
     isRequired,
+    className,
   } = props
 
   const validate = (value) => {
@@ -35,11 +37,25 @@ function Input(props) {
     validate(value)
   }
 
+  const classNames = cx({
+    'input': true,
+    [className]: className,
+  })
+
   return (
-    <label htmlFor={name}>
-      {label}
+    <label className={classNames}>
+      <div className="input__label">
+        <span className="input__label_name">
+          {label}
+        </span>
+
+        {!isRequired && (<span className="input__label_optional">
+                          Опционально
+                        </span>)}
+      </div>
       <input
-        required={isRequired}
+        className="input__native-input input__native-input_content"
+        autoComplete="off"
         type={type}
         name={name}
         value={value}
@@ -55,9 +71,11 @@ Input.defaultProps = {
   validators: [],
   isRequired: false,
   showErrors: false,
+  className: '',
 }
 
 Input.propTypes = {
+  className: T.string,
   isRequired: T.bool,
   validators: T.arrayOf(T.func),
   label: T.string.isRequired,

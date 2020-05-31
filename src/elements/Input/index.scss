@@ -1,0 +1,39 @@
+@import 'styles/colors';
+
+.input {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.input__label {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.input__label_name {
+  font-size: 16px;
+}
+
+.input__label_optional {
+  font-size: 12px;
+  color: $optionalGray;
+  display: flex;
+  align-items: flex-end;
+}
+
+.input__native-input {
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid $borderBlack;
+  height: 40px;
+}
+
+.input__native-input_content {
+  font-size: 18px;
+  line-height: 30px;
+  font-style: normal;
+  font-weight: normal;
+  padding: 5px 10px;
+}
