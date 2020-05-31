@@ -2,7 +2,7 @@ import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 
-import HistoryObject from 'components/HistoryObject'
+import HistoryObject from './HistoryObject'
 import { selectHistory } from 'flux/modules/requests'
 
 import './index.scss'

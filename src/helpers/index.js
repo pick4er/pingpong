@@ -1,4 +1,5 @@
 import isProduction from './isProduction'
+import pluralizeWord from './pluralizeWord'
 import deepClone from './deepClone'
 import nanoid from './nanoid'
 import RequestsHistory from './RequestsHistory'
@@ -8,6 +9,7 @@ import getRequestAction from './getRequestAction'
 
 export {
   nanoid,
+  pluralizeWord,
   isProduction,
   deepClone,
   RequestsHistory,

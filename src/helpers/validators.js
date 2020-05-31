@@ -1,3 +1,5 @@
+import pluralizeWord from './pluralizeWord'
+
 export function latinOnly(value) {
   if (typeof value === 'undefined') {
     return undefined
@@ -57,7 +59,7 @@ export const moreThanXSymbols = (x) => (value) => {
   }
 
   if (value.toString().length <= x) {
-    return `Не меньше ${x} символов`
+    return `Не меньше ${x} символ${pluralizeWord(x, ['а', 'ов'])}`
   }
 
   return undefined
