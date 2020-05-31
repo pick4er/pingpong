@@ -86,6 +86,7 @@ function LoginForm(props) {
         label="Пароль"
         name="password"
         className="login-form__input"
+        nativeInputCl=" login-form__input_password"
         showErrors={showErrors}
         validators={validators.password}
         type="password"

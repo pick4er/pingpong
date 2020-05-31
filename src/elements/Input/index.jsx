@@ -16,6 +16,7 @@ function Input(props) {
     validators,
     isRequired,
     className,
+    nativeInputCl,
   } = props
 
   const validate = (value) => {
@@ -44,12 +45,14 @@ function Input(props) {
 
   const classNames = cx({
     input: true,
+    input_outline: true,
     [className]: className,
   })
 
   const inputClassNames = cx([
     'input__native-input',
     'input__native-input_content',
+    nativeInputCl
   ])
 
   return (
@@ -80,11 +83,13 @@ Input.defaultProps = {
   isRequired: false,
   showErrors: false,
   className: '',
+  nativeInputCl: '',
 }
 
 Input.propTypes = {
   className: T.string,
   isRequired: T.bool,
+  nativeInputCl: T.string,
   validators: T.arrayOf(T.func),
   label: T.string.isRequired,
   name: T.string.isRequired,

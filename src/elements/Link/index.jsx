@@ -5,7 +5,7 @@ import cx from 'classnames'
 import './index.scss'
 
 function Link(props) {
-  const { children, src, className } = props
+  const { children, href, className } = props
 
   const classNames = cx({
     'link': true,
@@ -13,7 +13,7 @@ function Link(props) {
   })
 
   return (
-    <a src={src} className={classNames}>{children}</a>
+    <a target="_blank" rel="noopener noreferrer" href={href} className={classNames}>{children}</a>
   )
 }
 
@@ -23,7 +23,7 @@ Link.defaultProps = {
 
 Link.propTypes = {
   children: T.elementType.isRequired,
-  src: T.string.isRequired,
+  href: T.string.isRequired,
 }
 
 export default Link
