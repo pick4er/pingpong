@@ -7,6 +7,27 @@
   color: $white;
   cursor: pointer;
   padding: 10px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:focus {
+    position: relative;
+    outline: none;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 40px;
+      bottom: -2px;
+      left: -2px;
+      right: -2px;
+      border: 2px solid $buttonBlueOutline;
+      border-radius: 7px;
+    }
+  }
 }
 
 .button_blue {
