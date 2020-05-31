@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect'
 import { apiRequest } from 'api'
 import { RequestsHistory } from 'helpers'
+import { notifyAboutCopy } from 'flux/modules/notifications'
+import { CopyNotifications } from 'dictionary'
 
 // Actions
 const SET_ERROR = 'REQUESTS/SET_ERROR'
@@ -134,17 +136,61 @@ export const requestAction = (req = {}) => async (
   dispatch(addRequestToHistory(req, res))
 }
 
-export const undoRequestAction = (reqId) => (
+export const execRequestAction = (reqId) => (
   dispatch,
   getState
 ) => {
   const requestsHistory = new RequestsHistory(
     selectHistory(getState())
   )
-  const { request, response } = requestsHistory.findRequest(
-    reqId
-  )
+  const { request } = requestsHistory.findRequest(reqId)
+
+  requestsHistory.removeRequest(reqId)
+  dispatch(setHistory(requestsHistory.serialize()))
 
   dispatch(setRequest(JSON.stringify(request)))
-  dispatch(setResponse(JSON.stringify(response)))
+  dispatch(requestAction(request))
+}
+
+export const copyRequestAction = (reqId) => (
+  dispatch,
+  getState
+) => {
+  const requestsHistory = new RequestsHistory(
+    selectHistory(getState())
+  )
+  const { request } = requestsHistory.findRequest(reqId)
+
+  navigator.clipboard
+    .writeText(JSON.stringify(request))
+    .then(
+      () => {
+        dispatch(
+          notifyAboutCopy({
+            type: CopyNotifications.Success,
+            id: reqId,
+          })
+        )
+      },
+      () => {
+        dispatch(
+          notifyAboutCopy({
+            type: CopyNotifications.Fail,
+            id: reqId,
+          })
+        )
+      }
+    )
+}
+
+export const deleteRequestAction = (reqId) => (
+  dispatch,
+  getState
+) => {
+  const requestsHistory = new RequestsHistory(
+    selectHistory(getState())
+  )
+
+  requestsHistory.removeRequest(reqId)
+  dispatch(setHistory(requestsHistory.serialize()))
 }

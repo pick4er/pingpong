@@ -2,28 +2,19 @@ import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 
-import {
-  selectHistory,
-  undoRequestAction,
-} from 'flux/modules/requests'
-import { getRequestAction } from 'helpers'
+import HistoryObject from 'components/HistoryObject'
+import { selectHistory } from 'flux/modules/requests'
 
 import './index.scss'
 
 function RequestsHistory(props) {
-  const { requestsHistory, undoRequest } = props
-
-  const onClick = ($event) => {
-    undoRequest($event.target.id)
-  }
+  const { requestsHistory } = props
 
   return (
     <ul className="RequestsHistory">
       {requestsHistory.map(({ id, request }) => (
         <li key={id}>
-          <button type="button" id={id} onClick={onClick}>
-            {getRequestAction(request)}
-          </button>
+          <HistoryObject id={id} request={request} />
         </li>
       ))}
     </ul>
@@ -38,18 +29,10 @@ RequestsHistory.propTypes = {
       response: T.object.isRequired,
     })
   ).isRequired,
-  undoRequest: T.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   requestsHistory: selectHistory(state),
 })
 
-const mapDispatchToProps = {
-  undoRequest: undoRequestAction,
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RequestsHistory)
+export default connect(mapStateToProps)(RequestsHistory)

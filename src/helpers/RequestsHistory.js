@@ -46,24 +46,24 @@ export default class RequestsHistory {
     const index = this.history.findIndex(
       ({ id }) => id === reqId
     )
-    if (!index) {
+    if (typeof index === 'undefined') {
       return undefined
     }
 
-    const requestToRemove = this.history[index]
+    const removedRequest = this.history[index]
     this.history.splice(index, 1)
 
-    return requestToRemove
+    return removedRequest
   }
 
   moveRequestOnTop(reqId) {
-    const requestToMove = this.removeRequest(reqId)
-    if (typeof requestToMove === 'undefined') {
+    const movedRequest = this.removeRequest(reqId)
+    if (typeof movedRequest === 'undefined') {
       return undefined
     }
 
-    this.history = [requestToMove].concat(this.history)
-    return requestToMove
+    this.history = [movedRequest].concat(this.history)
+    return movedRequest
   }
 
   isEmpty() {
