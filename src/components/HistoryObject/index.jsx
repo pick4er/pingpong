@@ -15,6 +15,7 @@ function HistoryObject(props) {
   return (
     <Dropdown
       isOpen={isOpen}
+      setIsOpen={setIsOpen}
       triggerComponent={() => (
         <HistoryTile
           isOpen={isOpen}
