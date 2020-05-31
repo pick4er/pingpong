@@ -5,6 +5,7 @@ import cx from 'classnames'
 
 import Input from 'elements/Input'
 import Button from 'elements/Button'
+import Notification from 'elements/Notification'
 import {
   loginAction,
   selectIsLoading,
@@ -47,12 +48,14 @@ function LoginForm(props) {
     const formDomEl = formEl.current
 
     const checkIfFormError = ($event) => {
+      const { form: { login, sublogin, password } } = $event.target
+
       const possibleErrors = [
-        $event.target.form.login.dataset.error,
-        $event.target.form.sublogin.dataset.error,
-        $event.target.form.password.dataset.error
+        login.dataset.error,
+        sublogin.dataset.error,
+        password.dataset.error,
       ].filter(Boolean)
-      
+
       if (isError && possibleErrors.length === 0) {
         setIsError(false)
       } else if (!isError && possibleErrors.length > 0) {
@@ -63,7 +66,11 @@ function LoginForm(props) {
     }
 
     formDomEl.addEventListener('change', checkIfFormError)
-    return () => formDomEl.removeEventListener('change', checkIfFormError)
+    return () =>
+      formDomEl.removeEventListener(
+        'change',
+        checkIfFormError
+      )
   }, [isError, setIsError])
 
   const onSubmit = ($event) => {
@@ -83,8 +90,14 @@ function LoginForm(props) {
   })
 
   return (
-    <form onSubmit={onSubmit} className={classNames} ref={formEl}>
+    <form
+      onSubmit={onSubmit}
+      className={classNames}
+      ref={formEl}
+    >
       <h5 className="login-form__header">API-консолька</h5>
+
+      <Notification withIcon className="login-form__notification" />
 
       <Input
         isRequired

@@ -1,0 +1,42 @@
+@import 'styles/colors';
+
+.notification {
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.notification_error {
+  background-color: $backgroundErrorRed;
+}
+
+.notification__content {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.notification__title {
+  margin: 0;
+  line-height: 30px;
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notification__message {
+  margin: 0;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notification__title_error {
+  color: $errorRed;
+}
+
+.notification__message_error {
+  color: $errorRed;
+}

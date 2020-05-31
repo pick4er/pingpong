@@ -3,6 +3,7 @@ import T from 'prop-types'
 import cx from 'classnames'
 
 import Loader from 'elements/Loader'
+import { ButtonModes}  from 'dictionary'
 
 import './index.scss'
 
@@ -20,9 +21,9 @@ function Button(props) {
 
   const classNames = cx({
     button: true,
-    button_blue: mode === 'blue',
-    button_red: mode === 'red',
-    button_transparent: mode === 'transparent',
+    button_blue: mode === ButtonModes.Blue,
+    button_red: mode === ButtonModes.Red,
+    button_transparent: mode === ButtonModes.Transparent,
     button_disabled: isDisabled,
     [className]: className,
   })
@@ -42,7 +43,7 @@ function Button(props) {
 Button.defaultProps = {
   onClick: () => {},
   className: '',
-  mode: 'blue',
+  mode: ButtonModes.blue,
   isLoading: false,
   type: 'button',
   children: '',
@@ -55,7 +56,7 @@ Button.propTypes = {
   isLoading: T.bool,
   isDisabled: T.bool,
   children: T.elementType,
-  mode: T.oneOf(['blue', 'red', 'transparent']),
+  mode: T.oneOf([Object.values(ButtonModes)]),
   type: T.oneOf(['submit', 'button', 'reset']),
 }
 

@@ -5,3 +5,15 @@ export const CopyNotifications = {
   Fail: 'COPY_FAIL',
   NotCopied: 'NOT_COPIED',
 }
+
+export const ButtonModes = {
+  Blue: 'blue',
+  Red: 'red',
+  Transparent: 'transparent',
+}
+
+export const NotificationTypes = {
+  Into: 'into',
+  Warning: 'warning',
+  Error: 'error'
+}

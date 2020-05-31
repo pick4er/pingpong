@@ -59,11 +59,11 @@ export const moreThanXSymbols = (x) => (value) => {
   }
 
   if (value.toString().length <= x) {
-    return `Не меньше ${x} символ${pluralizeWord(x, [
-      'а',
-      'ов',
-      'ов',
-    ])}`
+    return `Не меньше ${x}-${pluralizeWord(x, [
+      'го',
+      'х',
+      'ми',
+    ])} символ${pluralizeWord(x, ['а', 'ов', 'ов'])}`
   }
 
   return undefined

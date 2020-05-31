@@ -1,0 +1,17 @@
+
+@mixin buttonOutline($backgroundColor) {
+  position: relative;
+  outline: none;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 40px;
+    bottom: -2px;
+    left: -2px;
+    right: -2px;
+    border: 2px solid $backgroundColor;
+    border-radius: 7px;
+  }
+}
