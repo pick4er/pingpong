@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 import { apiRequest } from 'api'
+import { RequestsHistory } from 'helpers'
 
 // Actions
 const SET_ERROR = 'REQUESTS/SET_ERROR'
@@ -9,11 +10,11 @@ const SET_REQUEST = 'REQUESTS/SET_REQUEST'
 const SET_HISTORY = 'REQUESTS/SET_HISTORY'
 
 const initialState = {
-  history: new WeakMap(),
+  history: [],
   error: undefined,
   isLoading: undefined,
-  response: undefined,
-  request: undefined,
+  response: '',
+  request: '',
 }
 
 export default function reducer(
@@ -106,6 +107,44 @@ export const setHistory = (payload) => ({
 })
 
 // Middleware
-export const requestAction = (body) => async () => {
-  await apiRequest(body)
+export const addRequestToHistory = (req = {}, res = {}) => (
+  dispatch,
+  getState
+) => {
+  const requestsHistory = new RequestsHistory(
+    selectHistory(getState())
+  )
+
+  requestsHistory.addRequest(req, res)
+  dispatch(setHistory(requestsHistory.serialize()))
+}
+
+export const requestAction = (req = {}) => async (
+  dispatch
+) => {
+  dispatch(setIsLoading(true))
+  dispatch(setError(null))
+
+  const res = await apiRequest(req).catch((e) => {
+    dispatch(setError(e))
+  })
+
+  dispatch(setIsLoading(false))
+  dispatch(setResponse(JSON.stringify(res)))
+  dispatch(addRequestToHistory(req, res))
+}
+
+export const undoRequestAction = (reqId) => (
+  dispatch,
+  getState
+) => {
+  const requestsHistory = new RequestsHistory(
+    selectHistory(getState())
+  )
+  const { request, response } = requestsHistory.findRequest(
+    reqId
+  )
+
+  dispatch(setRequest(JSON.stringify(request)))
+  dispatch(setResponse(JSON.stringify(response)))
 }

@@ -10,6 +10,7 @@
     "es6": true,
     "node": true
   },
+  "parser": "babel-eslint",
   "settings": {
     "import/resolver": {
       "node": {
