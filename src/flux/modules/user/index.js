@@ -45,7 +45,7 @@ const selectUserModule = (state) => state.user
 
 export const selectIsLoading = createSelector(
   selectUserModule,
-  ({ isLoading }) => isLoading
+  ({ isLoading }) => isLoading || false
 )
 
 export const selectError = createSelector(

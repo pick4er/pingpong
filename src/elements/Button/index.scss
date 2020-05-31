@@ -12,6 +12,15 @@
     opacity: 0.9;
   }
 
+  &.button_disabled {
+    cursor: default;
+    background: $buttonDisabledGray;
+  }
+}
+
+.button_blue {
+  background: linear-gradient($buttonBlueFrom, $buttonBlueTo);
+
   &:focus {
     position: relative;
     outline: none;
@@ -28,8 +37,8 @@
       border-radius: 7px;
     }
   }
-}
 
-.button_blue {
-  background: linear-gradient($buttonBlueFrom, $buttonBlueTo);
+  &:active {
+    background: linear-gradient($buttonBlueActiveFrom, $buttonBlueActiveTo);
+  }
 }

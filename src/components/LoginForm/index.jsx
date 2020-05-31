@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import cx from 'classnames'
@@ -38,9 +38,33 @@ const validators = {
 }
 
 function LoginForm(props) {
-  const [showErrors, setShowErrors] = useState(false)
+  const formEl = useRef(null)
+  const [isError, setIsError] = useState(false)
 
-  const { login, className, isLoading } = props
+  const { className, isLoading } = props
+
+  useEffect(() => {
+    const formDomEl = formEl.current
+
+    const checkIfFormError = ($event) => {
+      const possibleErrors = [
+        $event.target.form.login.dataset.error,
+        $event.target.form.sublogin.dataset.error,
+        $event.target.form.password.dataset.error
+      ].filter(Boolean)
+      
+      if (isError && possibleErrors.length === 0) {
+        setIsError(false)
+      } else if (!isError && possibleErrors.length > 0) {
+        setIsError(true)
+      }
+
+      return undefined
+    }
+
+    formDomEl.addEventListener('change', checkIfFormError)
+    return () => formDomEl.removeEventListener('change', checkIfFormError)
+  }, [isError, setIsError])
 
   const onSubmit = ($event) => {
     $event.preventDefault()
@@ -59,7 +83,7 @@ function LoginForm(props) {
   })
 
   return (
-    <form onSubmit={onSubmit} className={classNames}>
+    <form onSubmit={onSubmit} className={classNames} ref={formEl}>
       <h5 className="login-form__header">API-консолька</h5>
 
       <Input
@@ -67,7 +91,6 @@ function LoginForm(props) {
         name="login"
         label="Логин"
         className="login-form__input"
-        showErrors={showErrors}
         validators={validators.login}
         type="text"
       />
@@ -76,7 +99,6 @@ function LoginForm(props) {
         name="sublogin"
         label="Сублогин"
         className="login-form__input"
-        showErrors={showErrors}
         validators={validators.sublogin}
         type="text"
       />
@@ -87,7 +109,6 @@ function LoginForm(props) {
         name="password"
         className="login-form__input"
         nativeInputCl=" login-form__input_password"
-        showErrors={showErrors}
         validators={validators.password}
         type="password"
       />
@@ -95,6 +116,7 @@ function LoginForm(props) {
       <Button
         type="submit"
         mode="blue"
+        isDisabled={isError}
         className="login-form__button"
         isLoading={isLoading}
       >
@@ -121,4 +143,7 @@ const mapDispatchToProps = {
   login: loginAction,
 }
 
-export default connect(null, mapDispatchToProps)(LoginForm)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginForm)

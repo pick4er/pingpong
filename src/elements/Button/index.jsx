@@ -31,6 +31,7 @@ function Button(props) {
     <button
       type={type}
       onClick={onClick}
+      disabled={isDisabled}
       className={classNames}
     >
       {isLoading ? <Loader /> : children || text}

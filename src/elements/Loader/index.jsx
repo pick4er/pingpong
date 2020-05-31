@@ -16,7 +16,13 @@ function Loader(props) {
     loader_l: size === 'l',
   })
 
-  return <img src={LoaderIcon} className={classNames} />
+  return (
+    <img
+      src={LoaderIcon}
+      className={classNames}
+      alt="pingpong-loader"
+    />
+  )
 }
 
 Loader.defaultProps = {

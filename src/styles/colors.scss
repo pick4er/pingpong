@@ -7,9 +7,15 @@ $borderBlack: RGBA(0, 0, 0, 0.2);
 $inputHover: RGBA(0, 0, 0, 0.4);
 $inputOutline: RGBA(0, 0, 0, 0.1);
 $optionalGray: #999999; // RGBA(153, 153, 153, 1)
+$errorRed: #CF2C00; // RGBA(207, 44, 0, 1)
+
 $buttonBlueTo: #0055FB; // RGBA(0, 85, 251, 1)
 $buttonBlueFrom: #45A6FF; // RGBA(69, 166, 255, 1)
-$buttonBlueOutline: RGBA(69, 165, 255, 0.5); // 
+$buttonBlueOutline: RGBA(69, 165, 255, 0.5);
+$buttonBlueActiveTo: #0043C3;
+$buttonBlueActiveFrom: #3586D1;
+$buttonDisabledGray: #C4C4C4; // RGBA(196, 196, 196, 1)
+
 $linkFocusGray: #999999; // RGBA(153, 153, 153, 1)
 $linkGray: RGBA(153, 153, 153, 0.8);
 $linkHoverGray: RGBA(153, 153, 153, 0.6);

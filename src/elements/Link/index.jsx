@@ -8,12 +8,19 @@ function Link(props) {
   const { children, href, className } = props
 
   const classNames = cx({
-    'link': true,
+    link: true,
     [className]: className,
   })
 
   return (
-    <a target="_blank" rel="noopener noreferrer" href={href} className={classNames}>{children}</a>
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href={href}
+      className={classNames}
+    >
+      {children}
+    </a>
   )
 }
 
