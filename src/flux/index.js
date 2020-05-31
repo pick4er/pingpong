@@ -11,6 +11,7 @@ import storage from 'redux-persist/lib/storage'
 
 import user from 'flux/modules/user'
 import requests from 'flux/modules/requests'
+import notifications from 'flux/modules/notifications'
 import { isProduction } from 'helpers'
 import { TOKEN_KEY } from 'dictionary'
 import { sendsay } from 'api'
@@ -30,6 +31,7 @@ function create() {
 
   const combinedReducers = combineReducers({
     user,
+    notifications,
     requests: persistReducer(
       requestsPersistConfig,
       requests

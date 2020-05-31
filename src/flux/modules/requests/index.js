@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect'
 import { apiRequest } from 'api'
 import { RequestsHistory } from 'helpers'
+import { notifyAboutCopy } from 'flux/modules/notifications'
+import { CopyNotifications } from 'dictionary'
 
 // Actions
 const SET_ERROR = 'REQUESTS/SET_ERROR'
@@ -149,14 +151,38 @@ export const execRequestAction = (reqId) => (
   dispatch(setResponse(JSON.stringify(response)))
 }
 
-export const copyRequestAction = (reqId) => (dispatch, getState) => {
-  const requestsHistory = new RequestsHistory(selectHistory(getState()))
+export const copyRequestAction = (reqId) => (
+  dispatch,
+  getState
+) => {
+  const requestsHistory = new RequestsHistory(
+    selectHistory(getState())
+  )
   const { request } = requestsHistory.findRequest(reqId)
-  navigator.clipboard.writeText(JSON.stringify(request)).then(() => {
-    console.log('success')
-  }, () => {
-    console.log('error')
-  })
+
+  navigator.clipboard
+    .writeText(JSON.stringify(request))
+    .then(
+      () => {
+        dispatch(
+          notifyAboutCopy({
+            type: CopyNotifications.Success,
+            id: reqId,
+          })
+        )
+      },
+      () => {
+        dispatch(
+          notifyAboutCopy({
+            type: CopyNotifications.Fail,
+            id: reqId,
+          })
+        )
+      }
+    )
 }
 
-export const deleteRequestAction = (reqId) => (dispatch, getState) => {}
+export const deleteRequestAction = (reqId) => (
+  dispatch,
+  getState
+) => {}

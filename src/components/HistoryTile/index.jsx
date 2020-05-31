@@ -1,19 +1,48 @@
-import React, { useState } from 'react'
+import React from 'react'
 import T from 'prop-types'
+import { connect } from 'react-redux'
 
+import { selectCopyNotification } from 'flux/modules/notifications'
+import { CopyNotifications } from 'dictionary'
 import { getRequestAction } from 'helpers'
 
+function getCopyNotificationText(notificationType) {
+  if (notificationType === CopyNotifications.Success) {
+    return 'Скопировано'
+  }
+
+  if (notificationType === CopyNotifications.Fail) {
+    return 'Ошибка'
+  }
+
+  return undefined
+}
+
 function HistoryTile(props) {
-  const { request, setIsOpen, id, isOpen } = props
+  const {
+    request,
+    setIsOpen,
+    id,
+    isOpen,
+    copyNotification,
+  } = props
 
   const onClick = ($event) => {
     setIsOpen(!isOpen)
   }
 
   return (
-    <button onClick={onClick} id={id}>
-      {getRequestAction(request)}
-    </button>
+    <div>
+      <button onClick={onClick} id={id}>
+        {getRequestAction(request)}
+      </button>
+      {copyNotification.id &&
+        copyNotification.id === id && (
+          <div>
+            {getCopyNotificationText(copyNotification.type)}
+          </div>
+        )}
+    </div>
   )
 }
 
@@ -22,6 +51,15 @@ HistoryTile.propTypes = {
   request: T.object.isRequired,
   setIsOpen: T.func.isRequired,
   id: T.string.isRequired,
+  copyNotification: T.shape({
+    id: T.string,
+    type: T.oneOf(Object.values(CopyNotifications))
+      .isRequired,
+  }).isRequired,
 }
 
-export default HistoryTile
+const mapStateToProps = (state) => ({
+  copyNotification: selectCopyNotification(state),
+})
+
+export default connect(mapStateToProps)(HistoryTile)
