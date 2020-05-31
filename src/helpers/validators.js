@@ -62,6 +62,7 @@ export const moreThanXSymbols = (x) => (value) => {
     return `Не меньше ${x} символ${pluralizeWord(x, [
       'а',
       'ов',
+      'ов',
     ])}`
   }
 

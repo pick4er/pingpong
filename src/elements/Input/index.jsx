@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 
 import './index.scss'
 
 function Input(props) {
+  const inputEl = useRef(null)
   const [error, setError] = useState(undefined)
-  const [value, setValue] = useState('')
 
   const {
     name,
@@ -31,16 +31,26 @@ function Input(props) {
     }
   }
 
-  const onChange = ($event) => {
-    const { value } = $event.target
-    setValue(value)
-    validate(value)
-  }
+  useEffect(() => {
+    const listener = ($event) =>
+      validate($event.target.value)
+    inputEl.current.addEventListener('change', listener)
+    return () =>
+      inputEl.current.removeEventListener(
+        'change',
+        listener
+      )
+  }, [])
 
   const classNames = cx({
     input: true,
     [className]: className,
   })
+
+  const inputClassNames = cx([
+    'input__native-input',
+    'input__native-input_content',
+  ])
 
   return (
     <label className={classNames}>
@@ -54,15 +64,13 @@ function Input(props) {
         )}
       </div>
       <input
-        className="input__native-input input__native-input_content"
+        ref={inputEl}
+        className={inputClassNames}
         autoComplete="off"
         type={type}
         name={name}
-        value={value}
-        onChange={onChange}
         data-error={error}
       />
-      {error && showErrors && <span>{error}</span>}
     </label>
   )
 }
