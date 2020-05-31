@@ -6,6 +6,8 @@ import {
   applyMiddleware,
   compose,
 } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 import user from 'flux/modules/user'
 import requests from 'flux/modules/requests'
@@ -17,16 +19,35 @@ import devTools from './devTools'
 Cookies.defaults.secure = isProduction
 const token = Cookies.get(TOKEN_KEY)
 sendsay.session = token
-
 const initialState = { user: { token } }
-const reducers = combineReducers({ user, requests })
-const middleware = compose(
-  applyMiddleware(thunk),
-  devTools()
-)
 
-export default createStore(
-  reducers,
-  initialState,
-  middleware
-)
+function create() {
+  const requestsPersistConfig = {
+    key: 'requests',
+    whitelist: ['history'],
+    storage,
+  }
+
+  const combinedReducers = combineReducers({
+    user,
+    requests: persistReducer(
+      requestsPersistConfig,
+      requests
+    ),
+  })
+  const middleware = compose(
+    applyMiddleware(thunk),
+    devTools()
+  )
+
+  const store = createStore(
+    combinedReducers,
+    initialState,
+    middleware
+  )
+  const persistor = persistStore(store, {})
+
+  return { store, persistor }
+}
+
+export default create
