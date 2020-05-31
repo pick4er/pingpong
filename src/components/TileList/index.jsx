@@ -12,19 +12,23 @@ import { getRequestAction } from 'helpers'
 
 function TileList(props) {
   const {
-    copyRequest,
     id,
-    deleteRequest,
     execRequest,
+    copyRequest,
+    deleteRequest,
   } = props
 
   const onCopy = () => {
     copyRequest(id)
   }
 
-  const onExec = () => {}
+  const onExec = () => {
+    execRequest(id)
+  }
 
-  const onDelete = () => {}
+  const onDelete = () => {
+    deleteRequest(id)
+  }
 
   return (
     <ul>

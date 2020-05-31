@@ -34,12 +34,11 @@ function Dropdown(props) {
       if (isOpen) {
         setIsOpen(false)
       }
-
-      return
     }
 
     document.addEventListener('click', listener)
-    return () => document.removeEventListener('click', listener)
+    return () =>
+      document.removeEventListener('click', listener)
   }, [setIsOpen, isOpen, id])
 
   const listStyle = computeListStyle(isOpen)

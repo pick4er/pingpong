@@ -121,6 +121,21 @@ export const addRequestToHistory = (req = {}, res = {}) => (
   dispatch(setHistory(requestsHistory.serialize()))
 }
 
+export const execRequestAction = (reqId) => (
+  dispatch,
+  getState
+) => {
+  const requestsHistory = new RequestsHistory(
+    selectHistory(getState())
+  )
+  const { request, response } = requestsHistory.findRequest(
+    reqId
+  )
+
+  dispatch(setRequest(JSON.stringify(request)))
+  dispatch(setRequest(JSON.stringify(response)))
+}
+
 export const requestAction = (req = {}) => async (
   dispatch
 ) => {
@@ -134,21 +149,6 @@ export const requestAction = (req = {}) => async (
   dispatch(setIsLoading(false))
   dispatch(setResponse(JSON.stringify(res)))
   dispatch(addRequestToHistory(req, res))
-}
-
-export const execRequestAction = (reqId) => (
-  dispatch,
-  getState
-) => {
-  const requestsHistory = new RequestsHistory(
-    selectHistory(getState())
-  )
-  const { request, response } = requestsHistory.findRequest(
-    reqId
-  )
-
-  dispatch(setRequest(JSON.stringify(request)))
-  dispatch(setResponse(JSON.stringify(response)))
 }
 
 export const copyRequestAction = (reqId) => (
@@ -185,4 +185,11 @@ export const copyRequestAction = (reqId) => (
 export const deleteRequestAction = (reqId) => (
   dispatch,
   getState
-) => {}
+) => {
+  const requestsHistory = new RequestsHistory(
+    selectHistory(getState())
+  )
+
+  const removed = requestsHistory.removeRequest(reqId)
+  dispatch(setHistory(requestsHistory.serialize()))
+}
