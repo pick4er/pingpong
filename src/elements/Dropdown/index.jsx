@@ -1,14 +1,13 @@
 import React, { useRef } from 'react'
 import T from 'prop-types'
-import cx from 'classnames'
 
-function computeListStyle(isActive) {
-  if (isActive) {
+function computeListStyle(isOpen) {
+  if (isOpen) {
     return {}
   }
 
   return {
-    visibility: 'hidden'
+    visibility: 'hidden',
   }
 }
 
@@ -16,9 +15,13 @@ function Dropdown(props) {
   const triggerRef = useRef(null)
   const listRef = useRef(null)
 
-  const { triggerComponent: TriggerComponent, listComponent: ListComponent, isActive } = props
+  const {
+    triggerComponent: TriggerComponent,
+    listComponent: ListComponent,
+    isOpen,
+  } = props
 
-  const listStyle = computeListStyle(isActive)
+  const listStyle = computeListStyle(isOpen)
 
   return (
     <div>
@@ -34,8 +37,8 @@ function Dropdown(props) {
 }
 
 Dropdown.propTypes = {
-  triggerComponent: T.node.isRequired,
-  listComponent: T.node.isRequired,
+  triggerComponent: T.elementType.isRequired,
+  listComponent: T.elementType.isRequired,
   isOpen: T.bool.isRequired,
 }
 
