@@ -62,8 +62,7 @@ export const setCopyTimer = (payload) => ({
 
 // Middleware
 export const notifyAboutCopy = (notification) => (
-  dispatch,
-  getState
+  dispatch
 ) => {
   dispatch(setCopyNotification(notification))
 

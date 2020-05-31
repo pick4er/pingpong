@@ -2,13 +2,11 @@ import React from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 
-import Dropdown from 'elements/Dropdown'
 import {
   copyRequestAction,
   deleteRequestAction,
   execRequestAction,
 } from 'flux/modules/requests'
-import { getRequestAction } from 'helpers'
 
 function TileList(props) {
   const {

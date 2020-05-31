@@ -5,8 +5,6 @@ import Dropdown from 'elements/Dropdown'
 import TileList from 'components/TileList'
 import HistoryTile from 'components/HistoryTile'
 
-import { getRequestAction } from 'helpers'
-
 function HistoryObject(props) {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -31,7 +29,7 @@ function HistoryObject(props) {
 
 HistoryObject.propTypes = {
   id: T.string.isRequired,
-  request: T.object.isRequired,
+  request: T.shape({}).isRequired,
 }
 
 export default HistoryObject

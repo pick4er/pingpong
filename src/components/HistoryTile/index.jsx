@@ -27,13 +27,13 @@ function HistoryTile(props) {
     copyNotification,
   } = props
 
-  const onClick = ($event) => {
+  const onClick = () => {
     setIsOpen(!isOpen)
   }
 
   return (
     <div>
-      <button onClick={onClick} id={id}>
+      <button onClick={onClick} type="button">
         {getRequestAction(request)}
       </button>
       {copyNotification.id &&
@@ -48,7 +48,7 @@ function HistoryTile(props) {
 
 HistoryTile.propTypes = {
   isOpen: T.bool.isRequired,
-  request: T.object.isRequired,
+  request: T.shape({}).isRequired,
   setIsOpen: T.func.isRequired,
   id: T.string.isRequired,
   copyNotification: T.shape({
