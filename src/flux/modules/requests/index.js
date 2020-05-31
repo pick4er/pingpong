@@ -134,7 +134,7 @@ export const requestAction = (req = {}) => async (
   dispatch(addRequestToHistory(req, res))
 }
 
-export const undoRequestAction = (reqId) => (
+export const execRequestAction = (reqId) => (
   dispatch,
   getState
 ) => {
@@ -148,3 +148,15 @@ export const undoRequestAction = (reqId) => (
   dispatch(setRequest(JSON.stringify(request)))
   dispatch(setResponse(JSON.stringify(response)))
 }
+
+export const copyRequestAction = (reqId) => (dispatch, getState) => {
+  const requestsHistory = new RequestsHistory(selectHistory(getState()))
+  const { request } = requestsHistory.findRequest(reqId)
+  navigator.clipboard.writeText(JSON.stringify(request)).then(() => {
+    console.log('success')
+  }, () => {
+    console.log('error')
+  })
+}
+
+export const deleteRequestAction = (reqId) => (dispatch, getState) => {}

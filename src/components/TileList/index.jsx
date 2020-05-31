@@ -3,13 +3,15 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 
 import Dropdown from 'elements/Dropdown'
-import { undoRequestAction } from 'flux/modules/requests'
+import { copyRequestAction, deleteRequestAction, execRequestAction } from 'flux/modules/requests'
 import { getRequestAction } from 'helpers'
 
 function TileList(props) {
-  const { undoRequest, id } = props
+  const { copyRequest, id, deleteRequest, execRequest } = props
 
-  const onCopy = () => {}
+  const onCopy = () => {
+    copyRequest(id)
+  }
 
   const onExec = () => {}
 
@@ -39,12 +41,16 @@ function TileList(props) {
 }
 
 TileList.propTypes = {
-  undoRequest: T.func.isRequired,
+  copyRequest: T.func.isRequired,
   id: T.string.isRequired,
+  deleteRequest: T.func.isRequired,
+execRequest: T.func.isRequired,
 }
 
 const mapDispatchToProps = {
-  undoRequest: undoRequestAction,
+  copyRequest: copyRequestAction,
+  deleteRequest: deleteRequestAction,
+  execRequest: execRequestAction
 }
 
 export default connect(null, mapDispatchToProps)(TileList)
