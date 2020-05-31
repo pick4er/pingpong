@@ -1,21 +1,9 @@
 import deepClone from './deepClone'
-
-function getRequestId(reqOrRes = {}) {
-  return reqOrRes['request.id']
-}
-
-function createHistoryObject(req = {}, res = {}) {
-  const reqId = getRequestId(res)
-
-  return {
-    id: reqId,
-    request: req,
-    response: res,
-  }
-}
+import getRequestId from './getRequestId'
+import createHistoryObject from './createHistoryObject'
 
 export default class RequestsHistory {
-  static limit = 2
+  static limit = 5
 
   constructor(serializedHistory = []) {
     this.history = deepClone(serializedHistory)
@@ -39,7 +27,7 @@ export default class RequestsHistory {
   }
 
   findRequest(reqId) {
-    return this.history.find(({ key }) => key === reqId)
+    return this.history.find(({ id }) => id === reqId)
   }
 
   hasRequest(reqOrId = {}) {

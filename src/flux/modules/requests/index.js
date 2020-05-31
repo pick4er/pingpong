@@ -10,7 +10,7 @@ const SET_REQUEST = 'REQUESTS/SET_REQUEST'
 const SET_HISTORY = 'REQUESTS/SET_HISTORY'
 
 const initialState = {
-  history: undefined,
+  history: [],
   error: undefined,
   isLoading: undefined,
   response: '',
@@ -132,4 +132,19 @@ export const requestAction = (req = {}) => async (
   dispatch(setIsLoading(false))
   dispatch(setResponse(JSON.stringify(res)))
   dispatch(addRequestToHistory(req, res))
+}
+
+export const undoRequestAction = (reqId) => (
+  dispatch,
+  getState
+) => {
+  const requestsHistory = new RequestsHistory(
+    selectHistory(getState())
+  )
+  const { request, response } = requestsHistory.findRequest(
+    reqId
+  )
+
+  dispatch(setRequest(JSON.stringify(request)))
+  dispatch(setResponse(JSON.stringify(response)))
 }
