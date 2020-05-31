@@ -1,4 +1,14 @@
+@import 'styles/colors';
 
 .button {
-  background-color: blue;
+  border: none;
+  border-radius: 5px;
+  height: 40px;
+  color: $white;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.button_blue {
+  background: linear-gradient($buttonBlueFrom, $buttonBlueTo);
 }

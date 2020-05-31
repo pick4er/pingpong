@@ -38,20 +38,20 @@ function Input(props) {
   }
 
   const classNames = cx({
-    'input': true,
+    input: true,
     [className]: className,
   })
 
   return (
     <label className={classNames}>
       <div className="input__label">
-        <span className="input__label_name">
-          {label}
-        </span>
+        <span className="input__label_name">{label}</span>
 
-        {!isRequired && (<span className="input__label_optional">
-                          Опционально
-                        </span>)}
+        {!isRequired && (
+          <span className="input__label_optional">
+            Опционально
+          </span>
+        )}
       </div>
       <input
         className="input__native-input input__native-input_content"

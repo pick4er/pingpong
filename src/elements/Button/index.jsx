@@ -7,20 +7,33 @@ import Loader from 'elements/Loader'
 import './index.scss'
 
 function Button(props) {
-  const { isLoading, text, type, onClick, children, mode, isDisabled, className } = props
+  const {
+    isLoading,
+    text,
+    type,
+    onClick,
+    children,
+    mode,
+    isDisabled,
+    className,
+  } = props
 
   const classNames = cx({
-    'button': true,
-    'button_blue': mode === 'blue',
-    'button_red': mode === 'red',
-    'button_transparent': mode === 'transparent',
-    'button_disabled': isDisabled,
+    button: true,
+    button_blue: mode === 'blue',
+    button_red: mode === 'red',
+    button_transparent: mode === 'transparent',
+    button_disabled: isDisabled,
     [className]: className,
   })
 
   return (
-    <button type={type} onClick={onClick} className={classNames}>
-      {isLoading ? <Loader /> : (children || text)}
+    <button
+      type={type}
+      onClick={onClick}
+      className={classNames}
+    >
+      {isLoading ? <Loader /> : children || text}
     </button>
   )
 }

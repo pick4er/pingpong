@@ -10,23 +10,21 @@ function Loader(props) {
   const { size } = props
 
   const classNames = cx({
-    'loader': true,
-    'loader_s': size === 's',
-    'loader_m': size === 'm',
-    'loader_l': size === 'l',
+    loader: true,
+    loader_s: size === 's',
+    loader_m: size === 'm',
+    loader_l: size === 'l',
   })
 
-  return (
-    <img src={LoaderIcon} className={classNames} />
-  )
+  return <img src={LoaderIcon} className={classNames} />
 }
 
 Loader.defaultProps = {
-  size: 's'
+  size: 's',
 }
 
 Loader.propTypes = {
   size: T.oneOf(['s', 'm', 'l']),
 }
 
-export default Loader;
+export default Loader

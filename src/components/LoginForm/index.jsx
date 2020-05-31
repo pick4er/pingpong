@@ -5,7 +5,10 @@ import cx from 'classnames'
 
 import Input from 'elements/Input'
 import Button from 'elements/Button'
-import { loginAction, selectIsLoading } from 'flux/modules/user'
+import {
+  loginAction,
+  selectIsLoading,
+} from 'flux/modules/user'
 import {
   latinOnly,
   emailOrLogin,
@@ -47,7 +50,6 @@ function LoginForm(props) {
       password: $event.target.password.value,
     }
 
-    debugger
     $event.target.reset()
   }
 
@@ -89,7 +91,14 @@ function LoginForm(props) {
         type="password"
       />
 
-      <Button type="submit" mode="blue" isLoading={isLoading}>login</Button>
+      <Button
+        type="submit"
+        mode="blue"
+        className="login-form__button"
+        isLoading={isLoading}
+      >
+        Войти
+      </Button>
     </form>
   )
 }
@@ -104,7 +113,7 @@ LoginForm.propTypes = {
   isLoading: T.bool.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isLoading: selectIsLoading(state),
 })
 const mapDispatchToProps = {
