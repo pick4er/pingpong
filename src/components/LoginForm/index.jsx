@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import cx from 'classnames'
 
 import Input from 'elements/Input'
-import { loginAction } from 'flux/modules/user'
+import Button from 'elements/Button'
+import { loginAction, selectIsLoading } from 'flux/modules/user'
 import {
   latinOnly,
   emailOrLogin,
@@ -36,7 +37,7 @@ const validators = {
 function LoginForm(props) {
   const [showErrors, setShowErrors] = useState(false)
 
-  const { login, className } = props
+  const { login, className, isLoading } = props
 
   const onSubmit = ($event) => {
     $event.preventDefault()
@@ -88,7 +89,7 @@ function LoginForm(props) {
         type="password"
       />
 
-      <button type="submit">login</button>
+      <Button type="submit" mode="blue" isLoading={isLoading}>login</Button>
     </form>
   )
 }
@@ -100,8 +101,12 @@ LoginForm.defaultProps = {
 LoginForm.propTypes = {
   login: T.func.isRequired,
   className: T.string,
+  isLoading: T.bool.isRequired,
 }
 
+const mapStateToProps = state => ({
+  isLoading: selectIsLoading(state),
+})
 const mapDispatchToProps = {
   login: loginAction,
 }

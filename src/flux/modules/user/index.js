@@ -10,7 +10,7 @@ const SET_ERROR = 'USER/SET_ERROR'
 const SET_TOKEN = 'USER/SET_TOKEN'
 
 const initialState = {
-  isLoading: undefined,
+  isLoading: false,
   error: undefined,
   token: undefined,
 }
