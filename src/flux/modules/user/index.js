@@ -124,9 +124,11 @@ export const loginAction = (credentials) => async (
   dispatch(setIsLoading(true))
   dispatch(setError(undefined))
 
-  await loginRequest(credentials).catch((e) => {
-    const { explain, id } = e
-    dispatch(setError(e))
+  await loginRequest(credentials).catch(({ message }) => {
+    const error = JSON.parse(message)
+    const { explain, id } = error
+
+    dispatch(setError(error))
     dispatch(
       notifyAboutLogin({
         type: NotificationTypes.Error,
