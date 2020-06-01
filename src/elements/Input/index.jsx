@@ -35,8 +35,20 @@ function Input(props) {
     const inputDomEl = inputEl.current
     const formEl = inputDomEl.form
 
-    const onChange = ($event) => validate($event.target.value, validators, setError, error)
-    const onSubmit = ($event) => validate($event.target[name].value, validators, setError, error)
+    const onChange = ($event) =>
+      validate(
+        $event.target.value,
+        validators,
+        setError,
+        error
+      )
+    const onSubmit = ($event) =>
+      validate(
+        $event.target[name].value,
+        validators,
+        setError,
+        error
+      )
 
     formEl.addEventListener('submit', onSubmit)
     inputDomEl.addEventListener('change', onChange)

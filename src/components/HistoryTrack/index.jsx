@@ -13,8 +13,15 @@ function HistoryTrack(props) {
   return (
     <ul className="requests-history">
       {requestsHistory.map(({ id, request, response }) => (
-        <li key={id} className="requests-history__list-item">
-          <HistoryObject id={id} request={request} response={response} />
+        <li
+          key={id}
+          className="requests-history__list-item"
+        >
+          <HistoryObject
+            id={id}
+            request={request}
+            response={response}
+          />
         </li>
       ))}
     </ul>

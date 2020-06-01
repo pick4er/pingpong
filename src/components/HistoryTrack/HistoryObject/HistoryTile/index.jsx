@@ -27,7 +27,11 @@ function HistoryTile(props) {
   }
 
   return (
-    <button onClick={onClick} type="button" className="history-tile">
+    <button
+      onClick={onClick}
+      type="button"
+      className="history-tile"
+    >
       {isResponseError(response) ? (
         <ErrorBadgeIcon className="history-tile__status_badge" />
       ) : (

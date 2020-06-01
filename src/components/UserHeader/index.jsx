@@ -2,10 +2,10 @@ import React from 'react'
 import cx from 'classnames'
 
 import IconButton from 'elements/IconButton'
-import UserCredentialsTile from './UserCredentialsTile'
 import LogoIcon from 'assets/logo.svg'
 import { ReactComponent as LogoutIconComponent } from 'assets/logout.svg'
 import { ReactComponent as FullScreenIconComponent } from 'assets/fullscreen.svg'
+import UserCredentialsTile from './UserCredentialsTile'
 
 import './index.scss'
 

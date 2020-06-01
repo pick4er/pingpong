@@ -22,9 +22,11 @@ function UserCredentialsTile(props) {
 
   return (
     <div className={classNames}>
-      {login && (<span className="user-credentials-tile__login">
-                    {login}
-                  </span>)}
+      {login && (
+        <span className="user-credentials-tile__login">
+          {login}
+        </span>
+      )}
       {login && sublogin && (
         <img
           src={SmallSeparatorIcon}
@@ -53,7 +55,7 @@ UserCredentialsTile.propTypes = {
   sublogin: T.string,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   login: selectLogin(state),
   sublogin: selectSublogin(state),
 })

@@ -50,7 +50,12 @@ function Dropdown(props) {
         <TriggerComponent />
       </div>
 
-      <div ref={listRef} role="menu" style={listStyle} className="dropdown__list">
+      <div
+        ref={listRef}
+        role="menu"
+        style={listStyle}
+        className="dropdown__list"
+      >
         <ListComponent />
       </div>
     </div>

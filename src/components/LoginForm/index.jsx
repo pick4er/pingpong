@@ -13,8 +13,10 @@ import {
 import { selectLoginNotification } from 'flux/modules/notifications'
 import {
   latinOnly,
+  required,
   emailOrLogin,
   startsWithLetter,
+  validateValues,
   moreThanXSymbols,
 } from 'helpers/validators'
 import { NotificationTypes } from 'dictionary'
@@ -23,6 +25,7 @@ import './index.scss'
 
 const validators = {
   login: [
+    required,
     moreThanXSymbols(4),
     latinOnly,
     startsWithLetter,
@@ -34,6 +37,7 @@ const validators = {
     startsWithLetter,
   ],
   password: [
+    required,
     moreThanXSymbols(8),
     latinOnly,
     moreThanXSymbols,
@@ -43,11 +47,12 @@ const validators = {
 const checkIfFormError = (form, setIsError, isError) => {
   const { login, sublogin, password } = form
 
-  const isNextError = [
-    login.dataset.error,
-    sublogin.dataset.error,
-    password.dataset.error,
-  ].filter(Boolean).length > 0
+  const isNextError =
+    [
+      login.dataset.error,
+      sublogin.dataset.error,
+      password.dataset.error,
+    ].filter(Boolean).length > 0
 
   if (isError && !isNextError) {
     setIsError(false)
@@ -72,13 +77,15 @@ function LoginForm(props) {
   useEffect(() => {
     const formDomEl = formEl.current
 
-    const onChange = ($event) => checkIfFormError($event.target.form, setIsError, isError)
+    const onChange = ($event) =>
+      checkIfFormError(
+        $event.target.form,
+        setIsError,
+        isError
+      )
     formDomEl.addEventListener('change', onChange)
     return () =>
-      formDomEl.removeEventListener(
-        'change',
-        onChange
-      )
+      formDomEl.removeEventListener('change', onChange)
   }, [isError, setIsError])
 
   const onSubmit = ($event) => {
@@ -94,7 +101,14 @@ function LoginForm(props) {
       password: target.password.value,
     }
 
-    // loginUser(data)
+    const errors = validateValues(data, validators)
+    const isFormError = Object.keys(errors).length > 0
+
+    if (isFormError && !isError) {
+      setIsError(true)
+    } else if (!isFormError && !isError) {
+      loginUser(data)
+    }
   }
 
   const classNames = cx({
@@ -127,7 +141,6 @@ function LoginForm(props) {
         isRequired
         name="login"
         label="Логин"
-        formEl={formEl}
         className="login-form__input"
         validators={validators.login}
         type="text"
@@ -136,7 +149,6 @@ function LoginForm(props) {
       <Input
         name="sublogin"
         label="Сублогин"
-        formEl={formEl}
         className="login-form__input"
         validators={validators.sublogin}
         type="text"
@@ -146,7 +158,6 @@ function LoginForm(props) {
         isRequired
         label="Пароль"
         name="password"
-        formEl={formEl}
         className="login-form__input"
         nativeInputClassName="input-text_password"
         validators={validators.password}
