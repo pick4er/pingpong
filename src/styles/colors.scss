@@ -9,14 +9,14 @@ $inputOutline: RGBA(0, 0, 0, 0.1);
 $optionalGray: #999999; // RGBA(153, 153, 153, 1)
 $errorRed: #CF2C00; // RGBA(207, 44, 0, 1)
 
-$buttonBlueTo: #0055FB; // RGBA(0, 85, 251, 1)
-$buttonBlueFrom: #45A6FF; // RGBA(69, 166, 255, 1)
+$gradientBlueTo: #0055FB; // RGBA(0, 85, 251, 1)
+$gradientBlueFrom: #45A6FF; // RGBA(69, 166, 255, 1)
 $buttonBlueOutline: RGBA(69, 165, 255, 0.5);
-$buttonBlueActiveTo: #0043C3;
-$buttonBlueActiveFrom: #3586D1;
-$buttonDisabledGray: RGBA(196, 196, 196, 0.9);
-$buttonDisabledActiveTo: #C4C4C4; // RGBA(196, 196, 196, 1)
-$buttonDisabledActiveFrom: RGBA(196, 196, 196, 0.9);
+$gradientBlueActiveTo: #0043C3;
+$gradientBlueActiveFrom: #3586D1;
+$gradientDisabledGray: RGBA(196, 196, 196, 0.9);
+$gradientDisabledActiveTo: #C4C4C4; // RGBA(196, 196, 196, 1)
+$gradientDisabledActiveFrom: RGBA(196, 196, 196, 0.9);
 
 $backgroundErrorRed: RGBA(207, 44, 0, 0.1);
 

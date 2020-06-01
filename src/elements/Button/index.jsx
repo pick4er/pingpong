@@ -27,6 +27,8 @@ function Button(props) {
     button_red: mode === ButtonModes.Red,
     button_transparent: mode === ButtonModes.Transparent,
     button_disabled: isDisabled,
+    'gradient-background_disabled': isDisabled,
+    'gradient-background_blue': mode === ButtonModes.Blue,
     [className]: className,
   })
 
@@ -58,7 +60,7 @@ Button.propTypes = {
   isLoading: T.bool,
   isDisabled: T.bool,
   children: T.elementType,
-  mode: T.oneOf([Object.values(ButtonModes)]),
+  mode: T.oneOf(Object.values(ButtonModes)),
   type: T.oneOf(['submit', 'button', 'reset']),
 }
 

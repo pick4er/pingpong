@@ -7,37 +7,18 @@
   height: 40px;
   cursor: pointer;
   padding: 10px;
-
-  &:hover {
-    opacity: 0.9;
-  }
 }
 
 .button_blue {
-  background: linear-gradient($buttonBlueFrom, $buttonBlueTo);
-
   &:focus {
     @include outline($buttonBlueOutline);
-  }
-
-  &:active {
-    background: linear-gradient($buttonBlueActiveFrom, $buttonBlueActiveTo);
   }
 }
 
 .button_disabled {
   cursor: default;
-  background: $buttonDisabledGray;
-
-  &:hover {
-    opacity: 0.9;
-  }
 
   &:focus {
     @include outline(transparent);
-  }
-
-  &:active {
-    background: linear-gradient($buttonDisabledActiveFrom, $buttonDisabledActiveTo);
   }
 }
