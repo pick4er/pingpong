@@ -5,7 +5,7 @@ export function latinOnly(value) {
     return undefined
   }
 
-  const latinRegExp = /[^\u0000-\u00ff]/
+  const latinRegExp = /[^\u0020-\u00ff]/
   if (latinRegExp.test(value)) {
     return 'Поле принимает только латинские символы'
   }

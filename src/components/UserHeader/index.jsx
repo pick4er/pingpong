@@ -1,24 +1,15 @@
 import React from 'react'
-import T from 'prop-types'
 import cx from 'classnames'
-import { connect } from 'react-redux'
 
-import LogoIcon from 'assets/logo.svg'
-import {
-  selectLogin,
-  selectSublogin,
-} from 'flux/modules/user'
 import IconButton from 'elements/IconButton'
-
+import UserCredentialsTile from './UserCredentialsTile'
+import LogoIcon from 'assets/logo.svg'
 import { ReactComponent as LogoutIconComponent } from 'assets/logout.svg'
 import { ReactComponent as FullScreenIconComponent } from 'assets/fullscreen.svg'
-import UserCredentialsTile from './UserCredentialsTile'
 
 import './index.scss'
 
-function UserHeader(props) {
-  const { login, sublogin } = props
-
+function UserHeader() {
   const classNames = cx({
     'user-header': true,
     'border-separator_bottom': true,
@@ -44,10 +35,7 @@ function UserHeader(props) {
 
       <h5 className={headerCl}>API-консолька</h5>
 
-      <UserCredentialsTile
-        login={login}
-        sublogin={sublogin}
-      />
+      <UserCredentialsTile />
 
       <IconButton
         icon={LogoutIconComponent}
@@ -68,23 +56,4 @@ function UserHeader(props) {
   )
 }
 
-UserHeader.defaultProps = {
-  sublogin: '',
-}
-
-UserHeader.propTypes = {
-  login: T.string.isRequired,
-  sublogin: T.string,
-}
-
-const mapStateToProps = (state) => ({
-  login: selectLogin(state),
-  sublogin: selectSublogin(state),
-})
-
-const mapDispatchToProps = {}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserHeader)
+export default UserHeader

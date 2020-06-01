@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
 import T from 'prop-types'
-import cx from 'classnames'
 import { nanoid } from 'helpers'
 
 import './index.scss'

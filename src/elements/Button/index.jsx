@@ -65,7 +65,7 @@ Button.propTypes = {
   className: T.string,
   isLoading: T.bool,
   isDisabled: T.bool,
-  children: T.elementType,
+  children: T.node,
   mode: T.oneOf(Object.values(ButtonModes)),
   type: T.oneOf(['submit', 'button', 'reset']),
 }

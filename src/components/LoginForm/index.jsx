@@ -40,6 +40,24 @@ const validators = {
   ],
 }
 
+const checkIfFormError = (form, setIsError, isError) => {
+  const { login, sublogin, password } = form
+
+  const isNextError = [
+    login.dataset.error,
+    sublogin.dataset.error,
+    password.dataset.error,
+  ].filter(Boolean).length > 0
+
+  if (isError && !isNextError) {
+    setIsError(false)
+  } else if (!isError && isNextError) {
+    setIsError(true)
+  }
+
+  return isNextError
+}
+
 function LoginForm(props) {
   const formEl = useRef(null)
   const [isError, setIsError] = useState(false)
@@ -54,36 +72,21 @@ function LoginForm(props) {
   useEffect(() => {
     const formDomEl = formEl.current
 
-    const checkIfFormError = ($event) => {
-      const {
-        form: { login, sublogin, password },
-      } = $event.target
-
-      const possibleErrors = [
-        login.dataset.error,
-        sublogin.dataset.error,
-        password.dataset.error,
-      ].filter(Boolean)
-
-      if (isError && possibleErrors.length === 0) {
-        setIsError(false)
-      } else if (!isError && possibleErrors.length > 0) {
-        setIsError(true)
-      }
-
-      return undefined
-    }
-
-    formDomEl.addEventListener('change', checkIfFormError)
+    const onChange = ($event) => checkIfFormError($event.target.form, setIsError, isError)
+    formDomEl.addEventListener('change', onChange)
     return () =>
       formDomEl.removeEventListener(
         'change',
-        checkIfFormError
+        onChange
       )
   }, [isError, setIsError])
 
   const onSubmit = ($event) => {
     $event.preventDefault()
+    if (isLoading) {
+      return undefined
+    }
+
     const { target } = $event
     const data = {
       login: target.login.value,
@@ -91,7 +94,7 @@ function LoginForm(props) {
       password: target.password.value,
     }
 
-    loginUser(data)
+    // loginUser(data)
   }
 
   const classNames = cx({
@@ -124,6 +127,7 @@ function LoginForm(props) {
         isRequired
         name="login"
         label="Логин"
+        formEl={formEl}
         className="login-form__input"
         validators={validators.login}
         type="text"
@@ -132,6 +136,7 @@ function LoginForm(props) {
       <Input
         name="sublogin"
         label="Сублогин"
+        formEl={formEl}
         className="login-form__input"
         validators={validators.sublogin}
         type="text"
@@ -141,6 +146,7 @@ function LoginForm(props) {
         isRequired
         label="Пароль"
         name="password"
+        formEl={formEl}
         className="login-form__input"
         nativeInputClassName="input-text_password"
         validators={validators.password}

@@ -4,6 +4,19 @@ import cx from 'classnames'
 
 import './index.scss'
 
+const validate = (value, validators, setError, error) => {
+  let nextError
+  validators.find(
+    (validator) => (nextError = validator(value))
+  )
+
+  if (nextError) {
+    setError(nextError)
+  } else if (error && !nextError) {
+    setError(undefined)
+  }
+}
+
 function Input(props) {
   const inputEl = useRef(null)
   const [error, setError] = useState(undefined)
@@ -20,26 +33,19 @@ function Input(props) {
 
   useEffect(() => {
     const inputDomEl = inputEl.current
+    const formEl = inputDomEl.form
 
-    const validate = ($event) => {
-      const { value } = $event.target
+    const onChange = ($event) => validate($event.target.value, validators, setError, error)
+    const onSubmit = ($event) => validate($event.target[name].value, validators, setError, error)
 
-      let nextError
-      validators.find(
-        (validator) => (nextError = validator(value))
-      )
+    formEl.addEventListener('submit', onSubmit)
+    inputDomEl.addEventListener('change', onChange)
 
-      if (nextError) {
-        setError(nextError)
-      } else if (error && !nextError) {
-        setError(undefined)
-      }
+    return () => {
+      inputDomEl.removeEventListener('change', onChange)
+      formEl.removeEventListener('submit', onSubmit)
     }
-
-    inputDomEl.addEventListener('change', validate)
-    return () =>
-      inputDomEl.removeEventListener('change', validate)
-  }, [error, setError, validators])
+  }, [error, setError, validators, name])
 
   const classNames = cx({
     input: true,

@@ -1,7 +1,5 @@
 import { createSelector } from 'reselect'
 
-import { NotificationTypes } from 'dictionary'
-
 // Actions
 const SET_COPY_NOTIFICATION =
   'REQUESTS/SET_COPY_NOTIFICATION'
