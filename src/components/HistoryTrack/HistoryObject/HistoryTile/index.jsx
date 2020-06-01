@@ -57,8 +57,7 @@ HistoryTile.propTypes = {
   id: T.string.isRequired,
   copyNotification: T.shape({
     id: T.string,
-    type: T.oneOf(Object.values(NotificationTypes))
-      .isRequired,
+    type: T.oneOf(Object.values(NotificationTypes)),
   }).isRequired,
 }
 

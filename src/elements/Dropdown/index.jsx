@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
 import T from 'prop-types'
-import { nanoid } from 'helpers'
+import { getRandomId } from 'helpers'
 
 import './index.scss'
 
@@ -15,7 +15,7 @@ function computeListStyle(isOpen) {
 }
 
 function Dropdown(props) {
-  const [id] = useState(nanoid())
+  const [id] = useState(getRandomId())
   const triggerRef = useRef(null)
   const listRef = useRef(null)
 

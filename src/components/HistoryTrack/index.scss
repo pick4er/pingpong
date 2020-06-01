@@ -5,6 +5,15 @@
   list-style: none;
   padding: 10px 15px;
   margin: 0;
+  height: 50px;
+  opacity: 1;
+  transition: all 1s ease;
+}
+
+.requests-history_hide {
+  height: 0px;
+  padding: 0;
+  opacity: 0;
 }
 
 .requests-history__list-item + .requests-history__list-item {
