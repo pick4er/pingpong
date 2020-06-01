@@ -120,6 +120,11 @@ export const loginAction = (credentials) => async (
   getState
 ) => {
   const { login, sublogin } = credentials
+  const isLoading = selectIsLoading(getState())
+
+  if (isLoading) {
+    return
+  }
 
   dispatch(setIsLoading(true))
   dispatch(setError(undefined))

@@ -2,11 +2,11 @@ import { createSelector } from 'reselect'
 
 // Actions
 const SET_COPY_NOTIFICATION =
-  'REQUESTS/SET_COPY_NOTIFICATION'
-const SET_COPY_TIMER = 'REQUESTS/SET_COPY_TIMER'
+  'NOTIFICATIONS/SET_COPY_NOTIFICATION'
+const SET_COPY_TIMER = 'NOTIFICATIONS/SET_COPY_TIMER'
 const SET_LOGIN_NOTIFICATION =
-  'REQUESTS/SET_LOGIN_NOTIFICATION'
-const SET_LOGIN_TIMER = 'REQUESTS/SET_LOGIN_TIMER'
+  'NOTIFICATIONS/SET_LOGIN_NOTIFICATION'
+const SET_LOGIN_TIMER = 'NOTIFICATIONS/SET_LOGIN_TIMER'
 
 const initialState = {
   copyNotification: {
@@ -105,6 +105,7 @@ export const notifyAboutCopy = (notification) => (
 ) => {
   const copyTimer = selectCopyTimer(getState())
   if (copyTimer) {
+    clearTimeout(copyTimer)
     dispatch(setCopyTimer(undefined))
   }
 
@@ -123,8 +124,14 @@ export const notifyAboutLogin = (notification) => (
   dispatch,
   getState
 ) => {
-  const loginTimer = selectLoginTimer(getState())
-  if (loginTimer) {
+  const currentNotification = selectLoginNotification(getState())
+  if (currentNotification.type) {
+    return
+  }
+
+  const currentLoginTimerId = selectLoginTimer(getState())
+  if (currentLoginTimerId) {
+    clearTimeout(currentLoginTimerId)
     dispatch(setLoginTimer(undefined))
   }
 
