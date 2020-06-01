@@ -2,7 +2,7 @@ import { createSelector } from 'reselect'
 import { apiRequest } from 'api'
 import { RequestsHistory } from 'helpers'
 import { notifyAboutCopy } from 'flux/modules/notifications'
-import { CopyNotifications } from 'dictionary'
+import { NotificationTypes } from 'dictionary'
 
 // Actions
 const SET_ERROR = 'REQUESTS/SET_ERROR'
@@ -167,7 +167,8 @@ export const copyRequestAction = (reqId) => (
       () => {
         dispatch(
           notifyAboutCopy({
-            type: CopyNotifications.Success,
+            type: NotificationTypes.Info,
+            message: 'Скопировано',
             id: reqId,
           })
         )
@@ -175,7 +176,8 @@ export const copyRequestAction = (reqId) => (
       () => {
         dispatch(
           notifyAboutCopy({
-            type: CopyNotifications.Fail,
+            type: NotificationTypes.Error,
+            message: 'Ошибка',
             id: reqId,
           })
         )

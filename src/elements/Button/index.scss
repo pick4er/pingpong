@@ -1,0 +1,34 @@
+@import 'styles/colors';
+@import 'styles/mixins';
+
+.button {
+  border: none;
+  border-radius: 5px;
+  height: 40px;
+  color: $white;
+  cursor: pointer;
+  padding: 10px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &.button_disabled {
+    cursor: default;
+    background: $buttonDisabledGray;
+  }
+}
+
+.button_blue {
+  background: linear-gradient($buttonBlueFrom, $buttonBlueTo);
+
+  &:not(.button_disabled) {
+    &:focus {
+      @include buttonOutline($buttonBlueOutline);
+    }
+
+    &:active {
+      background: linear-gradient($buttonBlueActiveFrom, $buttonBlueActiveTo);
+    }
+  }
+}

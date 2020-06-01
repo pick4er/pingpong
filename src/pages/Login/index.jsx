@@ -1,56 +1,28 @@
 import React from 'react'
-import T from 'prop-types'
-import { connect } from 'react-redux'
 
-import { loginAction } from 'flux/modules/user'
+import LoginForm from 'components/LoginForm'
+import Link from 'elements/Link'
+import LogoIcon from 'assets/logo.svg'
 
-function LoginPage(props) {
-  const { login } = props
+import './index.scss'
 
-  const onSubmit = ($event) => {
-    $event.preventDefault()
-    login({
-      login: $event.target.login.value,
-      sublogin: $event.target.sublogin.value,
-      password: $event.target.password.value,
-    })
-
-    $event.target.reset()
-  }
-
+function LoginPage() {
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor="login">
-        Login:
-        <input
-          name="login"
-          type="text"
-          autoComplete="off"
-        />
-      </label>
-      <label htmlFor="sublogin">
-        Sublogin:
-        <input
-          name="sublogin"
-          type="text"
-          autoComplete="off"
-        />
-      </label>
-      <label htmlFor="password">
-        Password:
-        <input name="password" type="password" />
-      </label>
-      <button type="submit">login</button>
-    </form>
+    <div className="login-page">
+      <img
+        src={LogoIcon}
+        className="login-page__icon"
+        alt="pingpong-logo-icon"
+      />
+      <LoginForm className="login-page__login-form" />
+      <Link
+        href="https://github.com/pick4er"
+        className="login__link"
+      >
+        @pick4er
+      </Link>
+    </div>
   )
 }
 
-LoginPage.propTypes = {
-  login: T.func.isRequired,
-}
-
-const mapDispatchToProps = {
-  login: loginAction,
-}
-
-export default connect(null, mapDispatchToProps)(LoginPage)
+export default LoginPage

@@ -1,0 +1,52 @@
+@import 'styles/colors';
+@import 'styles/mixins';
+
+.notification {
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  height: 70px;
+}
+
+.notification_hide {
+  display: none;
+}
+
+.notification_error {
+  background-color: $backgroundErrorRed;
+}
+
+.notification__content {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-left: 8px;
+}
+
+.notification__title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 23px;
+  margin-bottom: 4px;
+  font-weight: normal;
+  font-style: normal;
+  @include overflowEllipsis();
+}
+
+.notification__message {
+  margin: 0;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: normal;
+  font-style: normal;
+  @include overflowEllipsis();
+}
+
+.notification__title_error {
+  color: $errorRed;
+}
+
+.notification__message_error {
+  color: $errorRed;
+}

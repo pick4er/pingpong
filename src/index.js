@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 
-import App from 'layout/App'
+import App from 'App'
 import routes from 'router'
 import createStore from 'flux'
 import history from 'router/history'

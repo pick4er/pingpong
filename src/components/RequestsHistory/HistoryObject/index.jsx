@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import T from 'prop-types'
 
 import Dropdown from 'elements/Dropdown'
-import TileList from 'components/TileList'
-import HistoryTile from 'components/HistoryTile'
+import TileList from './TileList'
+import HistoryTile from './HistoryTile'
 
 function HistoryObject(props) {
   const [isOpen, setIsOpen] = useState(false)

@@ -1,18 +1,28 @@
 import { createSelector } from 'reselect'
 
-import { CopyNotifications } from 'dictionary'
+import { NotificationTypes } from 'dictionary'
 
 // Actions
 const SET_COPY_NOTIFICATION =
   'REQUESTS/SET_COPY_NOTIFICATION'
 const SET_COPY_TIMER = 'REQUESTS/SET_COPY_TIMER'
+const SET_LOGIN_NOTIFICATION =
+  'REQUESTS/SET_LOGIN_NOTIFICATION'
+const SET_LOGIN_TIMER = 'REQUESTS/SET_LOGIN_TIMER'
 
 const initialState = {
   copyNotification: {
-    type: CopyNotifications.NotCopied,
+    type: undefined,
+    message: '',
     id: undefined,
   },
+  loginNotification: {
+    type: undefined,
+    message: '',
+    title: '',
+  },
   copyTimer: undefined,
+  loginTimer: undefined,
 }
 
 export default function reducer(
@@ -20,6 +30,16 @@ export default function reducer(
   { type, payload }
 ) {
   switch (type) {
+    case SET_LOGIN_TIMER:
+      return {
+        ...state,
+        loginTimer: payload,
+      }
+    case SET_LOGIN_NOTIFICATION:
+      return {
+        ...state,
+        loginNotification: payload,
+      }
     case SET_COPY_NOTIFICATION:
       return {
         ...state,
@@ -28,7 +48,7 @@ export default function reducer(
     case SET_COPY_TIMER:
       return {
         ...state,
-        timer: payload,
+        copyTimer: payload,
       }
     default:
       return state
@@ -49,6 +69,16 @@ export const selectCopyTimer = createSelector(
   ({ copyTimer }) => copyTimer
 )
 
+export const selectLoginTimer = createSelector(
+  selectNotificationsModule,
+  ({ loginTimer }) => loginTimer
+)
+
+export const selectLoginNotification = createSelector(
+  selectNotificationsModule,
+  ({ loginNotification }) => loginNotification
+)
+
 // Action creators
 export const setCopyNotification = (payload) => ({
   type: SET_COPY_NOTIFICATION,
@@ -60,12 +90,27 @@ export const setCopyTimer = (payload) => ({
   payload,
 })
 
+export const setLoginTimer = (payload) => ({
+  type: SET_LOGIN_TIMER,
+  payload,
+})
+
+export const setLoginNotification = (payload) => ({
+  type: SET_LOGIN_NOTIFICATION,
+  payload,
+})
+
 // Middleware
 export const notifyAboutCopy = (notification) => (
-  dispatch
+  dispatch,
+  getState
 ) => {
-  dispatch(setCopyNotification(notification))
+  const copyTimer = selectCopyTimer(getState())
+  if (copyTimer) {
+    dispatch(setCopyTimer(undefined))
+  }
 
+  dispatch(setCopyNotification(notification))
   const timerId = setTimeout(() => {
     dispatch(
       setCopyNotification(initialState.copyNotification)
@@ -74,4 +119,24 @@ export const notifyAboutCopy = (notification) => (
   }, 2000)
 
   dispatch(setCopyTimer(timerId))
+}
+
+export const notifyAboutLogin = (notification) => (
+  dispatch,
+  getState
+) => {
+  const loginTimer = selectLoginTimer(getState())
+  if (loginTimer) {
+    dispatch(setLoginTimer(undefined))
+  }
+
+  dispatch(setLoginNotification(notification))
+  const timerId = setTimeout(() => {
+    dispatch(
+      setLoginNotification(initialState.loginNotification)
+    )
+    dispatch(setLoginTimer(undefined))
+  }, 6000)
+
+  dispatch(setLoginTimer(timerId))
 }
