@@ -20,12 +20,35 @@
 /* BUTTON TEXT */
 .button-text {
   font-size: 16px;
+  line-height: 20px;
   font-weight: 500;
   font-style: normal;
 }
 
+.button-text_normal {
+  font-weight: normal;
+}
+
 .button-text_white {
   color: $white;
+}
+
+.button-text_black {
+  color: $textBlack;
+}
+
+.button-text_blue-active {
+  &:hover {
+    color: $blue;
+  }
+
+  &:focus {
+    color: $blue;
+  }
+
+  &:active {
+    color: $deepBlue;
+  }
 }
 
 /* INPUT TEXT */

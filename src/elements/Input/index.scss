@@ -4,10 +4,18 @@
 .input {
   display: flex;
   flex-flow: column nowrap;
+
+  @include outline($greyOutline);
+  // to keep focus on input, not &:after
+  &:after {
+    visibility: hidden;
+  }
 }
 
 .input:focus-within {
-  @include outline($greyOutline);
+  &:after {
+    visibility: visible;
+  }
 }
 
 .input__input-label {

@@ -21,3 +21,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@mixin svgFill($color) {
+  // Ideally, customizing svg sprites is true way
+  path {
+    stroke: $color;
+  }
+}

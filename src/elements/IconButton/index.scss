@@ -1,0 +1,39 @@
+@import 'styles/colors';
+@import 'styles/mixins';
+
+.icon-button {
+  &:hover {
+    .icon-button__icon {
+      @include svgFill($blue);
+    }
+  }
+
+  &:focus {
+    @include outline($blueOutline, 31px);
+
+    .icon-button__icon {
+      @include svgFill($blue);
+    }
+  }
+
+  &:active {
+    .icon-button__icon {
+      @include svgFill($deepBlue);
+    }
+  }
+}
+
+.icon-button__text + .icon-button__icon {
+  margin-left: 8px;
+}
+
+.icon-button__icon + .icon-button__text {
+  margin-right: 8px;
+}
+
+.icon-button__content {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}

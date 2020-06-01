@@ -28,12 +28,12 @@ export default function reducer(
     case SET_LOGIN:
       return {
         ...state,
-        login: payload
+        login: payload,
       }
     case SET_SUBLOGIN:
       return {
         ...state,
-        sublogin: payload
+        sublogin: payload,
       }
     case SET_IS_LOADING:
       return {
@@ -70,7 +70,7 @@ export const selectLogin = createSelector(
 
 export const selectSublogin = createSelector(
   selectUserModule,
-  ({ sublogin }) => sublogin
+  ({ sublogin }) => sublogin || 'pick4er'
 )
 
 export const selectError = createSelector(
@@ -106,12 +106,12 @@ export const setToken = (payload) => ({
 
 export const setLogin = (payload) => ({
   type: SET_LOGIN,
-  payload
+  payload,
 })
 
 export const setSublogin = (payload) => ({
   type: SET_SUBLOGIN,
-  payload
+  payload,
 })
 
 // Middleware

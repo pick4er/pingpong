@@ -53,8 +53,8 @@ function Input(props) {
 
   const nativeInputCl = cx({
     'input-text': true,
-    'border': true,
-    'border_error': error,
+    border: true,
+    border_error: error,
     'native-input': true,
     'native-input__input-text': true,
     [nativeInputClassName]: nativeInputClassName,

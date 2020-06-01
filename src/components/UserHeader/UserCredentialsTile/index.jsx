@@ -11,16 +11,25 @@ function UserCredentialsTile(props) {
 
   const classNames = cx({
     'user-credentials-tile': true,
-    [className]: className
+    border: true,
+    [className]: className,
   })
 
   return (
     <div className={classNames}>
-      <span className="user-credentials-tile__login">{login}</span>
+      <span className="user-credentials-tile__login">
+        {login}
+      </span>
       {sublogin && (
         <>
-          <img src={SmallSeparatorIcon} className="user-credentials-tile__separator" alt="small-separator" />
-          <span className="user-credentials-tile__sublogin">{sublogin}</span>
+          <img
+            src={SmallSeparatorIcon}
+            className="user-credentials-tile__separator"
+            alt="small-separator"
+          />
+          <span className="user-credentials-tile__sublogin">
+            {sublogin}
+          </span>
         </>
       )}
     </div>
