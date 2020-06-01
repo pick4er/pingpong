@@ -26,9 +26,7 @@ function HistoryTile(props) {
       </button>
       {copyNotification.id &&
         copyNotification.id === id && (
-          <div>
-            {copyNotification.message}
-          </div>
+          <div>{copyNotification.message}</div>
         )}
     </div>
   )

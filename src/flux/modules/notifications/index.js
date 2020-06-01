@@ -6,7 +6,8 @@ import { NotificationTypes } from 'dictionary'
 const SET_COPY_NOTIFICATION =
   'REQUESTS/SET_COPY_NOTIFICATION'
 const SET_COPY_TIMER = 'REQUESTS/SET_COPY_TIMER'
-const SET_LOGIN_NOTIFICATION = 'REQUESTS/SET_LOGIN_NOTIFICATION'
+const SET_LOGIN_NOTIFICATION =
+  'REQUESTS/SET_LOGIN_NOTIFICATION'
 const SET_LOGIN_TIMER = 'REQUESTS/SET_LOGIN_TIMER'
 
 const initialState = {
@@ -37,7 +38,7 @@ export default function reducer(
     case SET_LOGIN_NOTIFICATION:
       return {
         ...state,
-        loginNotification: payload
+        loginNotification: payload,
       }
     case SET_COPY_NOTIFICATION:
       return {
@@ -120,7 +121,10 @@ export const notifyAboutCopy = (notification) => (
   dispatch(setCopyTimer(timerId))
 }
 
-export const notifyAboutLogin = (notification) => (dispatch, getState) => {
+export const notifyAboutLogin = (notification) => (
+  dispatch,
+  getState
+) => {
   const loginTimer = selectLoginTimer(getState())
   if (loginTimer) {
     dispatch(setLoginTimer(undefined))
@@ -128,7 +132,9 @@ export const notifyAboutLogin = (notification) => (dispatch, getState) => {
 
   dispatch(setLoginNotification(notification))
   const timerId = setTimeout(() => {
-    dispatch(setLoginNotification(initialState.loginNotification))
+    dispatch(
+      setLoginNotification(initialState.loginNotification)
+    )
     dispatch(setLoginTimer(undefined))
   }, 6000)
 

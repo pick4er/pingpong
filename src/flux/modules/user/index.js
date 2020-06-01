@@ -91,11 +91,13 @@ export const loginAction = (credentials) => async (
   await loginRequest(credentials).catch((e) => {
     const { explain, id } = e
     dispatch(setError(e))
-    dispatch(notifyAboutLogin({
-      type: NotificationTypes.Error,
-      title: 'Вход не вышел',
-      message: JSON.stringify({ explain, id })
-    }))
+    dispatch(
+      notifyAboutLogin({
+        type: NotificationTypes.Error,
+        title: 'Вход не вышел',
+        message: JSON.stringify({ explain, id }),
+      })
+    )
   })
   dispatch(setIsLoading(false))
 

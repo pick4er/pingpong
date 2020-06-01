@@ -9,5 +9,5 @@ export const ButtonModes = {
 export const NotificationTypes = {
   Info: 'info',
   Warning: 'warning',
-  Error: 'error'
+  Error: 'error',
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import T from 'prop-types';
+import React from 'react'
+import T from 'prop-types'
 import cx from 'classnames'
 
 import { NotificationTypes } from 'dictionary'
@@ -12,7 +12,11 @@ const icons = {
 }
 
 function Notification(props) {
-  const { notification: { type, title, message }, className, withIcon } = props
+  const {
+    notification: { type, title, message },
+    className,
+    withIcon,
+  } = props
 
   const classNames = cx({
     notification: true,
@@ -27,8 +31,20 @@ function Notification(props) {
         <img src={icons[type]} alt={`${type}_icon`} />
       )}
       <div className="notification__content">
-        {title && (<h5 className={`notification__title notification__title_${type}`}>{title}</h5>)}
-        {message && (<p className={`notification__message notification__message_${type}`}>{message}</p>)}
+        {title && (
+          <h5
+            className={`notification__title notification__title_${type}`}
+          >
+            {title}
+          </h5>
+        )}
+        {message && (
+          <p
+            className={`notification__message notification__message_${type}`}
+          >
+            {message}
+          </p>
+        )}
       </div>
     </div>
   )

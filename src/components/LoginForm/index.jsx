@@ -44,13 +44,20 @@ function LoginForm(props) {
   const formEl = useRef(null)
   const [isError, setIsError] = useState(false)
 
-  const { className, isLoading, loginUser , loginNotification} = props
+  const {
+    className,
+    isLoading,
+    loginUser,
+    loginNotification,
+  } = props
 
   useEffect(() => {
     const formDomEl = formEl.current
 
     const checkIfFormError = ($event) => {
-      const { form: { login, sublogin, password } } = $event.target
+      const {
+        form: { login, sublogin, password },
+      } = $event.target
 
       const possibleErrors = [
         login.dataset.error,
@@ -94,7 +101,8 @@ function LoginForm(props) {
 
   const notificationCl = cx({
     'login-form__notification': true,
-    'login-form__notification_animation': loginNotification.type
+    'login-form__notification_animation':
+      loginNotification.type,
   })
 
   return (
@@ -105,7 +113,11 @@ function LoginForm(props) {
     >
       <h5 className="login-form__header">API-консолька</h5>
 
-      <Notification withIcon notification={loginNotification} className={notificationCl} />
+      <Notification
+        withIcon
+        notification={loginNotification}
+        className={notificationCl}
+      />
 
       <Input
         isRequired
@@ -164,7 +176,7 @@ LoginForm.propTypes = {
     type: T.oneOf(Object.values(NotificationTypes)),
     message: T.string,
     title: T.string,
-  })
+  }),
 }
 
 const mapStateToProps = (state) => ({

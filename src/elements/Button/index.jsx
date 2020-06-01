@@ -3,7 +3,7 @@ import T from 'prop-types'
 import cx from 'classnames'
 
 import Loader from 'elements/Loader'
-import { ButtonModes}  from 'dictionary'
+import { ButtonModes } from 'dictionary'
 
 import './index.scss'
 
