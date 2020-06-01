@@ -102,7 +102,10 @@ function LoginForm(props) {
     }
 
     const errors = validateValues(data, validators)
-    const isFormError = Object.keys(errors).length > 0
+    const isFormError =
+      Object.values(errors).filter(
+        (errArr) => errArr.length > 0
+      ).length > 0
 
     if (isFormError && !isError) {
       setIsError(true)
