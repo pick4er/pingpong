@@ -10,12 +10,14 @@ import {
   loginAction,
   selectIsLoading,
 } from 'flux/modules/user'
+import { selectLoginNotification } from 'flux/modules/notifications'
 import {
   latinOnly,
   emailOrLogin,
   startsWithLetter,
   moreThanXSymbols,
 } from 'helpers/validators'
+import { NotificationTypes } from 'dictionary'
 
 import './index.scss'
 
@@ -42,7 +44,7 @@ function LoginForm(props) {
   const formEl = useRef(null)
   const [isError, setIsError] = useState(false)
 
-  const { className, isLoading } = props
+  const { className, isLoading, loginUser , loginNotification} = props
 
   useEffect(() => {
     const formDomEl = formEl.current
@@ -75,18 +77,24 @@ function LoginForm(props) {
 
   const onSubmit = ($event) => {
     $event.preventDefault()
+    const { target } = $event
     const data = {
-      login: $event.target.login.value,
-      sublogin: $event.target.sublogin.value,
-      password: $event.target.password.value,
+      login: target.login.value,
+      sublogin: target.sublogin.value,
+      password: target.password.value,
     }
 
-    $event.target.reset()
+    loginUser(data)
   }
 
   const classNames = cx({
     'login-form': true,
     [className]: className,
+  })
+
+  const notificationCl = cx({
+    'login-form__notification': true,
+    'login-form__notification_animation': loginNotification.type
   })
 
   return (
@@ -97,7 +105,7 @@ function LoginForm(props) {
     >
       <h5 className="login-form__header">API-консолька</h5>
 
-      <Notification withIcon className="login-form__notification" />
+      <Notification withIcon notification={loginNotification} className={notificationCl} />
 
       <Input
         isRequired
@@ -141,19 +149,30 @@ function LoginForm(props) {
 
 LoginForm.defaultProps = {
   className: '',
+  loginNotification: {
+    type: undefined,
+    message: '',
+    title: '',
+  },
 }
 
 LoginForm.propTypes = {
-  login: T.func.isRequired,
+  loginUser: T.func.isRequired,
   className: T.string,
   isLoading: T.bool.isRequired,
+  loginNotification: T.shape({
+    type: T.oneOf(Object.values(NotificationTypes)),
+    message: T.string,
+    title: T.string,
+  })
 }
 
 const mapStateToProps = (state) => ({
   isLoading: selectIsLoading(state),
+  loginNotification: selectLoginNotification(state),
 })
 const mapDispatchToProps = {
-  login: loginAction,
+  loginUser: loginAction,
 }
 
 export default connect(

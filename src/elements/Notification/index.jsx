@@ -8,7 +8,7 @@ import SadFaceIcon from 'assets/sadFace.svg'
 import './index.scss'
 
 const icons = {
-  [Notification.Error]: SadFaceIcon,
+  [NotificationTypes.Error]: SadFaceIcon,
 }
 
 function Notification(props) {
@@ -16,8 +16,9 @@ function Notification(props) {
 
   const classNames = cx({
     notification: true,
+    notification_hide: !type,
     [`notification_${type}`]: !!type,
-    [className]: !!className,
+    [className]: className,
   })
 
   return (
@@ -36,17 +37,17 @@ function Notification(props) {
 Notification.defaultProps = {
   withIcon: false,
   notification: {
-    type: NotificationTypes.Info,
+    type: undefined,
     title: '',
     message: '',
   },
-  className: ''
+  className: '',
 }
 
 Notification.propTypes = {
   withIcon: T.bool,
   notification: T.shape({
-    type: T.oneOf([Object.values(NotificationTypes)]),
+    type: T.oneOf(Object.values(NotificationTypes)),
     title: T.string,
     message: T.string,
   }),

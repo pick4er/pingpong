@@ -2,7 +2,8 @@ import Cookies from 'cookies-js'
 import { createSelector } from 'reselect'
 import { loginRequest, sendsay } from 'api'
 
-import { TOKEN_KEY } from 'dictionary'
+import { TOKEN_KEY, NotificationTypes } from 'dictionary'
+import { notifyAboutLogin } from 'flux/modules/notifications'
 
 // Actions
 const SET_IS_LOADING = 'USER/SET_IS_LOADING'
@@ -81,15 +82,25 @@ export const setToken = (payload) => ({
 
 // Middleware
 export const loginAction = (credentials) => async (
-  dispatch
+  dispatch,
+  getState
 ) => {
   dispatch(setIsLoading(true))
   dispatch(setError(undefined))
 
   await loginRequest(credentials).catch((e) => {
+    const { explain, id } = e
     dispatch(setError(e))
+    dispatch(notifyAboutLogin({
+      type: NotificationTypes.Error,
+      title: 'Вход не вышел',
+      message: JSON.stringify({ explain, id })
+    }))
   })
   dispatch(setIsLoading(false))
 
-  Cookies.set(TOKEN_KEY, sendsay.session)
+  const error = selectError(getState())
+  if (!error) {
+    Cookies.set(TOKEN_KEY, sendsay.session)
+  }
 }

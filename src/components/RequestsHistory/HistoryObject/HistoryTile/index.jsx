@@ -3,20 +3,8 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 
 import { selectCopyNotification } from 'flux/modules/notifications'
-import { CopyNotifications } from 'dictionary'
+import { NotificationTypes } from 'dictionary'
 import { getRequestAction } from 'helpers'
-
-function getCopyNotificationText(notificationType) {
-  if (notificationType === CopyNotifications.Success) {
-    return 'Скопировано'
-  }
-
-  if (notificationType === CopyNotifications.Fail) {
-    return 'Ошибка'
-  }
-
-  return undefined
-}
 
 function HistoryTile(props) {
   const {
@@ -39,7 +27,7 @@ function HistoryTile(props) {
       {copyNotification.id &&
         copyNotification.id === id && (
           <div>
-            {getCopyNotificationText(copyNotification.type)}
+            {copyNotification.message}
           </div>
         )}
     </div>
@@ -53,7 +41,7 @@ HistoryTile.propTypes = {
   id: T.string.isRequired,
   copyNotification: T.shape({
     id: T.string,
-    type: T.oneOf(Object.values(CopyNotifications))
+    type: T.oneOf(Object.values(NotificationTypes))
       .isRequired,
   }).isRequired,
 }
