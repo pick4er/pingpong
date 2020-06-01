@@ -7,21 +7,21 @@ import HistoryObject from './HistoryObject'
 
 import './index.scss'
 
-function RequestsHistory(props) {
+function HistoryTrack(props) {
   const { requestsHistory } = props
 
   return (
-    <ul className="RequestsHistory">
-      {requestsHistory.map(({ id, request }) => (
-        <li key={id}>
-          <HistoryObject id={id} request={request} />
+    <ul className="requests-history">
+      {requestsHistory.map(({ id, request, response }) => (
+        <li key={id} className="requests-history__list-item">
+          <HistoryObject id={id} request={request} response={response} />
         </li>
       ))}
     </ul>
   )
 }
 
-RequestsHistory.propTypes = {
+HistoryTrack.propTypes = {
   requestsHistory: T.arrayOf(
     T.shape({
       id: T.string.isRequired,
@@ -35,4 +35,4 @@ const mapStateToProps = (state) => ({
   requestsHistory: selectHistory(state),
 })
 
-export default connect(mapStateToProps)(RequestsHistory)
+export default connect(mapStateToProps)(HistoryTrack)

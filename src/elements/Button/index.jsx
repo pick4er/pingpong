@@ -28,8 +28,10 @@ function Button(props) {
     button_red: mode === ButtonModes.Red,
     button_transparent: mode === ButtonModes.Transparent,
     'button-text_black': mode === ButtonModes.Transparent,
-    'button-text_blue-active': mode === ButtonModes.Transparent,
-    'background_transparent': mode === ButtonModes.Transparent,
+    'button-text_blue-active':
+      mode === ButtonModes.Transparent,
+    background_transparent:
+      mode === ButtonModes.Transparent,
     button_disabled: isDisabled,
     'gradient-background_disabled': isDisabled,
     'gradient-background_blue': mode === ButtonModes.Blue,

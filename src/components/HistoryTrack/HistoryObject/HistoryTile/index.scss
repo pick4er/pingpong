@@ -1,0 +1,20 @@
+@import 'styles/colors';
+
+.history-tile {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  background-color: $white;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.history-tile__status_badge {
+  margin-right: 5px;
+}
+
+.history-tile__separator {
+  margin-left: 5px;
+}

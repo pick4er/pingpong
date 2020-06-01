@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 
@@ -8,20 +8,37 @@ import { ButtonModes } from 'dictionary'
 import './index.scss'
 
 function IconButton(props) {
-  const { className, icon: IconComponent, children, direction, mode, type, onClick } = props
+  const {
+    className,
+    icon: IconComponent,
+    children,
+    direction,
+    mode,
+    type,
+    onClick,
+  } = props
 
   const classNames = cx({
     'icon-button': true,
-    [className]: className
+    [className]: className,
   })
 
   return (
-    <Button type={type} onClick={onClick} mode={mode} className={classNames}>
+    <Button
+      type={type}
+      onClick={onClick}
+      mode={mode}
+      className={classNames}
+    >
       <span className="icon-button__content">
         {direction === 'left' && (
           <IconComponent className="icon-button__icon" />
         )}
-        {children && (<span className="icon-button__text">{children}</span>)}
+        {children && (
+          <span className="icon-button__text">
+            {children}
+          </span>
+        )}
         {direction === 'right' && (
           <IconComponent className="icon-button__icon" />
         )}

@@ -1,4 +1,6 @@
 import isProduction from './isProduction'
+import getResponseError from './getResponseError'
+import isResponseError from './isResponseError'
 import pluralizeWord from './pluralizeWord'
 import deepClone from './deepClone'
 import nanoid from './nanoid'
@@ -9,6 +11,8 @@ import getRequestAction from './getRequestAction'
 
 export {
   nanoid,
+  isResponseError,
+  getResponseError,
   pluralizeWord,
   isProduction,
   deepClone,

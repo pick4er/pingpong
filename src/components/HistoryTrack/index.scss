@@ -1,0 +1,12 @@
+
+.requests-history {
+  display: flex;
+  flex-flow: row nowrap;
+  list-style: none;
+  padding: 10px 15px;
+  margin: 0;
+}
+
+.requests-history__list-item + .requests-history__list-item {
+  margin-left: 10px;
+}

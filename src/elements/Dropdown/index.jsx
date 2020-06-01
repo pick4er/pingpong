@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react'
 import T from 'prop-types'
-
+import cx from 'classnames'
 import { nanoid } from 'helpers'
+
+import './index.scss'
 
 function computeListStyle(isOpen) {
   if (isOpen) {
@@ -44,12 +46,12 @@ function Dropdown(props) {
   const listStyle = computeListStyle(isOpen)
 
   return (
-    <div id={`dropdown-${id}`}>
+    <div id={`dropdown-${id}`} className="dropdown">
       <div ref={triggerRef}>
         <TriggerComponent />
       </div>
 
-      <div ref={listRef} role="menu" style={listStyle}>
+      <div ref={listRef} role="menu" style={listStyle} className="dropdown__list">
         <ListComponent />
       </div>
     </div>

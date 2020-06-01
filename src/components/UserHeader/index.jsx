@@ -8,11 +8,11 @@ import {
   selectLogin,
   selectSublogin,
 } from 'flux/modules/user'
-import UserCredentialsTile from './UserCredentialsTile'
 import IconButton from 'elements/IconButton'
 
 import { ReactComponent as LogoutIconComponent } from 'assets/logout.svg'
 import { ReactComponent as FullScreenIconComponent } from 'assets/fullscreen.svg'
+import UserCredentialsTile from './UserCredentialsTile'
 
 import './index.scss'
 
@@ -31,7 +31,7 @@ function UserHeader(props) {
 
   const iconButtonCl = cx({
     'button-text_normal': true,
-    'user-header__logout-icon-button': true
+    'user-header__logout-icon-button': true,
   })
 
   return (
@@ -49,11 +49,21 @@ function UserHeader(props) {
         sublogin={sublogin}
       />
 
-      <IconButton icon={LogoutIconComponent} direction="right" mode="transparent" className={iconButtonCl}>
+      <IconButton
+        icon={LogoutIconComponent}
+        direction="right"
+        mode="transparent"
+        className={iconButtonCl}
+      >
         Выйти
       </IconButton>
 
-      <IconButton icon={FullScreenIconComponent} direction="right" mode="transparent" className={iconButtonCl} />
+      <IconButton
+        icon={FullScreenIconComponent}
+        direction="right"
+        mode="transparent"
+        className={iconButtonCl}
+      />
     </div>
   )
 }

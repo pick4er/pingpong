@@ -127,9 +127,15 @@ export const requestAction = (req = {}) => async (
   dispatch(setIsLoading(true))
   dispatch(setError(null))
 
-  const res = await apiRequest(req).catch((e) => {
-    dispatch(setError(e))
-  })
+  let res
+  try {
+    res = await apiRequest(req)
+  } catch ({ message }) {
+    const parsedMessage = JSON.parse(message)
+
+    res = parsedMessage
+    dispatch(setError(parsedMessage))
+  }
 
   dispatch(setIsLoading(false))
   dispatch(setResponse(JSON.stringify(res)))
