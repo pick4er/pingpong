@@ -29,12 +29,21 @@ function create() {
     storage,
   }
 
+  const credentialsPersistConfig = {
+    key: 'user',
+    whitelist: ['login', 'sublogin'],
+    storage
+  }
+
   const combinedReducers = combineReducers({
-    user,
+    user: persistReducer(
+      credentialsPersistConfig,
+      user,
+    ),
     notifications,
     requests: persistReducer(
       requestsPersistConfig,
-      requests
+      requests,
     ),
   })
   const middleware = compose(
