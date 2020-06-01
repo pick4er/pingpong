@@ -11,7 +11,7 @@
 
 .button_blue {
   &:focus {
-    @include outline($buttonBlueOutline);
+    @include outline($blueOutline);
   }
 }
 

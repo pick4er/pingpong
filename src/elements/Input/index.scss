@@ -7,7 +7,7 @@
 }
 
 .input:focus-within {
-  @include outline($inputOutline);
+  @include outline($greyOutline);
 }
 
 .input__input-label {
@@ -29,26 +29,7 @@
 /* NATIVE INPUT */
 .native-input {
   background-color: white;
-  border-radius: 5px;
-  border: 1px solid $borderBlack;
   height: 40px;
-
-  &:hover {
-    border-color: $inputHover;
-  }
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.native-input_error {
-  border: 1px solid $errorRed;
-  box-shadow: 0px 0px 5px rgba(207, 44, 0, 0.5);
-
-  &:hover {
-    border-color: $errorRed;
-  }
 }
 
 .native-input__input-text {

@@ -1,17 +1,16 @@
 
-$backgroundGray: #F7F7F7; // RGBA(247, 247, 247, 1)
 $textBlack: #0D0D0D; // RGBA(13, 13, 13, 1)
 $white: #FFFFFF; // RGBA(255, 255, 255, 1)
 $black: #000000; // RGBA(0, 0, 0, 1)
 $borderBlack: RGBA(0, 0, 0, 0.2);
-$inputHover: RGBA(0, 0, 0, 0.4);
-$inputOutline: RGBA(0, 0, 0, 0.1);
+$borderHover: RGBA(0, 0, 0, 0.4);
+$greyOutline: RGBA(0, 0, 0, 0.1);
 $optionalGray: #999999; // RGBA(153, 153, 153, 1)
 $errorRed: #CF2C00; // RGBA(207, 44, 0, 1)
 
+$blueOutline: RGBA(69, 165, 255, 0.5);
 $gradientBlueTo: #0055FB; // RGBA(0, 85, 251, 1)
 $gradientBlueFrom: #45A6FF; // RGBA(69, 166, 255, 1)
-$buttonBlueOutline: RGBA(69, 165, 255, 0.5);
 $gradientBlueActiveTo: #0043C3;
 $gradientBlueActiveFrom: #3586D1;
 $gradientDisabledGray: RGBA(196, 196, 196, 0.9);
@@ -19,6 +18,7 @@ $gradientDisabledActiveTo: #C4C4C4; // RGBA(196, 196, 196, 1)
 $gradientDisabledActiveFrom: RGBA(196, 196, 196, 0.9);
 
 $backgroundErrorRed: RGBA(207, 44, 0, 0.1);
+$backgroundGray: #F7F7F7; // RGBA(247, 247, 247, 1)
 
 $linkFocusGray: #999999; // RGBA(153, 153, 153, 1)
 $linkGray: RGBA(153, 153, 153, 0.8);

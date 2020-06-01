@@ -9,9 +9,13 @@ import { notifyAboutLogin } from 'flux/modules/notifications'
 const SET_IS_LOADING = 'USER/SET_IS_LOADING'
 const SET_ERROR = 'USER/SET_ERROR'
 const SET_TOKEN = 'USER/SET_TOKEN'
+const SET_LOGIN = 'USER/SET_LOGIN'
+const SET_SUBLOGIN = 'USER/SET_SUBLOGIN'
 
 const initialState = {
   isLoading: false,
+  login: '',
+  sublogin: '',
   error: undefined,
   token: undefined,
 }
@@ -21,6 +25,16 @@ export default function reducer(
   { type, payload }
 ) {
   switch (type) {
+    case SET_LOGIN:
+      return {
+        ...state,
+        login: payload
+      }
+    case SET_SUBLOGIN:
+      return {
+        ...state,
+        sublogin: payload
+      }
     case SET_IS_LOADING:
       return {
         ...state,
@@ -47,6 +61,16 @@ const selectUserModule = (state) => state.user
 export const selectIsLoading = createSelector(
   selectUserModule,
   ({ isLoading }) => isLoading || false
+)
+
+export const selectLogin = createSelector(
+  selectUserModule,
+  ({ login }) => login
+)
+
+export const selectSublogin = createSelector(
+  selectUserModule,
+  ({ sublogin }) => sublogin
 )
 
 export const selectError = createSelector(
@@ -80,11 +104,23 @@ export const setToken = (payload) => ({
   payload,
 })
 
+export const setLogin = (payload) => ({
+  type: SET_LOGIN,
+  payload
+})
+
+export const setSublogin = (payload) => ({
+  type: SET_SUBLOGIN,
+  payload
+})
+
 // Middleware
 export const loginAction = (credentials) => async (
   dispatch,
   getState
 ) => {
+  const { login, sublogin } = credentials
+
   dispatch(setIsLoading(true))
   dispatch(setError(undefined))
 
@@ -103,6 +139,9 @@ export const loginAction = (credentials) => async (
 
   const error = selectError(getState())
   if (!error) {
+    dispatch(setLogin(login))
+    dispatch(setSublogin(sublogin))
+
     Cookies.set(TOKEN_KEY, sendsay.session)
   }
 }
