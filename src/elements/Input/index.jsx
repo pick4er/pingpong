@@ -46,16 +46,9 @@ function Input(props) {
     [className]: className,
   })
 
-  const labelCl = cx({
-    'input__input-label': true,
-    'input-label': true
-  })
   const labelNameCl = cx({
-    'input-label__name': true,
-    'input-label__name_error': error,
-  })
-  const labelHintCl = cx({
-    'input-label__hint': true
+    'label-text': true,
+    'error-text': error,
   })
 
   const nativeInputCl = cx({
@@ -68,11 +61,11 @@ function Input(props) {
 
   return (
     <label className={classNames} title={error}>
-      <div className={labelCl}>
+      <div className="input-label input__input-label">
         <span className={labelNameCl}>{label}</span>
 
         {!isRequired && (
-          <span className={labelHintCl}>
+          <span className="hint-text input-label__hint">
             Опционально
           </span>
         )}

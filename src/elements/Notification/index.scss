@@ -10,14 +10,6 @@
   height: 70px;
 }
 
-.notification_hide {
-  display: none;
-}
-
-.notification_error {
-  background-color: $backgroundErrorRed;
-}
-
 .notification__content {
   display: flex;
   flex-flow: column nowrap;
@@ -26,27 +18,11 @@
 
 .notification__title {
   margin: 0;
-  font-size: 18px;
-  line-height: 23px;
   margin-bottom: 4px;
-  font-weight: normal;
-  font-style: normal;
   @include overflowEllipsis();
 }
 
 .notification__message {
   margin: 0;
-  font-size: 12px;
-  line-height: 20px;
-  font-weight: normal;
-  font-style: normal;
   @include overflowEllipsis();
-}
-
-.notification__title_error {
-  color: $errorRed;
-}
-
-.notification__message_error {
-  color: $errorRed;
 }

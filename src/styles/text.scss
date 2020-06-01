@@ -1,5 +1,10 @@
 @import 'styles/colors';
 
+/* SERVICE */
+.error-text {
+  color: $errorRed;
+}
+
 /* HEADER TEXT */
 .header-text {
   font-size: 24px;
@@ -33,4 +38,28 @@
 
 .input-text_password {
   font-size: 25px;
+}
+
+.label-text {
+  font-size: 16px;
+}
+
+.hint-text {
+  font-size: 12px;
+  color: $optionalGray;
+}
+
+/* NOTIFICATION TEXT */
+.notification-title-text {
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.notification-message-text {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: normal;
+  font-style: normal;
 }

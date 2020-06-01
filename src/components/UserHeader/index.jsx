@@ -16,7 +16,9 @@ function UserHeader(props) {
         alt="pingpong-logo-icon"
       />
 
-      <h5 className="header-text header-text_s">API-консолька</h5>
+      <h5 className="header-text header-text_s">
+        API-консолька
+      </h5>
     </div>
   )
 }
@@ -25,8 +27,11 @@ UserHeader.defaultProps = {}
 
 UserHeader.propTypes = {}
 
-const mapStateToProps = state => ({})
+const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = {}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserHeader)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserHeader)

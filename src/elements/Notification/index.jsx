@@ -20,9 +20,19 @@ function Notification(props) {
 
   const classNames = cx({
     notification: true,
-    notification_hide: !type,
-    [`notification_${type}`]: !!type,
+    hide: !type,
+    [`${type}-background`]: type,
     [className]: className,
+  })
+  const titleCl = cx({
+    notification__title: true,
+    'notification-title-text': true,
+    [`${type}-text`]: type,
+  })
+  const messageCl = cx({
+    notification__message: true,
+    'notification-message-text': true,
+    [`${type}-text`]: type,
   })
 
   return (
@@ -31,20 +41,8 @@ function Notification(props) {
         <img src={icons[type]} alt={`${type}_icon`} />
       )}
       <div className="notification__content">
-        {title && (
-          <h5
-            className={`notification__title notification__title_${type}`}
-          >
-            {title}
-          </h5>
-        )}
-        {message && (
-          <p
-            className={`notification__message notification__message_${type}`}
-          >
-            {message}
-          </p>
-        )}
+        {title && <h5 className={titleCl}>{title}</h5>}
+        {message && <p className={messageCl}>{message}</p>}
       </div>
     </div>
   )

@@ -110,7 +110,9 @@ function LoginForm(props) {
       className={classNames}
       ref={formEl}
     >
-      <h5 className="header-text login-form__header-text">API-консолька</h5>
+      <h5 className="header-text login-form__header-text">
+        API-консолька
+      </h5>
 
       <Notification
         withIcon
