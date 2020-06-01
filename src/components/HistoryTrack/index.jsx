@@ -13,9 +13,11 @@ function HistoryTrack(props) {
 
   const classNames = cx({
     'requests-history': true,
+    'requests-history_increase-stack': true,
+    'list-styles-reset': true,
     // for soft transition on delete
     'requests-history_hide': requestsHistory.length === 0,
-    'border-separator_bottom': true,
+    'border-separator_bottom': requestsHistory.length > 0,
   })
 
   return (

@@ -2,12 +2,18 @@
 .requests-history {
   display: flex;
   flex-flow: row nowrap;
-  list-style: none;
+  align-items: center;
   padding: 10px 15px;
-  margin: 0;
   height: 50px;
   opacity: 1;
   transition: all 1s ease;
+}
+
+// CodeMirror has z-index: 2 and position: relative lines.
+// They cross dropdown
+.requests-history_increase-stack {
+  z-index: 3;
+  position: relative;
 }
 
 .requests-history_hide {

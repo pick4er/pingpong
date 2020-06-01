@@ -23,7 +23,7 @@
 }
 
 @mixin svgFill($color) {
-  // Ideally, customizing svg sprites is true way
+  // Actually, customizing svg sprites is true way
   path {
     stroke: $color;
   }

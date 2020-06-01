@@ -124,7 +124,9 @@ export const notifyAboutLogin = (notification) => (
   dispatch,
   getState
 ) => {
-  const currentNotification = selectLoginNotification(getState())
+  const currentNotification = selectLoginNotification(
+    getState()
+  )
   if (currentNotification.type) {
     return
   }
