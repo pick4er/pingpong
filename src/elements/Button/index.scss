@@ -5,30 +5,39 @@
   border: none;
   border-radius: 5px;
   height: 40px;
-  color: $white;
   cursor: pointer;
   padding: 10px;
 
   &:hover {
     opacity: 0.9;
   }
-
-  &.button_disabled {
-    cursor: default;
-    background: $buttonDisabledGray;
-  }
 }
 
 .button_blue {
   background: linear-gradient($buttonBlueFrom, $buttonBlueTo);
 
-  &:not(.button_disabled) {
-    &:focus {
-      @include buttonOutline($buttonBlueOutline);
-    }
+  &:focus {
+    @include outline($buttonBlueOutline);
+  }
 
-    &:active {
-      background: linear-gradient($buttonBlueActiveFrom, $buttonBlueActiveTo);
-    }
+  &:active {
+    background: linear-gradient($buttonBlueActiveFrom, $buttonBlueActiveTo);
+  }
+}
+
+.button_disabled {
+  cursor: default;
+  background: $buttonDisabledGray;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:focus {
+    @include outline(transparent);
+  }
+
+  &:active {
+    background: linear-gradient($buttonDisabledActiveFrom, $buttonDisabledActiveTo);
   }
 }

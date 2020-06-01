@@ -14,7 +14,9 @@ $buttonBlueFrom: #45A6FF; // RGBA(69, 166, 255, 1)
 $buttonBlueOutline: RGBA(69, 165, 255, 0.5);
 $buttonBlueActiveTo: #0043C3;
 $buttonBlueActiveFrom: #3586D1;
-$buttonDisabledGray: #C4C4C4; // RGBA(196, 196, 196, 1)
+$buttonDisabledGray: RGBA(196, 196, 196, 0.9);
+$buttonDisabledActiveTo: #C4C4C4; // RGBA(196, 196, 196, 1)
+$buttonDisabledActiveFrom: RGBA(196, 196, 196, 0.9);
 
 $backgroundErrorRed: RGBA(207, 44, 0, 0.1);
 

@@ -101,8 +101,7 @@ function LoginForm(props) {
 
   const notificationCl = cx({
     'login-form__notification': true,
-    'login-form__notification_animation':
-      loginNotification.type,
+    'notification-animation': loginNotification.type,
   })
 
   return (
@@ -111,7 +110,7 @@ function LoginForm(props) {
       className={classNames}
       ref={formEl}
     >
-      <h5 className="login-form__header">API-консолька</h5>
+      <h5 className="header-text login-form__header-text">API-консолька</h5>
 
       <Notification
         withIcon
@@ -141,7 +140,7 @@ function LoginForm(props) {
         label="Пароль"
         name="password"
         className="login-form__input"
-        nativeInputCl=" login-form__input_password"
+        nativeInputClassName="input-text_password"
         validators={validators.password}
         type="password"
       />

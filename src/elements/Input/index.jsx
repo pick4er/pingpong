@@ -15,7 +15,7 @@ function Input(props) {
     validators,
     isRequired,
     className,
-    nativeInputCl,
+    nativeInputClassName,
   } = props
 
   useEffect(() => {
@@ -43,37 +43,43 @@ function Input(props) {
 
   const classNames = cx({
     input: true,
-    input_outline: true,
-    input_error: !!error,
     [className]: className,
   })
 
-  const inputClassNames = cx({
-    'input__native-input': true,
-    'input__native-input_content': true,
-    'input__native-input_error': !!error,
-    [nativeInputCl]: nativeInputCl,
+  const labelCl = cx({
+    'input__input-label': true,
+    'input-label': true
+  })
+  const labelNameCl = cx({
+    'input-label__name': true,
+    'input-label__name_error': error,
+  })
+  const labelHintCl = cx({
+    'input-label__hint': true
   })
 
-  const labelClassName = cx({
-    input__label_name: true,
-    input__label_name_error: !!error,
+  const nativeInputCl = cx({
+    'input-text': true,
+    'native-input': true,
+    'native-input_error': error,
+    'native-input__input-text': true,
+    [nativeInputClassName]: nativeInputClassName,
   })
 
   return (
     <label className={classNames} title={error}>
-      <div className="input__label">
-        <span className={labelClassName}>{label}</span>
+      <div className={labelCl}>
+        <span className={labelNameCl}>{label}</span>
 
         {!isRequired && (
-          <span className="input__label_optional">
+          <span className={labelHintCl}>
             Опционально
           </span>
         )}
       </div>
       <input
         ref={inputEl}
-        className={inputClassNames}
+        className={nativeInputCl}
         autoComplete="off"
         type={type}
         name={name}
@@ -87,13 +93,13 @@ Input.defaultProps = {
   validators: [],
   isRequired: false,
   className: '',
-  nativeInputCl: '',
+  nativeInputClassName: '',
 }
 
 Input.propTypes = {
   className: T.string,
   isRequired: T.bool,
-  nativeInputCl: T.string,
+  nativeInputClassName: T.string,
   validators: T.arrayOf(T.func),
   label: T.string.isRequired,
   name: T.string.isRequired,

@@ -21,6 +21,8 @@ function Button(props) {
 
   const classNames = cx({
     button: true,
+    'button-text_white': true,
+    'button-text': true,
     button_blue: mode === ButtonModes.Blue,
     button_red: mode === ButtonModes.Red,
     button_transparent: mode === ButtonModes.Transparent,
