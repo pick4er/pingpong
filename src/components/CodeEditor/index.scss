@@ -34,6 +34,17 @@
   flex-flow: column nowrap;
 }
 
+.code-editor__editor_error {
+  .cm-s-editor-response,
+  .cm-s-editor {
+    @include borderError();
+  }
+}
+
+.code-editor__editor-label {
+  margin-bottom: 3px;
+}
+
 .cm-s-editor-response,
 .cm-s-editor {
   &.CodeMirror {
@@ -41,6 +52,7 @@
   }
 
   @include border();
+  transition: border 1s ease;
 }
 
 .cm-s-editor-response {

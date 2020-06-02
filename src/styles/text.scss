@@ -72,6 +72,10 @@
   color: $optionalGray;
 }
 
+.hint-text_error {
+  color: $errorRed;
+}
+
 /* NOTIFICATION TEXT */
 .notification-title-text {
   font-size: 18px;

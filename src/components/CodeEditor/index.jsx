@@ -15,6 +15,7 @@ import {
   requestAction,
   selectIsLoading,
 } from 'flux/modules/requests'
+import { isResponseError } from 'helpers'
 import { ReactComponent as DragIconComponent } from 'assets/separator.svg'
 import { ReactComponent as FormatIconComponent } from 'assets/format.svg'
 
@@ -162,12 +163,23 @@ function CodeEditor(props) {
     }
   }
 
+  const isError = isResponseError(responseText)
+
   const classNames = cx({
     'code-editor': true,
     [className]: className,
   })
+  const editorWrapCl = cx({
+    'code-editor__editor_wrap': true,
+    'code-editor__editor_error': isError,
+  })
   const editorsCl = cx({
     'code-editor__textareas': true,
+  })
+  const editorLabelCl = cx({
+    'hint-text': true,
+    'code-editor__editor-label': true,
+    'hint-text_error': isError,
   })
   const actionsCl = cx({
     'code-editor__actions': true,
@@ -180,8 +192,8 @@ function CodeEditor(props) {
   return (
     <div className={classNames}>
       <div className={editorsCl}>
-        <div className="code-editor__editor_wrap">
-          <span>Запрос:</span>
+        <div className={editorWrapCl}>
+          <span className={editorLabelCl}>Запрос:</span>
           <textarea
             name="request"
             autoComplete="off"
@@ -194,8 +206,8 @@ function CodeEditor(props) {
         >
           <DragIconComponent className={dragIconCl} />
         </div>
-        <div className="code-editor__editor_wrap">
-          <span>Ответ:</span>
+        <div className={editorWrapCl}>
+          <span className={editorLabelCl}>Ответ:</span>
           <textarea
             name="response"
             autoComplete="off"

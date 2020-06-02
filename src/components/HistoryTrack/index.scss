@@ -7,7 +7,15 @@
   opacity: 1;
   transition: all 1s ease;
   height: 52px;
+  min-height: 52px;
   overflow-y: hidden;
+}
+
+.requests-history_hide {
+  height: 0px;
+  min-height: 0px;
+  padding: 0;
+  opacity: 0;
 }
 
 .request-history__list-reset {
@@ -40,12 +48,6 @@
 // They cross dropdown
 .requests-history_increase-stack {
   z-index: 3;
-}
-
-.requests-history_hide {
-  height: 0px;
-  padding: 0;
-  opacity: 0;
 }
 
 .requests-history__list-item + .requests-history__list-item {
