@@ -202,3 +202,7 @@ export const deleteRequestAction = (reqId) => (
   requestsHistory.removeRequest(reqId)
   dispatch(setHistory(requestsHistory.serialize()))
 }
+
+export const removeHistoryAction = () => (dispatch) => {
+  dispatch(setHistory(initialState.history))
+}

@@ -4,5 +4,9 @@ export default (res = {}) => {
     return true
   }
 
+  if (res.id === 'error/auth/failed') {
+    return true
+  }
+
   return false
 }

@@ -1,21 +1,35 @@
+@import 'styles/colors';
+@import 'styles/border';
 
-.CodeEditor--textareas {
-  display: flex;
-  flex-flow: row nowrap;
-
-  .CodeMirror {
-    flex-grow: 1;
-    max-width: 50%;
-  }
+.code-editor {
+  z-index: 0;
+  position: relative;
+  background-color: $white;
 }
 
-.CodeEditor--actions {
+.code-editor__actions {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
 }
 
-.code-editor_position {
-  z-index: 0;
-  position: relative;
+.code-editor__textareas {
+  padding: 10px 15px;
+  display: flex;
+  flex-flow: row nowrap;
 }
+
+.CodeMirror {
+  @include border();
+}
+
+.code-editor__separator {
+  display: flex;
+  align-items: center;
+  cursor: ew-resize;
+}
+
+.code-editor__separator-icon {
+  width: 10px;
+}
+

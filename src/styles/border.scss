@@ -12,6 +12,19 @@
     outline: none;
   }
 }
+// used for codemirror styling
+@mixin border() {
+  border-radius: 5px;
+  border: 1px solid $borderBlack;
+
+  &:hover {
+    border-color: $borderHover;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
 
 .border_error {
   border: 1px solid $errorRed;

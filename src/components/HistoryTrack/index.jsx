@@ -5,16 +5,15 @@ import cx from 'classnames'
 
 import IconButton from 'elements/IconButton'
 import HistoryObject from './HistoryObject'
-import { selectHistory } from 'flux/modules/requests'
+import { selectHistory, removeHistoryAction } from 'flux/modules/requests'
 import { ReactComponent as CrossIconComponent } from 'assets/cross.svg'
 
 import './index.scss'
 
 function HistoryTrack(props) {
-  const { requestsHistory } = props
+  const { requestsHistory, removeHistory} = props
 
   const isRequestsHistory = requestsHistory.length > 0
-
 
   const classNames = cx({
     'requests-history': true,
@@ -50,7 +49,7 @@ function HistoryTrack(props) {
       </ul>
 
       <div className={removeItemCl}>
-        <IconButton icon={CrossIconComponent} mode="transparent" direction="right" />
+        <IconButton onClick={removeHistory} icon={CrossIconComponent} mode="transparent" direction="right" />
       </div>
     </div>
   )
@@ -64,10 +63,15 @@ HistoryTrack.propTypes = {
       response: T.object.isRequired,
     })
   ).isRequired,
+  removeHistory: T.func.isRequired,
+}
+
+const mapDispatchToProps = {
+  removeHistory: removeHistoryAction,
 }
 
 const mapStateToProps = (state) => ({
   requestsHistory: selectHistory(state),
 })
 
-export default connect(mapStateToProps)(HistoryTrack)
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryTrack)
