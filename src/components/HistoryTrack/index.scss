@@ -19,11 +19,12 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  padding-top: 10px;
-  padding-bottom: 22px;
+  padding-top: 0px;
+  padding-bottom: 6px;
   padding-left: 15px;
   margin-bottom: -22px;
-  height: 60px;
+  margin-top: -5px;
+  height: 66px;
   overflow-x: scroll;
   overflow-y: hidden;
 }
