@@ -16,7 +16,7 @@ import {
   selectIsLoading,
 } from 'flux/modules/requests'
 import { isResponseError } from 'helpers'
-import { ReactComponent as DragIconComponent } from 'assets/separator.svg'
+import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
 import { ReactComponent as FormatIconComponent } from 'assets/format.svg'
 
 import './index.scss'

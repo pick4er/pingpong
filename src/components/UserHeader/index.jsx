@@ -1,15 +1,41 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 
 import IconButton from 'elements/IconButton'
 import LogoIcon from 'assets/logo.svg'
 import { ReactComponent as LogoutIconComponent } from 'assets/logout.svg'
 import { ReactComponent as FullScreenIconComponent } from 'assets/fullscreen.svg'
+import { ReactComponent as SmallScreenIconComponent } from 'assets/smallscreen.svg'
 import UserCredentialsTile from './UserCredentialsTile'
 
 import './index.scss'
 
 function UserHeader() {
+  const [isFullscreen, setIsFullscreen] = useState(false)
+
+  const toggleFullScreen = () => {
+    if (isFullscreen && document.fullscreenElement) {
+      document.exitFullscreen()
+      setIsFullscreen(false)
+    } else if (!isFullscreen && !document.fullscreenElement && document.fullscreenEnabled) {
+      document.documentElement.requestFullscreen()
+      setIsFullscreen(true)
+    }
+  }
+
+  useEffect(() => {
+    const onFullscreen = () => {
+      if (isFullscreen && !document.fullscreenElement) {
+        setIsFullscreen(false)
+      }
+    }
+
+    document.addEventListener('fullscreenchange', onFullscreen)
+    return () => {
+      document.removeEventListener('fullscreenchange', onFullscreen)
+    }
+  }, [isFullscreen, setIsFullscreen])
+
   const classNames = cx({
     'user-header': true,
     'border-separator_bottom': true,
@@ -19,7 +45,6 @@ function UserHeader() {
     'header-text': true,
     'header-text_s': true,
   })
-
   const iconButtonCl = cx({
     'button-text_normal': true,
     'user-header__logout-icon-button': true,
@@ -45,13 +70,13 @@ function UserHeader() {
       >
         Выйти
       </IconButton>
-
-      <IconButton
-        icon={FullScreenIconComponent}
-        direction="right"
-        mode="transparent"
-        className="user-header__full-screen-button"
-      />
+<IconButton
+                    icon={isFullscreen ? SmallScreenIconComponent : FullScreenIconComponent}
+                    direction="right"
+                    mode="transparent"
+                    onClick={toggleFullScreen}
+                    className="user-header__full-screen-button"
+                  />
     </div>
   )
 }
