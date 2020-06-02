@@ -31,7 +31,7 @@ function TileList(props) {
     deleteRequest(id)
   }
 
-  const classNames = cx(['list-styles-reset', 'tile-list'])
+  const classNames = cx(['list-styles-reset', 'tile-list', 'shadow'])
   const buttonCl = cx({
     'button-styles-reset': true,
     'tile-list__button': true,
@@ -47,16 +47,6 @@ function TileList(props) {
     <ul className={classNames}>
       <li>
         <button
-          onClick={onCopy}
-          type="button"
-          className={actionButtonCl}
-        >
-          Скопировать
-        </button>
-      </li>
-
-      <li>
-        <button
           onClick={onExec}
           type="button"
           className={actionButtonCl}
@@ -66,6 +56,17 @@ function TileList(props) {
       </li>
 
       <li>
+        <button
+          onClick={onCopy}
+          type="button"
+          className={actionButtonCl}
+        >
+          Скопировать
+        </button>
+      </li>
+
+      <li>
+        <div className="list-separator_middle" />
         <button
           onClick={onDelete}
           type="button"
