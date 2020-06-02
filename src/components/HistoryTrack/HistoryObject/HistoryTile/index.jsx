@@ -1,14 +1,16 @@
 import React from 'react'
 import T from 'prop-types'
+import cx from 'classnames'
 import { connect } from 'react-redux'
+
+import Notification from 'elements/Notification'
+import { NotificationTypes } from 'dictionary'
+import { getRequestAction, isResponseError } from 'helpers'
+import { selectCopyNotification } from 'flux/modules/notifications'
 
 import { ReactComponent as SuccessBadgeIcon } from 'assets/successbadge.svg'
 import { ReactComponent as ErrorBadgeIcon } from 'assets/errorbadge.svg'
 import { ReactComponent as SeparatorIcon } from 'assets/separator.svg'
-
-import { selectCopyNotification } from 'flux/modules/notifications'
-import { NotificationTypes } from 'dictionary'
-import { getRequestAction, isResponseError } from 'helpers'
 
 import './index.scss'
 
@@ -22,29 +24,47 @@ function HistoryTile(props) {
     copyNotification,
   } = props
 
+  const isNotification = copyNotification.id &&
+        copyNotification.id === id
+
   const onClick = () => {
     setIsOpen(!isOpen)
   }
+
+  const classNames = cx({
+    'shadow': true,
+    'history-tile': true,
+    'tile-button_white': true,
+    'tile-button_size-s': true,
+    'history-tile_fit-notification': isNotification,
+  })
+  const requestTextCl = cx({
+    'request-action-text': true,
+    'history-tile__action-text': true,
+  })
+
+  const notificationCl = cx({
+    'history-tile_notification': true,
+    'notification-animation_s': true,
+    'hide': !isNotification,
+  })
 
   return (
     <button
       onClick={onClick}
       type="button"
-      className="history-tile shadow"
+      className={classNames}
     >
       {isResponseError(response) ? (
         <ErrorBadgeIcon className="history-tile__status_badge" />
       ) : (
         <SuccessBadgeIcon className="history-tile__status_badge" />
       )}
-      <div className="request-action-text">
+      <div className={requestTextCl}>
         {getRequestAction(request)}
       </div>
       <SeparatorIcon className="history-tile__separator" />
-      {copyNotification.id &&
-        copyNotification.id === id && (
-          <div>{copyNotification.message}</div>
-        )}
+      <Notification notification={copyNotification} size="s" className={notificationCl} />
     </button>
   )
 }

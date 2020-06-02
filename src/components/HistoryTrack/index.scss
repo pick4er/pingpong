@@ -7,6 +7,7 @@
   height: 50px;
   opacity: 1;
   transition: all 1s ease;
+  position: relative;
 }
 
 // CodeMirror has z-index: 2 and position: relative lines.
@@ -24,4 +25,13 @@
 
 .requests-history__list-item + .requests-history__list-item {
   margin-left: 10px;
+}
+
+.history-track__remove-list-item {
+  display: flex;
+  padding: 0px 13px;
+  top: 0px;
+  bottom: 0px;
+  position: absolute;
+  right: 0px;
 }

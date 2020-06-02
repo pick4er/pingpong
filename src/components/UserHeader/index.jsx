@@ -47,6 +47,7 @@ function UserHeader() {
       </IconButton>
 
       <IconButton
+        withOutline={false}
         icon={FullScreenIconComponent}
         direction="right"
         mode="transparent"

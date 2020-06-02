@@ -9,8 +9,6 @@
   }
 
   &:focus {
-    @include outline($blueOutline, 31px);
-
     .icon-button__icon {
       @include svgFill($blue);
     }
@@ -20,6 +18,12 @@
     .icon-button__icon {
       @include svgFill($deepBlue);
     }
+  }
+}
+
+.icon-button_with-outline {
+  &:focus {
+    @include outline($blueOutline, 31px);
   }
 }
 

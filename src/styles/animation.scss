@@ -1,9 +1,14 @@
 
-@keyframes notification_animation {
+@keyframes notification_animation_l {
   0%   { transform: translate(0, 0); opacity: 1; height: 70px; }
   80%   { transform: translate(0, -100px); opacity: 0; height: 70px; }
   90%   { transform: translate(0, -100px); opacity: 0; height: 40px; }
   100%  { transform: translate(0, -100px); opacity: 0; height: 0px; margin-top: -41px; }
+}
+
+@keyframes notification_animation_s {
+  0%   { transform: translate(0, 0); opacity: 1; height: 20px; }
+  100%   { transform: translate(0, -20px); opacity: 0; height: 20px; }
 }
 
 @keyframes loading_animation {
@@ -15,8 +20,12 @@
   }
 }
 
-.notification-animation {
-  animation: notification_animation 1s linear 5s 1 normal forwards;
+.notification-animation_l {
+  animation: notification_animation_l 1s linear 5s 1 normal forwards;
+}
+
+.notification-animation_s {
+  animation: notification_animation_s 0.5s linear 2s 1 normal forwards;
 }
 
 .loading-animation {

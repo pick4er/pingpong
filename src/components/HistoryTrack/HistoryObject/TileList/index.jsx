@@ -14,6 +14,7 @@ import './index.scss'
 function TileList(props) {
   const {
     id,
+    setIsOpen,
     execRequest,
     copyRequest,
     deleteRequest,
@@ -21,14 +22,17 @@ function TileList(props) {
 
   const onCopy = () => {
     copyRequest(id)
+    setIsOpen(false)
   }
 
   const onExec = () => {
     execRequest(id)
+    setIsOpen(false)
   }
 
   const onDelete = () => {
     deleteRequest(id)
+    setIsOpen(false)
   }
 
   const classNames = cx(['list-styles-reset', 'tile-list', 'shadow'])
@@ -79,7 +83,12 @@ function TileList(props) {
   )
 }
 
+TileList.defaultProps = {
+  setIsOpen: () => {},
+}
+
 TileList.propTypes = {
+  setIsOpen: T.func,
   copyRequest: T.func.isRequired,
   id: T.string.isRequired,
   deleteRequest: T.func.isRequired,

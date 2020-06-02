@@ -115,7 +115,7 @@ export const notifyAboutCopy = (notification) => (
       setCopyNotification(initialState.copyNotification)
     )
     dispatch(setCopyTimer(undefined))
-  }, 2000)
+  }, 3000)
 
   dispatch(setCopyTimer(timerId))
 }

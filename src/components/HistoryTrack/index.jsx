@@ -3,8 +3,10 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 
-import { selectHistory } from 'flux/modules/requests'
+import IconButton from 'elements/IconButton'
 import HistoryObject from './HistoryObject'
+import { selectHistory } from 'flux/modules/requests'
+import { ReactComponent as CrossIconComponent } from 'assets/cross.svg'
 
 import './index.scss'
 
@@ -18,6 +20,10 @@ function HistoryTrack(props) {
     // for soft transition on delete
     'requests-history_hide': requestsHistory.length === 0,
     'border-separator_bottom': requestsHistory.length > 0,
+  })
+  const removeItemCl = cx({
+    'history-track__remove-list-item': true,
+    'border-separator_left': true,
   })
 
   return (
@@ -34,6 +40,9 @@ function HistoryTrack(props) {
           />
         </li>
       ))}
+      <li className={removeItemCl}>
+        <IconButton withOutline={false} icon={CrossIconComponent} mode="transparent" direction="right" />
+      </li>
     </ul>
   )
 }

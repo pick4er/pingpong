@@ -5,6 +5,10 @@
   background-color: $backgroundErrorRed;
 }
 
+.info-background {
+  background-color: $backgroundGray;
+}
+
 /* GRADIENT */
 .gradient-background_blue {
   background: linear-gradient($gradientBlueFrom, $gradientBlueTo);

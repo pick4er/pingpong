@@ -16,11 +16,13 @@ function Notification(props) {
     notification: { type, title, message },
     className,
     withIcon,
+    size,
   } = props
 
   const classNames = cx({
     notification: true,
     hide: !type,
+    [`notification_size-${size}`]: size,
     [`${type}-background`]: type,
     [className]: className,
   })
@@ -38,7 +40,7 @@ function Notification(props) {
   return (
     <div className={classNames}>
       {withIcon && (
-        <img src={icons[type]} alt={`${type}_icon`} />
+        <img className="notification__icon" src={icons[type]} alt={`${type}_icon`} />
       )}
       <div className="notification__content">
         {title && <h5 className={titleCl}>{title}</h5>}
@@ -55,11 +57,13 @@ Notification.defaultProps = {
     title: '',
     message: '',
   },
+  size: 'l',
   className: '',
 }
 
 Notification.propTypes = {
   withIcon: T.bool,
+  size: T.oneOf(['s', 'm', 'l']),
   notification: T.shape({
     type: T.oneOf(Object.values(NotificationTypes)),
     title: T.string,

@@ -23,7 +23,7 @@ function HistoryObject(props) {
           id={id}
         />
       )}
-      listComponent={() => <TileList id={id} />}
+      listComponent={() => <TileList id={id} setIsOpen={setIsOpen} />}
     />
   )
 }

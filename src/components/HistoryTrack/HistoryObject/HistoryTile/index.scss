@@ -4,11 +4,19 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  background-color: $white;
-  border: none;
-  cursor: pointer;
-  padding: 5px 10px;
-  border-radius: 5px;
+  position: relative;
+  min-width: 90px;
+  overflow: hidden;
+  transition: min-width 2s ease;
+}
+
+.history-tile__action-text {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.history-tile_fit-notification {
+  min-width: 105px;
 }
 
 .history-tile__status_badge {
@@ -17,4 +25,8 @@
 
 .history-tile__separator {
   margin-left: 5px;
+}
+
+.history-tile_notification {
+  position: absolute;
 }

@@ -16,10 +16,12 @@ function IconButton(props) {
     mode,
     type,
     onClick,
+    withOutline,
   } = props
 
   const classNames = cx({
     'icon-button': true,
+    'icon-button_with-outline': withOutline,
     [className]: className,
   })
 
@@ -28,6 +30,7 @@ function IconButton(props) {
       type={type}
       onClick={onClick}
       mode={mode}
+      withOutline={withOutline}
       className={classNames}
     >
       <span className="icon-button__content">
@@ -52,6 +55,7 @@ IconButton.defaultProps = {
   mode: ButtonModes.blue,
   children: '',
   isLoading: false,
+  withOutline: true,
   type: 'button',
   onClick: () => {},
 }
@@ -59,6 +63,7 @@ IconButton.defaultProps = {
 IconButton.propTypes = {
   className: T.string,
   icon: T.any.isRequired,
+  withOutline: T.bool,
   children: T.elementType,
   direction: T.oneOf(['left', 'right']).isRequired,
   mode: T.oneOf(Object.values(ButtonModes)),

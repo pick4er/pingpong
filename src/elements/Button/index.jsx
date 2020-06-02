@@ -17,6 +17,7 @@ function Button(props) {
     mode,
     isDisabled,
     className,
+    withOutline,
   } = props
 
   // TODO: cleanup
@@ -32,6 +33,7 @@ function Button(props) {
       mode === ButtonModes.Transparent,
     background_transparent:
       mode === ButtonModes.Transparent,
+    'button_with-outline': withOutline,
     button_disabled: isDisabled,
     'gradient-background_disabled': isDisabled,
     'gradient-background_blue': mode === ButtonModes.Blue,
@@ -53,6 +55,7 @@ function Button(props) {
 Button.defaultProps = {
   onClick: () => {},
   className: '',
+  withOutline: true,
   mode: ButtonModes.blue,
   isLoading: false,
   type: 'button',
@@ -66,6 +69,7 @@ Button.propTypes = {
   isLoading: T.bool,
   isDisabled: T.bool,
   children: T.node,
+  withOutline: T.bool,
   mode: T.oneOf(Object.values(ButtonModes)),
   type: T.oneOf(['submit', 'button', 'reset']),
 }
