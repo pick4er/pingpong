@@ -47,11 +47,10 @@ function UserHeader() {
       </IconButton>
 
       <IconButton
-        withOutline={false}
         icon={FullScreenIconComponent}
         direction="right"
         mode="transparent"
-        className={iconButtonCl}
+        className='user-header__full-screen-button'
       />
     </div>
   )

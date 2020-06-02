@@ -41,7 +41,7 @@ function HistoryTrack(props) {
         </li>
       ))}
       <li className={removeItemCl}>
-        <IconButton withOutline={false} icon={CrossIconComponent} mode="transparent" direction="right" />
+        <IconButton icon={CrossIconComponent} mode="transparent" direction="right" />
       </li>
     </ul>
   )

@@ -19,6 +19,8 @@ function IconButton(props) {
     withOutline,
   } = props
 
+  const iconOnly = !children
+
   const classNames = cx({
     'icon-button': true,
     'icon-button_with-outline': withOutline,
@@ -28,8 +30,8 @@ function IconButton(props) {
   return (
     <Button
       type={type}
-      onClick={onClick}
       mode={mode}
+      onClick={onClick}
       withOutline={withOutline}
       className={classNames}
     >

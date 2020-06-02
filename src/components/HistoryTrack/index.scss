@@ -29,7 +29,10 @@
 
 .history-track__remove-list-item {
   display: flex;
-  padding: 0px 13px;
+  align-items: center;
+  justify-content: center;
+  padding-right: 11px;
+  padding-left: 11px;
   top: 0px;
   bottom: 0px;
   position: absolute;

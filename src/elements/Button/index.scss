@@ -5,7 +5,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  padding: 0;
+  padding: 10px;
 }
 
 .button_disabled {
@@ -22,8 +22,6 @@
 }
 
 .button_with-outline {
-  padding: 0 10px;
-
   &:focus {
     @include outline($blueOutline);
   }

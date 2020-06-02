@@ -2,6 +2,8 @@
 @import 'styles/mixins';
 
 .icon-button {
+  padding: 4px;
+
   &:hover {
     .icon-button__icon {
       @include svgFill($blue);
@@ -23,7 +25,7 @@
 
 .icon-button_with-outline {
   &:focus {
-    @include outline($blueOutline, 31px);
+    @include outline($blueOutline, 32px);
   }
 }
 

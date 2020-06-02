@@ -3,41 +3,44 @@ import T from 'prop-types'
 import cx from 'classnames'
 
 import Loader from 'elements/Loader'
-import { ButtonModes } from 'dictionary'
+import { ButtonModes as Modes } from 'dictionary'
 
 import './index.scss'
 
 function Button(props) {
   const {
-    isLoading,
     text,
     type,
+    mode,
     onClick,
     children,
-    mode,
+    isLoading,
     isDisabled,
     className,
     withOutline,
   } = props
 
-  // TODO: cleanup
+  const isTransparent = mode === Modes.Transparent
+  const isBlue = mode === Modes.Blue
+
   const classNames = cx({
-    button: true,
-    'button-text_white': true,
-    'button-text': true,
-    button_blue: mode === ButtonModes.Blue,
-    button_red: mode === ButtonModes.Red,
-    button_transparent: mode === ButtonModes.Transparent,
-    'button-text_black': mode === ButtonModes.Transparent,
-    'button-text_blue-active':
-      mode === ButtonModes.Transparent,
-    background_transparent:
-      mode === ButtonModes.Transparent,
+    /* service */
+    'button': true,
     'button_with-outline': withOutline,
-    button_disabled: isDisabled,
-    'gradient-background_disabled': isDisabled,
-    'gradient-background_blue': mode === ButtonModes.Blue,
+    'button_disabled': isDisabled,
+    'button_transparent': isTransparent,
     [className]: className,
+
+    /* text */
+    'button-text': true,
+    'button-text_white': !isTransparent,
+    'button-text_black': isTransparent,
+    'button-text_blue-active': isTransparent,
+
+    /* background */
+    'gradient-background_blue': isBlue,
+    'gradient-background_disabled': isDisabled,
+    'background_transparent': isTransparent,
   })
 
   return (
@@ -56,7 +59,7 @@ Button.defaultProps = {
   onClick: () => {},
   className: '',
   withOutline: true,
-  mode: ButtonModes.blue,
+  mode: Modes.blue,
   isLoading: false,
   type: 'button',
   children: '',
@@ -70,7 +73,7 @@ Button.propTypes = {
   isDisabled: T.bool,
   children: T.node,
   withOutline: T.bool,
-  mode: T.oneOf(Object.values(ButtonModes)),
+  mode: T.oneOf(Object.values(Modes)),
   type: T.oneOf(['submit', 'button', 'reset']),
 }
 
