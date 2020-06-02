@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import T from 'prop-types'
+import { connect } from 'react-redux'
 import cx from 'classnames'
 
+import { logoutAction } from 'flux/modules/user'
 import IconButton from 'elements/IconButton'
 import LogoIcon from 'assets/logo.svg'
 import { ReactComponent as LogoutIconComponent } from 'assets/logout.svg'
@@ -10,14 +13,20 @@ import UserCredentialsTile from './UserCredentialsTile'
 
 import './index.scss'
 
-function UserHeader() {
+function UserHeader(props) {
   const [isFullscreen, setIsFullscreen] = useState(false)
+
+  const { logout } = props
 
   const toggleFullScreen = () => {
     if (isFullscreen && document.fullscreenElement) {
       document.exitFullscreen()
       setIsFullscreen(false)
-    } else if (!isFullscreen && !document.fullscreenElement && document.fullscreenEnabled) {
+    } else if (
+      !isFullscreen &&
+      !document.fullscreenElement &&
+      document.fullscreenEnabled
+    ) {
       document.documentElement.requestFullscreen()
       setIsFullscreen(true)
     }
@@ -30,9 +39,15 @@ function UserHeader() {
       }
     }
 
-    document.addEventListener('fullscreenchange', onFullscreen)
+    document.addEventListener(
+      'fullscreenchange',
+      onFullscreen
+    )
     return () => {
-      document.removeEventListener('fullscreenchange', onFullscreen)
+      document.removeEventListener(
+        'fullscreenchange',
+        onFullscreen
+      )
     }
   }, [isFullscreen, setIsFullscreen])
 
@@ -66,19 +81,32 @@ function UserHeader() {
         icon={LogoutIconComponent}
         direction="right"
         mode="transparent"
+        onClick={logout}
         className={iconButtonCl}
       >
         Выйти
       </IconButton>
-<IconButton
-                    icon={isFullscreen ? SmallScreenIconComponent : FullScreenIconComponent}
-                    direction="right"
-                    mode="transparent"
-                    onClick={toggleFullScreen}
-                    className="user-header__full-screen-button"
-                  />
+      <IconButton
+        icon={
+          isFullscreen
+            ? SmallScreenIconComponent
+            : FullScreenIconComponent
+        }
+        direction="right"
+        mode="transparent"
+        onClick={toggleFullScreen}
+        className="user-header__full-screen-button"
+      />
     </div>
   )
 }
 
-export default UserHeader
+UserHeader.propTypes = {
+  logout: T.func.isRequired,
+}
+
+const mapDispatchToProps = {
+  logout: logoutAction,
+}
+
+export default connect(null, mapDispatchToProps)(UserHeader)

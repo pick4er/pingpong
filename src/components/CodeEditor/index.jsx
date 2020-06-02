@@ -46,6 +46,7 @@ function initCodeEditor(requestDomEl, responseDomEl) {
     selfContain: false,
   })
   requestEditor.setSize('100%', null)
+  // eslint-disable-next-line no-param-reassign
   requestDomEl.parentElement.style.width = '50%'
 
   responseEditor = CodeMirror.fromTextArea(responseDomEl, {
@@ -60,6 +61,7 @@ function initCodeEditor(requestDomEl, responseDomEl) {
     styleSelectedText: true,
   })
   responseEditor.setSize('100%', null)
+  // eslint-disable-next-line no-param-reassign
   responseDomEl.parentElement.style.width = '50%'
 }
 
@@ -89,11 +91,9 @@ function CodeEditor(props) {
       const responseWrapDomEl =
         responseTextareaDomEl.parentElement
 
-      const requestWidth = requestWrapDomEl
-        .getBoundingClientRect()
+      const requestWidth = requestWrapDomEl.getBoundingClientRect()
         .width
-      const responseWidth = responseWrapDomEl
-        .getBoundingClientRect()
+      const responseWidth = responseWrapDomEl.getBoundingClientRect()
         .width
 
       const prevLeft = dragDomEl.getBoundingClientRect()
@@ -102,7 +102,10 @@ function CodeEditor(props) {
 
       const nextRequestWidth = requestWidth - shift
       const nextResponseWidth = responseWidth + shift
-      if (nextRequestWidth < 100 || nextResponseWidth < 100) {
+      if (
+        nextRequestWidth < 100 ||
+        nextResponseWidth < 100
+      ) {
         return
       }
 

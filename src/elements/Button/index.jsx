@@ -24,10 +24,10 @@ function Button(props) {
 
   const classNames = cx({
     /* service */
-    'button': true,
+    button: true,
     'button_with-outline': withOutline,
-    'button_disabled': isDisabled,
-    'button_transparent': isTransparent,
+    button_disabled: isDisabled,
+    button_transparent: isTransparent,
     [className]: className,
 
     /* text */

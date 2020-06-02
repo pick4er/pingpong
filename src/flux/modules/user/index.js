@@ -11,6 +11,7 @@ const SET_ERROR = 'USER/SET_ERROR'
 const SET_TOKEN = 'USER/SET_TOKEN'
 const SET_LOGIN = 'USER/SET_LOGIN'
 const SET_SUBLOGIN = 'USER/SET_SUBLOGIN'
+const RESET_STATE = 'USER/RESET_STATE'
 
 const initialState = {
   isLoading: false,
@@ -49,6 +50,10 @@ export default function reducer(
       return {
         ...state,
         token: payload,
+      }
+    case RESET_STATE:
+      return {
+        ...initialState,
       }
     default:
       return state
@@ -114,6 +119,11 @@ export const setSublogin = (payload) => ({
   payload,
 })
 
+export const resetState = (payload) => ({
+  type: RESET_STATE,
+  payload,
+})
+
 // Middleware
 export const loginAction = (credentials) => async (
   dispatch,
@@ -123,6 +133,7 @@ export const loginAction = (credentials) => async (
   const isLoading = selectIsLoading(getState())
 
   if (isLoading) {
+    // show notification may be?
     return
   }
 
@@ -151,4 +162,9 @@ export const loginAction = (credentials) => async (
 
     Cookies.set(TOKEN_KEY, sendsay.session)
   }
+}
+
+export const logoutAction = () => (dispatch) => {
+  dispatch(resetState())
+  Cookies.expire(TOKEN_KEY)
 }
