@@ -12,6 +12,7 @@ function HistoryObject(props) {
 
   return (
     <Dropdown
+      isRelative={false}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       triggerComponent={() => (

@@ -19,8 +19,6 @@ function IconButton(props) {
     withOutline,
   } = props
 
-  const iconOnly = !children
-
   const classNames = cx({
     'icon-button': true,
     'icon-button_with-outline': withOutline,

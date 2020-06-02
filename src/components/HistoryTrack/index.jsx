@@ -13,13 +13,19 @@ import './index.scss'
 function HistoryTrack(props) {
   const { requestsHistory } = props
 
+  const isRequestsHistory = requestsHistory.length > 0
+
+
   const classNames = cx({
     'requests-history': true,
     'requests-history_increase-stack': true,
-    'list-styles-reset': true,
     // for soft transition on delete
-    'requests-history_hide': requestsHistory.length === 0,
-    'border-separator_bottom': requestsHistory.length > 0,
+    'requests-history_hide': !isRequestsHistory,
+    'border-separator_bottom': isRequestsHistory,
+  })
+  const listCl = cx({
+    'list-styles-reset': true,
+    'requests-history__list': true,
   })
   const removeItemCl = cx({
     'history-track__remove-list-item': true,
@@ -27,23 +33,26 @@ function HistoryTrack(props) {
   })
 
   return (
-    <ul className={classNames}>
-      {requestsHistory.map(({ id, request, response }) => (
-        <li
-          key={id}
-          className="requests-history__list-item"
-        >
-          <HistoryObject
-            id={id}
-            request={request}
-            response={response}
-          />
-        </li>
-      ))}
-      <li className={removeItemCl}>
+    <div className={classNames}>
+      <ul className={listCl}>
+        {requestsHistory.map(({ id, request, response }) => (
+          <li
+            key={id}
+            className="requests-history__list-item"
+          >
+            <HistoryObject
+              id={id}
+              request={request}
+              response={response}
+            />
+          </li>
+        ))}
+      </ul>
+
+      <div className={removeItemCl}>
         <IconButton icon={CrossIconComponent} mode="transparent" direction="right" />
-      </li>
-    </ul>
+      </div>
+    </div>
   )
 }
 

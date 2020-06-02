@@ -1,20 +1,27 @@
+@import 'styles/colors';
 
 .requests-history {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  padding: 10px 15px;
-  height: 50px;
   opacity: 1;
   transition: all 1s ease;
-  position: relative;
 }
 
-// CodeMirror has z-index: 2 and position: relative lines.
+.requests-history__list {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding: 10px 15px;
+  height: 50px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+// CodeMirror has z-index: 2 lines.
 // They cross dropdown
 .requests-history_increase-stack {
   z-index: 3;
-  position: relative;
 }
 
 .requests-history_hide {
@@ -30,11 +37,9 @@
 .history-track__remove-list-item {
   display: flex;
   align-items: center;
+  background-color: $backgroundGray;
   justify-content: center;
-  padding-right: 11px;
-  padding-left: 11px;
-  top: 0px;
-  bottom: 0px;
-  position: absolute;
-  right: 0px;
+  padding-right: 10px;
+  padding-left: 10px;
+  height: 50px;
 }
