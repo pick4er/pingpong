@@ -24,7 +24,7 @@ import 'codemirror/mode/javascript/javascript'
 import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/lint/lint'
 import 'codemirror/addon/lint/json-lint'
-import 'codemirror/addon/selection/mark-selection.js'
+import 'codemirror/addon/selection/mark-selection'
 
 window.jsonlint = jsonlint
 
@@ -64,7 +64,12 @@ function CodeEditor(props) {
   const requestTextareaEl = useRef(null)
   const responseTextareaEl = useRef(null)
 
-  const { requestText, responseText, makeRequest, className } = props
+  const {
+    requestText,
+    responseText,
+    makeRequest,
+    className,
+  } = props
 
   useEffect(() => {
     const dragDomEl = dragEl.current
@@ -73,13 +78,18 @@ function CodeEditor(props) {
     const responseTextareaDomEl = responseTextareaEl.current
 
     const onMouseMove = ($event) => {
-      const requestEditorDomEl = requestTextareaDomEl.nextElementSibling
-      const responseEditorDomEl = responseTextareaDomEl.nextElementSibling
+      const requestEditorDomEl =
+        requestTextareaDomEl.nextElementSibling
+      const responseEditorDomEl =
+        responseTextareaDomEl.nextElementSibling
 
-      const requestWidth = requestEditorDomEl.getBoundingClientRect().width
-      const responseWidth = responseEditorDomEl.getBoundingClientRect().width
+      const requestWidth = requestEditorDomEl.getBoundingClientRect()
+        .width
+      const responseWidth = responseEditorDomEl.getBoundingClientRect()
+        .width
 
-      const prevLeft = dragDomEl.getBoundingClientRect().left
+      const prevLeft = dragDomEl.getBoundingClientRect()
+        .left
       const shift = prevLeft - $event.clientX
 
       const nextRequestWidth = requestWidth - shift
@@ -89,22 +99,25 @@ function CodeEditor(props) {
       responseEditor.setSize(nextResponseWidth, null)
     }
 
-    const onMouseDown = () => {
-      document.body.style.cursor = 'ew-resize'
-      document.addEventListener('mousemove', onMouseMove)
-      document.addEventListener('mouseup', onMouseUp)
-    }
-
     const onMouseUp = () => {
       document.body.style.cursor = 'default'
       document.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('mouseup', onMouseUp)
     }
 
+    const onMouseDown = () => {
+      document.body.style.cursor = 'ew-resize'
+      document.addEventListener('mousemove', onMouseMove)
+      document.addEventListener('mouseup', onMouseUp)
+    }
+
     dragDomEl.ondragstart = () => false
     dragDomEl.addEventListener('mousedown', onMouseDown)
     return () => {
-      dragDomEl.removeEventListener('mousedown', onMouseDown)
+      dragDomEl.removeEventListener(
+        'mousedown',
+        onMouseDown
+      )
     }
   }, [])
 
@@ -141,14 +154,14 @@ function CodeEditor(props) {
 
   const classNames = cx({
     'code-editor': true,
-    [className]: className
+    [className]: className,
   })
   const editorsCl = cx({
     'code-editor__textareas': true,
   })
   const actionsCl = cx({
     'code-editor__actions': true,
-    'border-separator_top': true
+    'border-separator_top': true,
   })
 
   return (
@@ -159,7 +172,10 @@ function CodeEditor(props) {
           autoComplete="off"
           ref={requestTextareaEl}
         />
-        <div ref={dragEl} className="code-editor__separator">
+        <div
+          ref={dragEl}
+          className="code-editor__separator"
+        >
           <DragIconComponent className="code-editor__separator-icon" />
         </div>
         <textarea
@@ -170,17 +186,25 @@ function CodeEditor(props) {
       </div>
 
       <div className={actionsCl}>
-        <Button type="button" onClick={onRequest} mode="blue">
+        <Button
+          type="button"
+          onClick={onRequest}
+          mode="blue"
+        >
           Отправить
         </Button>
 
-        <Link
-          href="https://github.com/pick4er"
-        >
+        <Link href="https://github.com/pick4er">
           @pick4er
         </Link>
 
-        <IconButton icon={FormatIconComponent} type="button" onClick={onBeautify} mode="transparent" direction="left">
+        <IconButton
+          icon={FormatIconComponent}
+          type="button"
+          onClick={onBeautify}
+          mode="transparent"
+          direction="left"
+        >
           Форматировать
         </IconButton>
       </div>

@@ -31,6 +31,7 @@ Link.defaultProps = {
 Link.propTypes = {
   children: T.elementType.isRequired,
   href: T.string.isRequired,
+  className: T.string,
 }
 
 export default Link

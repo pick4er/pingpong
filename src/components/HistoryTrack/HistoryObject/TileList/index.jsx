@@ -35,7 +35,11 @@ function TileList(props) {
     setIsOpen(false)
   }
 
-  const classNames = cx(['list-styles-reset', 'tile-list', 'shadow'])
+  const classNames = cx([
+    'list-styles-reset',
+    'tile-list',
+    'shadow',
+  ])
   const buttonCl = cx({
     'button-styles-reset': true,
     'tile-list__button': true,

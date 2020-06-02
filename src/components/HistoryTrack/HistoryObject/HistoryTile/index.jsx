@@ -24,15 +24,15 @@ function HistoryTile(props) {
     copyNotification,
   } = props
 
-  const isNotification = copyNotification.id &&
-        copyNotification.id === id
+  const isNotification =
+    copyNotification.id && copyNotification.id === id
 
   const onClick = () => {
     setIsOpen(!isOpen)
   }
 
   const classNames = cx({
-    'shadow': true,
+    shadow: true,
     'history-tile': true,
     'tile-button_white': true,
     'tile-button_size-s': true,
@@ -46,7 +46,7 @@ function HistoryTile(props) {
   const notificationCl = cx({
     'history-tile_notification': true,
     'notification-animation_s': true,
-    'hide': !isNotification,
+    hide: !isNotification,
   })
 
   return (
@@ -64,7 +64,11 @@ function HistoryTile(props) {
         {getRequestAction(request)}
       </div>
       <SeparatorIcon className="history-tile__separator" />
-      <Notification notification={copyNotification} size="s" className={notificationCl} />
+      <Notification
+        notification={copyNotification}
+        size="s"
+        className={notificationCl}
+      />
     </button>
   )
 }

@@ -40,7 +40,11 @@ function Notification(props) {
   return (
     <div className={classNames}>
       {withIcon && (
-        <img className="notification__icon" src={icons[type]} alt={`${type}_icon`} />
+        <img
+          className="notification__icon"
+          src={icons[type]}
+          alt={`${type}_icon`}
+        />
       )}
       <div className="notification__content">
         {title && <h5 className={titleCl}>{title}</h5>}

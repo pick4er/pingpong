@@ -112,6 +112,8 @@ function LoginForm(props) {
     } else if (!isFormError && !isError) {
       loginUser(data)
     }
+
+    return undefined
   }
 
   const classNames = cx({

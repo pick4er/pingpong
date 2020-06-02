@@ -6,9 +6,10 @@ import './index.scss'
 
 const validate = (value, validators, setError, error) => {
   let nextError
-  validators.find(
-    (validator) => (nextError = validator(value))
-  )
+  validators.find((validator) => {
+    nextError = validator(value)
+    return !!nextError
+  })
 
   if (nextError) {
     setError(nextError)

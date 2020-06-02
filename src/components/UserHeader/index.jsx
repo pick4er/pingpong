@@ -50,7 +50,7 @@ function UserHeader() {
         icon={FullScreenIconComponent}
         direction="right"
         mode="transparent"
-        className='user-header__full-screen-button'
+        className="user-header__full-screen-button"
       />
     </div>
   )

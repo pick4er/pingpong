@@ -9,7 +9,6 @@ import './index.scss'
 
 function Button(props) {
   const {
-    text,
     type,
     mode,
     onClick,
@@ -25,10 +24,10 @@ function Button(props) {
 
   const classNames = cx({
     /* service */
-    'button': true,
+    button: true,
     'button_with-outline': withOutline,
-    'button_disabled': isDisabled,
-    'button_transparent': isTransparent,
+    button_disabled: isDisabled,
+    button_transparent: isTransparent,
     [className]: className,
 
     /* text */
@@ -40,17 +39,17 @@ function Button(props) {
     /* background */
     'gradient-background_blue': isBlue,
     'gradient-background_disabled': isDisabled,
-    'background_transparent': isTransparent,
+    background_transparent: isTransparent,
   })
 
   return (
     <button
-      type={type}
+      type={type} // eslint-disable-line react/button-has-type
       onClick={onClick}
       disabled={isDisabled}
       className={classNames}
     >
-      {isLoading ? <Loader /> : children || text}
+      {isLoading ? <Loader /> : children}
     </button>
   )
 }

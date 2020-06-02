@@ -11,7 +11,7 @@ function computeListStyle(isOpen, triggerEl) {
 
     return {
       top: coords.bottom,
-      left: coords.left
+      left: coords.left,
     }
   }
 
@@ -44,7 +44,7 @@ function Dropdown(props) {
       }
     }
 
-    const wheelListener = ($event) => {
+    const wheelListener = () => {
       if (isOpen) {
         setIsOpen(false)
       }
@@ -62,12 +62,12 @@ function Dropdown(props) {
   const listStyle = computeListStyle(isOpen, triggerDomEl)
 
   const classNames = cx({
-    'dropdown': true,
-    'dropdown__relative': isRelative
+    dropdown: true,
+    dropdown_relative: isRelative,
   })
 
   return (
-    <div id={`dropdown-${id}`} className="dropdown">
+    <div id={`dropdown-${id}`} className={classNames}>
       <div ref={triggerRef}>
         <TriggerComponent />
       </div>
@@ -85,7 +85,7 @@ function Dropdown(props) {
 }
 
 Dropdown.defaultProps = {
-  isRelative: true
+  isRelative: true,
 }
 
 Dropdown.propTypes = {

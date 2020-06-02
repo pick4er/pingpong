@@ -54,7 +54,6 @@ IconButton.defaultProps = {
   className: '',
   mode: ButtonModes.blue,
   children: '',
-  isLoading: false,
   withOutline: true,
   type: 'button',
   direction: 'left',
@@ -63,7 +62,7 @@ IconButton.defaultProps = {
 
 IconButton.propTypes = {
   className: T.string,
-  icon: T.any.isRequired,
+  icon: T.elementType.isRequired,
   withOutline: T.bool,
   children: T.elementType,
   direction: T.oneOf(['left', 'right']),
