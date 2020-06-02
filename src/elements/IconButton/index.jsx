@@ -57,6 +57,7 @@ IconButton.defaultProps = {
   isLoading: false,
   withOutline: true,
   type: 'button',
+  direction: 'left',
   onClick: () => {},
 }
 
@@ -65,7 +66,7 @@ IconButton.propTypes = {
   icon: T.any.isRequired,
   withOutline: T.bool,
   children: T.elementType,
-  direction: T.oneOf(['left', 'right']).isRequired,
+  direction: T.oneOf(['left', 'right']),
   mode: T.oneOf(Object.values(ButtonModes)),
   type: T.oneOf(['submit', 'button', 'reset']),
   onClick: T.func,

@@ -6,12 +6,16 @@ import CodeMirror from 'codemirror'
 import beautify from 'js-beautify'
 import jsonlint from 'jsonlint-mod'
 
+import Button from 'elements/Button'
+import IconButton from 'elements/IconButton'
+import Link from 'elements/Link'
 import {
   selectRequest,
   selectResponse,
   requestAction,
 } from 'flux/modules/requests'
 import { ReactComponent as DragIconComponent } from 'assets/separator.svg'
+import { ReactComponent as FormatIconComponent } from 'assets/format.svg'
 
 import './index.scss'
 import 'codemirror/lib/codemirror.css'
@@ -29,6 +33,7 @@ let responseEditor
 function initCodeEditor(requestEl, responseEl) {
   requestEditor = CodeMirror.fromTextArea(requestEl, {
     mode: { name: 'javascript', json: true },
+    theme: 'editor',
     lineWrapping: true,
     scrollbarStyle: null,
     autoCloseBrackets: true,
@@ -45,7 +50,8 @@ function initCodeEditor(requestEl, responseEl) {
       name: 'javascript',
       json: true,
     },
-    readOnly: true,
+    theme: 'editor-response',
+    readOnly: 'nocursor',
     lineWrapping: true,
     scrollbarStyle: null,
     styleSelectedText: true,
@@ -58,7 +64,7 @@ function CodeEditor(props) {
   const requestTextareaEl = useRef(null)
   const responseTextareaEl = useRef(null)
 
-  const { requestText, responseText, makeRequest } = props
+  const { requestText, responseText, makeRequest, className } = props
 
   useEffect(() => {
     const dragDomEl = dragEl.current
@@ -84,11 +90,13 @@ function CodeEditor(props) {
     }
 
     const onMouseDown = () => {
+      document.body.style.cursor = 'ew-resize'
       document.addEventListener('mousemove', onMouseMove)
       document.addEventListener('mouseup', onMouseUp)
     }
 
     const onMouseUp = () => {
+      document.body.style.cursor = 'default'
       document.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('mouseup', onMouseUp)
     }
@@ -131,15 +139,20 @@ function CodeEditor(props) {
     }
   }
 
+  const classNames = cx({
+    'code-editor': true,
+    [className]: className
+  })
   const editorsCl = cx({
     'code-editor__textareas': true,
   })
   const actionsCl = cx({
-    'code-editor__actions': true
+    'code-editor__actions': true,
+    'border-separator_top': true
   })
 
   return (
-    <div className="code-editor">
+    <div className={classNames}>
       <div className={editorsCl}>
         <textarea
           name="request"
@@ -157,21 +170,33 @@ function CodeEditor(props) {
       </div>
 
       <div className={actionsCl}>
-        <button type="button" onClick={onRequest}>
-          Request
-        </button>
-        <button type="button" onClick={onBeautify}>
-          Beautify
-        </button>
+        <Button type="button" onClick={onRequest} mode="blue">
+          Отправить
+        </Button>
+
+        <Link
+          href="https://github.com/pick4er"
+        >
+          @pick4er
+        </Link>
+
+        <IconButton icon={FormatIconComponent} type="button" onClick={onBeautify} mode="transparent" direction="left">
+          Форматировать
+        </IconButton>
       </div>
     </div>
   )
+}
+
+CodeEditor.defaultProps = {
+  className: '',
 }
 
 CodeEditor.propTypes = {
   requestText: T.string.isRequired,
   responseText: T.string.isRequired,
   makeRequest: T.func.isRequired,
+  className: T.string,
 }
 
 const mapStateToProps = (state) => ({

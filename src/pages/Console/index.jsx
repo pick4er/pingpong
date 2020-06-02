@@ -11,7 +11,7 @@ function ConsolePage() {
     <div className="console-page">
       <UserHeader />
       <HistoryTrack />
-      <CodeEditor />
+      <CodeEditor className="console-page__code-editor" />
     </div>
   )
 }
