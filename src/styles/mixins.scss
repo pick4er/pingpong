@@ -28,3 +28,10 @@
     stroke: $color;
   }
 }
+
+@mixin svgSize($width: 30px, $height: 30px) {
+  svg {
+    width: $width;
+    height: $height;
+  }
+}
