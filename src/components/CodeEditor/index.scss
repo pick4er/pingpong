@@ -14,3 +14,8 @@
   flex-flow: row nowrap;
   justify-content: space-between;
 }
+
+.code-editor_position {
+  z-index: 0;
+  position: relative;
+}

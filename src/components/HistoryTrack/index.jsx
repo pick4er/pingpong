@@ -24,8 +24,8 @@ function HistoryTrack(props) {
     'border-separator_bottom': isRequestsHistory,
   })
   const listCl = cx({
-    'list-styles-reset': true,
     'requests-history__list': true,
+    'request-history__list-reset': true
   })
   const removeItemCl = cx({
     'history-track__remove-list-item': true,

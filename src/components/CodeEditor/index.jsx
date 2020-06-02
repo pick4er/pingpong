@@ -84,7 +84,7 @@ function CodeEditor(props) {
   }
 
   return (
-    <div>
+    <div className="code-editor_position">
       <div className="CodeEditor--textareas">
         <textarea
           name="request"
