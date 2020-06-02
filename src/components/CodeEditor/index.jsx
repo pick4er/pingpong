@@ -13,6 +13,7 @@ import {
   selectRequest,
   selectResponse,
   requestAction,
+  selectIsLoading,
 } from 'flux/modules/requests'
 import { ReactComponent as DragIconComponent } from 'assets/separator.svg'
 import { ReactComponent as FormatIconComponent } from 'assets/format.svg'
@@ -30,8 +31,8 @@ window.jsonlint = jsonlint
 
 let requestEditor
 let responseEditor
-function initCodeEditor(requestEl, responseEl) {
-  requestEditor = CodeMirror.fromTextArea(requestEl, {
+function initCodeEditor(requestDomEl, responseDomEl) {
+  requestEditor = CodeMirror.fromTextArea(requestDomEl, {
     mode: { name: 'javascript', json: true },
     theme: 'editor',
     lineWrapping: true,
@@ -43,9 +44,10 @@ function initCodeEditor(requestEl, responseEl) {
     },
     selfContain: false,
   })
-  requestEditor.setSize('50%', null)
+  requestEditor.setSize('100%', null)
+  requestDomEl.parentElement.style.width = '50%'
 
-  responseEditor = CodeMirror.fromTextArea(responseEl, {
+  responseEditor = CodeMirror.fromTextArea(responseDomEl, {
     mode: {
       name: 'javascript',
       json: true,
@@ -56,7 +58,8 @@ function initCodeEditor(requestEl, responseEl) {
     scrollbarStyle: null,
     styleSelectedText: true,
   })
-  responseEditor.setSize('50%', null)
+  responseEditor.setSize('100%', null)
+  responseDomEl.parentElement.style.width = '50%'
 }
 
 function CodeEditor(props) {
@@ -69,6 +72,7 @@ function CodeEditor(props) {
     responseText,
     makeRequest,
     className,
+    isLoading,
   } = props
 
   useEffect(() => {
@@ -78,14 +82,17 @@ function CodeEditor(props) {
     const responseTextareaDomEl = responseTextareaEl.current
 
     const onMouseMove = ($event) => {
-      const requestEditorDomEl =
-        requestTextareaDomEl.nextElementSibling
-      const responseEditorDomEl =
-        responseTextareaDomEl.nextElementSibling
+      const requestWrapDomEl =
+        requestTextareaDomEl.parentElement
 
-      const requestWidth = requestEditorDomEl.getBoundingClientRect()
+      const responseWrapDomEl =
+        responseTextareaDomEl.parentElement
+
+      const requestWidth = requestWrapDomEl
+        .getBoundingClientRect()
         .width
-      const responseWidth = responseEditorDomEl.getBoundingClientRect()
+      const responseWidth = responseWrapDomEl
+        .getBoundingClientRect()
         .width
 
       const prevLeft = dragDomEl.getBoundingClientRect()
@@ -93,10 +100,13 @@ function CodeEditor(props) {
       const shift = prevLeft - $event.clientX
 
       const nextRequestWidth = requestWidth - shift
-      requestEditor.setSize(nextRequestWidth, null)
-
       const nextResponseWidth = responseWidth + shift
-      responseEditor.setSize(nextResponseWidth, null)
+      if (nextRequestWidth < 100 || nextResponseWidth < 100) {
+        return
+      }
+
+      requestWrapDomEl.style.width = `${nextRequestWidth}px`
+      responseWrapDomEl.style.width = `${nextResponseWidth}px`
     }
 
     const onMouseUp = () => {
@@ -163,33 +173,44 @@ function CodeEditor(props) {
     'code-editor__actions': true,
     'border-separator_top': true,
   })
+  const dragIconCl = cx({
+    'code-editor__separator-icon': true,
+  })
 
   return (
     <div className={classNames}>
       <div className={editorsCl}>
-        <textarea
-          name="request"
-          autoComplete="off"
-          ref={requestTextareaEl}
-        />
+        <div className="code-editor__editor_wrap">
+          <span>Запрос:</span>
+          <textarea
+            name="request"
+            autoComplete="off"
+            ref={requestTextareaEl}
+          />
+        </div>
         <div
           ref={dragEl}
           className="code-editor__separator"
         >
-          <DragIconComponent className="code-editor__separator-icon" />
+          <DragIconComponent className={dragIconCl} />
         </div>
-        <textarea
-          name="response"
-          autoComplete="off"
-          ref={responseTextareaEl}
-        />
+        <div className="code-editor__editor_wrap">
+          <span>Ответ:</span>
+          <textarea
+            name="response"
+            autoComplete="off"
+            ref={responseTextareaEl}
+          />
+        </div>
       </div>
 
       <div className={actionsCl}>
         <Button
+          mode="blue"
           type="button"
           onClick={onRequest}
-          mode="blue"
+          isLoading={isLoading}
+          className="code-editor__request-button"
         >
           Отправить
         </Button>
@@ -214,18 +235,21 @@ function CodeEditor(props) {
 
 CodeEditor.defaultProps = {
   className: '',
+  isLoading: false,
 }
 
 CodeEditor.propTypes = {
   requestText: T.string.isRequired,
   responseText: T.string.isRequired,
   makeRequest: T.func.isRequired,
+  isLoading: T.bool,
   className: T.string,
 }
 
 const mapStateToProps = (state) => ({
   requestText: selectRequest(state),
   responseText: selectResponse(state),
+  isLoading: selectIsLoading(state),
 })
 
 const mapDispatchToProps = {

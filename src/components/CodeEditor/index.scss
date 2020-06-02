@@ -18,11 +18,20 @@
   padding-right: 11px;
 }
 
+.code-editor__request-button {
+  width: 110px;
+}
+
 .code-editor__textareas {
   padding: 10px 15px;
   display: flex;
   flex-flow: row nowrap;
   flex-grow: 1;
+}
+
+.code-editor__editor_wrap {
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .cm-s-editor-response,
