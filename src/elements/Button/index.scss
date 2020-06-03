@@ -27,10 +27,3 @@
     @include outline($blueOutline);
   }
 }
-
-.button_transition {
-  transition: 
-    background .3s ease,
-    color .3s ease,
-    opacity .3s ease;
-}

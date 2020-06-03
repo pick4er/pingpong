@@ -1,6 +1,6 @@
 import isProduction from './isProduction'
 import getResponseError from './getResponseError'
-import isResponseError from './isResponseError'
+import checkIsResponseError from './checkIsResponseError'
 import pluralizeWord from './pluralizeWord'
 import deepClone from './deepClone'
 import getRandomId from './getRandomId'
@@ -11,7 +11,7 @@ import getRequestAction from './getRequestAction'
 
 export {
   getRandomId,
-  isResponseError,
+  checkIsResponseError,
   getResponseError,
   pluralizeWord,
   isProduction,

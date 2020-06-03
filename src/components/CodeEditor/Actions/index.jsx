@@ -11,6 +11,7 @@ import './index.scss'
 
 function CodeEditorActions(props) {
   const {
+    isError,
     isLoading,
     onRequest,
     onBeautify,
@@ -28,6 +29,7 @@ function CodeEditorActions(props) {
       <Button
         mode="blue"
         type="button"
+        isDisabled={isError}
         onClick={onRequest}
         isLoading={isLoading}
         className="code-editor__request-button"
@@ -55,11 +57,13 @@ function CodeEditorActions(props) {
 CodeEditorActions.defaultProps = {
   className: '',
   isLoading: false,
+  isError: false,
 }
 
 CodeEditorActions.propTypes = {
   className: T.string,
   isLoading: T.bool,
+  isError: T.bool,
   onRequest: T.func.isRequired,
   onBeautify: T.func.isRequired,
 }

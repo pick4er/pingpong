@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 import { connect } from 'react-redux'
@@ -19,7 +19,7 @@ import {
   selectRequestWidth,
   selectResponseWidth,
 } from 'flux/modules/user'
-import { isResponseError } from 'helpers'
+import { checkIsResponseError } from 'helpers'
 import { MIN_TEXTAREA_WIDTH } from 'dictionary'
 import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
 import Textarea from './Textarea'
@@ -36,25 +36,28 @@ import 'codemirror/addon/lint/lint.css'
 
 window.jsonlint = jsonlint
 
-let requestEditor
-let responseEditor
 function initCodeEditor(
   requestDomEl,
   responseDomEl,
   requestWidth,
-  responseWidth
+  responseWidth,
+  setRequestEditor,
+  setResponseEditor
 ) {
-  requestEditor = CodeMirror.fromTextArea(requestDomEl, {
-    mode: { name: 'javascript', json: true },
-    theme: 'textarea',
-    lineWrapping: true,
-    autoCloseBrackets: true,
-    lint: {
-      lintOnChange: false,
-      selfContain: true,
-    },
-    selfContain: false,
-  })
+  const requestEditor = CodeMirror.fromTextArea(
+    requestDomEl,
+    {
+      mode: { name: 'javascript', json: true },
+      theme: 'textarea',
+      lineWrapping: true,
+      autoCloseBrackets: true,
+      lint: {
+        lintOnChange: true,
+        selfContain: false,
+      },
+      selfContain: false,
+    }
+  )
   requestEditor.setSize('100%', null)
   // eslint-disable-next-line no-param-reassign
   requestDomEl.parentElement.style.width =
@@ -62,22 +65,28 @@ function initCodeEditor(
       ? `${requestWidth}px`
       : requestWidth
 
-  responseEditor = CodeMirror.fromTextArea(responseDomEl, {
-    mode: {
-      name: 'javascript',
-      json: true,
-    },
-    theme: 'textarea',
-    readOnly: 'nocursor',
-    lineWrapping: true,
-    styleSelectedText: true,
-  })
+  const responseEditor = CodeMirror.fromTextArea(
+    responseDomEl,
+    {
+      mode: {
+        name: 'javascript',
+        json: true,
+      },
+      theme: 'textarea',
+      readOnly: 'nocursor',
+      lineWrapping: true,
+      styleSelectedText: true,
+    }
+  )
   responseEditor.setSize('100%', null)
   // eslint-disable-next-line no-param-reassign
   responseDomEl.parentElement.style.width =
     typeof responseWidth === 'number'
       ? `${responseWidth}px`
       : responseWidth
+
+  setRequestEditor(requestEditor)
+  setResponseEditor(responseEditor)
 }
 
 function getEditorsSizes(
@@ -107,10 +116,21 @@ function getEditorsSizes(
   }
 }
 
+function getEditorErrors(editorInstance) {
+  editorInstance.performLint()
+
+  const value = editorInstance.getValue()
+  return CodeMirror.lint.json(value) || []
+}
+
 function CodeEditor(props) {
   const dragEl = useRef(null)
   const requestTextareaEl = useRef(null)
   const responseTextareaEl = useRef(null)
+
+  const [requestEditor, setRequestEditor] = useState(null)
+  const [responseEditor, setResponseEditor] = useState(null)
+  const [isLintError, setIsLintError] = useState(false)
 
   const {
     requestText,
@@ -124,6 +144,7 @@ function CodeEditor(props) {
     saveResponseWidth,
   } = props
 
+  // INIT
   useEffect(() => {
     if (requestEditor || responseEditor) {
       return
@@ -133,19 +154,58 @@ function CodeEditor(props) {
       requestTextareaEl.current,
       responseTextareaEl.current,
       savedRequestWidth,
-      savedResponseWidth
+      savedResponseWidth,
+      setRequestEditor,
+      setResponseEditor
     )
-  }, [savedRequestWidth, savedResponseWidth])
+  }, [
+    savedRequestWidth,
+    savedResponseWidth,
+    setRequestEditor,
+    setResponseEditor,
+    requestEditor,
+    responseEditor,
+  ])
 
+  // ATTACH ERROR LISTENERS
   useEffect(() => {
+    if (!requestEditor) {
+      return () => {}
+    }
+
+    const onChanges = debounce(() => {
+      const isNextLintError =
+        getEditorErrors(requestEditor).length > 0
+      if (isNextLintError === isLintError) {
+        return
+      }
+
+      setIsLintError(isNextLintError)
+    }, 1000)
+
+    requestEditor.on('changes', onChanges)
+    return () => {
+      requestEditor.off('changes', onChanges)
+    }
+  }, [requestEditor, setIsLintError, isLintError])
+
+  // RESTORE FROM HISTORY
+  useEffect(() => {
+    if (!requestEditor) {
+      return
+    }
+
     requestEditor.setValue(beautify(requestText))
-  }, [requestText])
-
+  }, [requestText, requestEditor])
   useEffect(() => {
-    responseEditor.setValue(beautify(responseText))
-  }, [responseText])
+    if (!responseEditor) {
+      return
+    }
 
-  // MOUSE MOVE
+    responseEditor.setValue(beautify(responseText))
+  }, [responseText, responseEditor])
+
+  // RESIZE ON MOUSE MOVE
   useEffect(() => {
     const dragDomEl = dragEl.current
 
@@ -201,10 +261,10 @@ function CodeEditor(props) {
     }
   }, [saveRequestWidth, saveResponseWidth])
 
-  // WINDOW RESIZE
+  // RESIZE ON WINDOW RESIZE
   useEffect(() => {
     const paddingOffset = 12 * 2 // right and left
-    const borderOffset = (1 + 1) * 2 // right and left for two editors
+    const borderOffset = (1 + 1) * 2 // right and left for two textareas
     const dragOffset = 10
     const widthOffset =
       paddingOffset + borderOffset + dragOffset
@@ -252,16 +312,12 @@ function CodeEditor(props) {
   }
 
   const onRequest = () => {
-    requestEditor.performLint()
-
-    const value = requestEditor.getValue()
-    const errors = CodeMirror.lint.json(value)
-    if (errors.length === 0) {
-      makeRequest(JSON.parse(value))
+    if (getEditorErrors(requestEditor).length === 0) {
+      makeRequest(JSON.parse(requestEditor.getValue()))
     }
   }
 
-  const isError = isResponseError(responseText)
+  const isResponseError = checkIsResponseError(responseText)
 
   const classNames = cx({
     'code-editor': true,
@@ -269,7 +325,7 @@ function CodeEditor(props) {
   })
   const editorTextareaCl = cx({
     'code-editor__textarea': true,
-    'code-editor__editor_error': isError,
+    'code-editor__editor_error': isResponseError,
   })
   const dragIconCl = cx({
     'code-editor__drag-icon': true,
@@ -283,7 +339,7 @@ function CodeEditor(props) {
           ref={requestTextareaEl}
           label="Запрос:"
           name="request"
-          isError={isError}
+          isError={isResponseError}
         />
         <div ref={dragEl} className="code-editor__drag">
           <DragIconComponent className={dragIconCl} />
@@ -293,11 +349,12 @@ function CodeEditor(props) {
           ref={responseTextareaEl}
           label="Ответ:"
           name="response"
-          isError={isError}
+          isError={isResponseError}
         />
       </div>
       <Actions
         className="code-editor__actions"
+        isError={isLintError}
         isLoading={isLoading}
         onRequest={onRequest}
         onBeautify={onBeautify}

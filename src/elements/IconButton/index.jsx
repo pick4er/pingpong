@@ -33,7 +33,6 @@ function IconButton(props) {
 
   return (
     <Button
-      withTransition={false}
       type={type}
       mode={mode}
       textClassName={textClassName}

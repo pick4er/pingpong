@@ -5,7 +5,10 @@ import { connect } from 'react-redux'
 
 import Notification from 'elements/Notification'
 import { NotificationTypes } from 'dictionary'
-import { getRequestAction, isResponseError } from 'helpers'
+import {
+  getRequestAction,
+  checkIsResponseError,
+} from 'helpers'
 import { selectCopyNotification } from 'flux/modules/notifications'
 
 import { ReactComponent as SuccessBadgeIcon } from 'assets/successbadge.svg'
@@ -56,7 +59,7 @@ function HistoryTile(props) {
       type="button"
       className={classNames}
     >
-      {isResponseError(response) ? (
+      {checkIsResponseError(response) ? (
         <ErrorBadgeIcon className="history-tile__status_badge" />
       ) : (
         <SuccessBadgeIcon className="history-tile__status_badge" />
