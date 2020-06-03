@@ -16,6 +16,7 @@ function Button(props) {
     isLoading,
     isDisabled,
     className,
+    textClassName,
     withOutline,
     withTransition,
   } = props
@@ -37,6 +38,7 @@ function Button(props) {
     'button-text_white': !isTransparent,
     'button-text_black': isTransparent,
     'button-text_blue-active': isTransparent,
+    [textClassName]: textClassName,
 
     /* background */
     'gradient-background_blue': isBlue,
@@ -59,6 +61,7 @@ function Button(props) {
 Button.defaultProps = {
   onClick: () => {},
   className: '',
+  textClassName: '',
   withTransition: true,
   withOutline: true,
   mode: Modes.blue,
@@ -71,6 +74,7 @@ Button.defaultProps = {
 Button.propTypes = {
   onClick: T.func,
   className: T.string,
+  textClassName: T.string,
   isLoading: T.bool,
   isDisabled: T.bool,
   children: T.node,

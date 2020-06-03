@@ -6,9 +6,7 @@ import { connect } from 'react-redux'
 import Notification from 'elements/Notification'
 import { NotificationTypes } from 'dictionary'
 import { getRequestAction, isResponseError } from 'helpers'
-import {
-  selectCopyNotification,
-} from 'flux/modules/notifications'
+import { selectCopyNotification } from 'flux/modules/notifications'
 
 import { ReactComponent as SuccessBadgeIcon } from 'assets/successbadge.svg'
 import { ReactComponent as ErrorBadgeIcon } from 'assets/errorbadge.svg'

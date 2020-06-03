@@ -6,9 +6,6 @@ import CodeMirror from 'codemirror'
 import beautify from 'js-beautify'
 import jsonlint from 'jsonlint-mod'
 
-import Button from 'elements/Button'
-import IconButton from 'elements/IconButton'
-import Link from 'elements/Link'
 import {
   selectRequest,
   selectResponse,
@@ -18,16 +15,18 @@ import {
 import { isResponseError } from 'helpers'
 import { MIN_EDITOR_WIDTH } from 'dictionary'
 import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
-import { ReactComponent as FormatIconComponent } from 'assets/format.svg'
+import Textarea from './Textarea'
+import Actions from './Actions'
 
-import './index.scss'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/addon/lint/lint.css'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/lint/lint'
 import 'codemirror/addon/lint/json-lint'
 import 'codemirror/addon/selection/mark-selection'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/addon/lint/lint.css'
+
+import './index.scss'
 
 window.jsonlint = jsonlint
 
@@ -36,7 +35,7 @@ let responseEditor
 function initCodeEditor(requestDomEl, responseDomEl) {
   requestEditor = CodeMirror.fromTextArea(requestDomEl, {
     mode: { name: 'javascript', json: true },
-    theme: 'editor',
+    theme: 'textarea',
     lineWrapping: true,
     scrollbarStyle: null,
     autoCloseBrackets: true,
@@ -55,7 +54,7 @@ function initCodeEditor(requestDomEl, responseDomEl) {
       name: 'javascript',
       json: true,
     },
-    theme: 'editor-response',
+    theme: 'textarea',
     readOnly: 'nocursor',
     lineWrapping: true,
     scrollbarStyle: null,
@@ -105,6 +104,22 @@ function CodeEditor(props) {
     isLoading,
   } = props
 
+  useEffect(() => {
+    initCodeEditor(
+      requestTextareaEl.current,
+      responseTextareaEl.current
+    )
+  }, [])
+
+  useEffect(() => {
+    requestEditor.setValue(beautify(requestText))
+  }, [requestText])
+
+  useEffect(() => {
+    responseEditor.setValue(beautify(responseText))
+  }, [responseText])
+
+  // MOUSE MOVE
   useEffect(() => {
     const dragDomEl = dragEl.current
 
@@ -158,6 +173,7 @@ function CodeEditor(props) {
     }
   }, [])
 
+  // WINDOW RESIZE
   useEffect(() => {
     const paddingOffset = 12 * 2 // right and left
     const borderOffset = (1 + 1) * 2 // right and left for two editors
@@ -201,21 +217,6 @@ function CodeEditor(props) {
     }
   }, [])
 
-  useEffect(() => {
-    initCodeEditor(
-      requestTextareaEl.current,
-      responseTextareaEl.current
-    )
-  }, [])
-
-  useEffect(() => {
-    requestEditor.setValue(beautify(requestText))
-  }, [requestText])
-
-  useEffect(() => {
-    responseEditor.setValue(beautify(responseText))
-  }, [responseText])
-
   const onBeautify = () => {
     requestEditor.setValue(
       beautify(requestEditor.getValue())
@@ -238,21 +239,8 @@ function CodeEditor(props) {
     'code-editor': true,
     [className]: className,
   })
-  const editorWrapCl = cx({
-    'code-editor__editor_wrap': true,
+  const editorTextareaCl = cx({
     'code-editor__editor_error': isError,
-  })
-  const editorsCl = cx({
-    'code-editor__textareas': true,
-  })
-  const editorLabelCl = cx({
-    'hint-text': true,
-    'code-editor__editor-label': true,
-    'hint-text_error': isError,
-  })
-  const actionsCl = cx({
-    'code-editor__actions': true,
-    'border-separator_top': true,
   })
   const dragIconCl = cx({
     'code-editor__drag-icon': true,
@@ -260,53 +248,31 @@ function CodeEditor(props) {
 
   return (
     <div className={classNames}>
-      <div className={editorsCl}>
-        <div className={editorWrapCl}>
-          <span className={editorLabelCl}>Запрос:</span>
-          <textarea
-            name="request"
-            autoComplete="off"
-            ref={requestTextareaEl}
-          />
-        </div>
+      <div className="code-editor__textareas">
+        <Textarea
+          className={editorTextareaCl}
+          ref={requestTextareaEl}
+          label="Запрос:"
+          name="request"
+          isError={isError}
+        />
         <div ref={dragEl} className="code-editor__drag">
           <DragIconComponent className={dragIconCl} />
         </div>
-        <div className={editorWrapCl}>
-          <span className={editorLabelCl}>Ответ:</span>
-          <textarea
-            name="response"
-            autoComplete="off"
-            ref={responseTextareaEl}
-          />
-        </div>
+        <Textarea
+          className={editorTextareaCl}
+          ref={responseTextareaEl}
+          label="Ответ:"
+          name="response"
+          isError={isError}
+        />
       </div>
-
-      <div className={actionsCl}>
-        <Button
-          mode="blue"
-          type="button"
-          onClick={onRequest}
-          isLoading={isLoading}
-          className="code-editor__request-button"
-        >
-          Отправить
-        </Button>
-
-        <Link href="https://github.com/pick4er">
-          @pick4er
-        </Link>
-
-        <IconButton
-          icon={FormatIconComponent}
-          type="button"
-          onClick={onBeautify}
-          mode="transparent"
-          direction="left"
-        >
-          Форматировать
-        </IconButton>
-      </div>
+      <Actions
+        className="code-editor__actions"
+        isLoading={isLoading}
+        onRequest={onRequest}
+        onBeautify={onBeautify}
+      />
     </div>
   )
 }

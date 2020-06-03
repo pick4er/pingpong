@@ -10,6 +10,8 @@ import './index.scss'
 function IconButton(props) {
   const {
     className,
+    textClassName,
+    iconClassName,
     icon: IconComponent,
     children,
     direction,
@@ -24,19 +26,24 @@ function IconButton(props) {
     'icon-button_with-outline': withOutline,
     [className]: className,
   })
+  const iconCl = cx({
+    'icon-button__icon': true,
+    [iconClassName]: iconClassName,
+  })
 
   return (
     <Button
       withTransition={false}
       type={type}
       mode={mode}
+      textClassName={textClassName}
       onClick={onClick}
       withOutline={withOutline}
       className={classNames}
     >
       <span className="icon-button__content">
         {direction === 'left' && (
-          <IconComponent className="icon-button__icon" />
+          <IconComponent className={iconCl} />
         )}
         {children && (
           <span className="icon-button__text">
@@ -44,7 +51,7 @@ function IconButton(props) {
           </span>
         )}
         {direction === 'right' && (
-          <IconComponent className="icon-button__icon" />
+          <IconComponent className={iconCl} />
         )}
       </span>
     </Button>
@@ -56,20 +63,24 @@ IconButton.defaultProps = {
   mode: ButtonModes.blue,
   children: '',
   withOutline: true,
+  textClassName: '',
   type: 'button',
   direction: 'left',
+  iconClassName: '',
   onClick: () => {},
 }
 
 IconButton.propTypes = {
-  className: T.string,
-  icon: T.elementType.isRequired,
   withOutline: T.bool,
+  icon: T.elementType.isRequired,
   children: T.elementType,
-  direction: T.oneOf(['left', 'right']),
-  mode: T.oneOf(Object.values(ButtonModes)),
   type: T.oneOf(['submit', 'button', 'reset']),
   onClick: T.func,
+  direction: T.oneOf(['left', 'right']),
+  mode: T.oneOf(Object.values(ButtonModes)),
+  className: T.string,
+  textClassName: T.string,
+  iconClassName: T.string,
 }
 
 export default IconButton

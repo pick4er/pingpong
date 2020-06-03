@@ -1,9 +1,7 @@
 import { createSelector } from 'reselect'
 import { apiRequest } from 'api'
 import { RequestsHistory } from 'helpers'
-import {
-  notifyAboutCopy,
-} from 'flux/modules/notifications'
+import { notifyAboutCopy } from 'flux/modules/notifications'
 import { NotificationTypes } from 'dictionary'
 
 // Actions

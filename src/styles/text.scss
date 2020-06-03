@@ -25,6 +25,10 @@
   font-style: normal;
 }
 
+.button-text_black {
+  color: $textBlack;
+}
+
 .button-text_normal {
   font-weight: normal;
 }
@@ -33,8 +37,8 @@
   color: $white;
 }
 
-.button-text_black {
-  color: $textBlack;
+.button-text_blue {
+  color: $blue;
 }
 
 .button-text_blue-active {

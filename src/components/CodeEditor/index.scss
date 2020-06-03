@@ -1,5 +1,4 @@
 @import 'styles/colors';
-@import 'styles/border';
 
 .code-editor {
   display: flex;
@@ -10,10 +9,6 @@
 }
 
 .code-editor__actions {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
   padding: 15px;
   padding-right: 11px;
 }
@@ -27,37 +22,6 @@
   display: flex;
   flex-flow: row nowrap;
   flex-grow: 1;
-}
-
-.code-editor__editor_wrap {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.code-editor__editor_error {
-  .cm-s-editor-response,
-  .cm-s-editor {
-    @include borderError();
-  }
-}
-
-.code-editor__editor-label {
-  margin-bottom: 3px;
-}
-
-.cm-s-editor-response,
-.cm-s-editor {
-  &.CodeMirror {
-    height: 100%;
-  }
-
-  @include border();
-}
-
-.cm-s-editor-response {
-  &:hover {
-    border: 1px solid $borderBlack;
-  }
 }
 
 .code-editor__drag {

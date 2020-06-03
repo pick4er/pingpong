@@ -44,7 +44,7 @@ function HistoryTrack(props) {
     <div className={classNames}>
       <ul className={listCl}>
         {requestsHistory.map(
-          ({ id, request, response }, index) => {
+          ({ id, request, response }) => {
             const shouldDelete = idToChange === id
 
             const listItemCl = cx({

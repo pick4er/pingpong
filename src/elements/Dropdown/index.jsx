@@ -3,14 +3,11 @@ import T from 'prop-types'
 import cx from 'classnames'
 
 import { getRandomId } from 'helpers'
-import {
-  MAX_LIST_WIDTH,
-  MIN_LIST_WIDTH
-} from 'dictionary'
+import { MAX_LIST_WIDTH, MIN_LIST_WIDTH } from 'dictionary'
 
 import './index.scss'
 
-function computeListStyle(isOpen, triggerDomEl, listDomEl) {
+function computeListStyle(isOpen, triggerDomEl) {
   if (isOpen && triggerDomEl) {
     const triggerCoords = triggerDomEl.getBoundingClientRect()
     const triggerWidth = triggerDomEl.getBoundingClientRect()
