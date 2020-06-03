@@ -175,9 +175,9 @@ export const loginAction = (credentials) => async (
     return
   }
 
-  const { login, account } = credentialsRequest
-  dispatch(setLogin(login))
-  dispatch(setSublogin(account))
+  const { account, sublogin } = credentialsRequest
+  dispatch(setLogin(account))
+  dispatch(setSublogin(sublogin))
   dispatch(setToken(sendsay.session))
 }
 

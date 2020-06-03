@@ -177,7 +177,7 @@ export const requestAction = (req = {}) => async (
   dispatch(addRequestToHistory(req, res))
 }
 
-export const execRequestAction = (reqId) => (
+export const execRequestAction = (reqId) => async (
   dispatch,
   getState
 ) => {
@@ -185,12 +185,14 @@ export const execRequestAction = (reqId) => (
     selectHistory(getState())
   )
   const { request } = requestsHistory.findRequest(reqId)
+  await dispatch(requestAction(request))
 
-  requestsHistory.removeRequest(reqId)
-  dispatch(setHistory(requestsHistory.serialize()))
-
+  const requestsHistoryAfterAction = new RequestsHistory(
+    selectHistory(getState())
+  )
+  requestsHistoryAfterAction.removeRequest(reqId)
+  dispatch(setHistory(requestsHistoryAfterAction.serialize()))
   dispatch(setRequest(JSON.stringify(request)))
-  dispatch(requestAction(request))
 }
 
 export const copyRequestAction = (reqId) => (
