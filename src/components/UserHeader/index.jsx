@@ -18,6 +18,13 @@ function UserHeader(props) {
 
   const { logout } = props
 
+  // INIT FULL SCREEN
+  useEffect(() => {
+    if (document.fullscreenElement) {
+      setIsFullscreen(true)
+    }
+  }, [setIsFullscreen])
+
   const toggleFullScreen = () => {
     if (isFullscreen && document.fullscreenElement) {
       document.exitFullscreen()
