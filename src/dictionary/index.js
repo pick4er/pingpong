@@ -12,6 +12,7 @@ export const NotificationTypes = {
   Error: 'error',
 }
 
-export const MIN_EDITOR_WIDTH = 100
+export const MIN_TEXTAREA_WIDTH = 400
+export const MIN_TEXTAREA_HEIGHT = 400
 export const MAX_LIST_WIDTH = 500
 export const MIN_LIST_WIDTH = 130

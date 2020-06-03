@@ -13,7 +13,10 @@ import {
   selectIsLoading,
 } from 'flux/modules/requests'
 import { isResponseError } from 'helpers'
-import { MIN_EDITOR_WIDTH } from 'dictionary'
+import {
+  MIN_TEXTAREA_WIDTH,
+  MIN_TEXTAREA_HEIGHT,
+} from 'dictionary'
 import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
 import Textarea from './Textarea'
 import Actions from './Actions'
@@ -37,7 +40,6 @@ function initCodeEditor(requestDomEl, responseDomEl) {
     mode: { name: 'javascript', json: true },
     theme: 'textarea',
     lineWrapping: true,
-    scrollbarStyle: null,
     autoCloseBrackets: true,
     lint: {
       lintOnChange: false,
@@ -57,7 +59,6 @@ function initCodeEditor(requestDomEl, responseDomEl) {
     theme: 'textarea',
     readOnly: 'nocursor',
     lineWrapping: true,
-    scrollbarStyle: null,
     styleSelectedText: true,
   })
   responseEditor.setSize('100%', null)
@@ -78,12 +79,17 @@ function getEditorsSizes(
   const responseWrapDomEl =
     responseTextareaDomEl.parentElement
 
-  const requestWidth = requestWrapDomEl.getBoundingClientRect()
-    .width
-  const responseWidth = responseWrapDomEl.getBoundingClientRect()
-    .width
+  const requestRect = requestWrapDomEl.getBoundingClientRect()
+  const requestWidth = requestRect.width
+  const requestHeight = requestRect.height
+
+  const responseRect = responseWrapDomEl.getBoundingClientRect()
+  const responseWidth = responseRect.width
+  const responseHeight = responseRect.height
 
   return {
+    requestHeight,
+    responseHeight,
     requestWidth,
     responseWidth,
     requestWrapDomEl,
@@ -136,13 +142,13 @@ function CodeEditor(props) {
 
       const prevLeft = dragDomEl.getBoundingClientRect()
         .left
-      const shift = prevLeft - $event.clientX
+      const shiftX = prevLeft - $event.clientX
 
-      const nextRequestWidth = requestWidth - shift
-      const nextResponseWidth = responseWidth + shift
+      const nextRequestWidth = requestWidth - shiftX
+      const nextResponseWidth = responseWidth + shiftX
       if (
-        nextRequestWidth < MIN_EDITOR_WIDTH ||
-        nextResponseWidth < MIN_EDITOR_WIDTH
+        nextRequestWidth < MIN_TEXTAREA_WIDTH ||
+        nextResponseWidth < MIN_TEXTAREA_WIDTH
       ) {
         return
       }
@@ -185,6 +191,8 @@ function CodeEditor(props) {
       const {
         requestWidth,
         responseWidth,
+        requestHeight,
+        responseHeight,
         requestWrapDomEl,
         responseWrapDomEl,
       } = getEditorsSizes(
@@ -201,14 +209,22 @@ function CodeEditor(props) {
       const nextResponseWidth =
         editorsWidth - nextRequestWidth
       if (
-        nextRequestWidth < MIN_EDITOR_WIDTH ||
-        nextResponseWidth < MIN_EDITOR_WIDTH
+        nextRequestWidth < MIN_TEXTAREA_WIDTH ||
+        nextResponseWidth < MIN_TEXTAREA_WIDTH
       ) {
         return
       }
 
       requestWrapDomEl.style.width = `${nextRequestWidth}px`
       responseWrapDomEl.style.width = `${nextResponseWidth}px`
+
+      if (requestHeight < MIN_TEXTAREA_HEIGHT) {
+        requestWrapDomEl.style.height = `${MIN_TEXTAREA_HEIGHT}px`
+      }
+
+      if (responseHeight < MIN_TEXTAREA_HEIGHT) {
+        responseWrapDomEl.style.height = `${MIN_TEXTAREA_HEIGHT}px`
+      }
     }
 
     window.addEventListener('resize', onResize)

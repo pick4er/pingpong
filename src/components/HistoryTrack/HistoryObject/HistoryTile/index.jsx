@@ -61,7 +61,8 @@ function HistoryTile(props) {
         <SuccessBadgeIcon className="history-tile__status_badge" />
       )}
       <div className={requestTextCl}>
-        {getRequestAction(request)}
+        {/* eslint-disable-next-line no-template-curly-in-string */}
+        {getRequestAction(request) || '`${нет_действия}`'}
       </div>
       <SeparatorIcon className="history-tile__separator" />
       <Notification
