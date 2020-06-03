@@ -16,6 +16,7 @@ import {
   selectIsLoading,
 } from 'flux/modules/requests'
 import { isResponseError } from 'helpers'
+import { MIN_EDITOR_WIDTH } from 'dictionary'
 import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
 import { ReactComponent as FormatIconComponent } from 'assets/format.svg'
 
@@ -65,7 +66,6 @@ function initCodeEditor(requestDomEl, responseDomEl) {
   responseDomEl.parentElement.style.width = '50%'
 }
 
-const MIN_EDITOR_WIDTH = 100
 function getEditorsSizes(
   requestTextareaEl,
   responseTextareaEl

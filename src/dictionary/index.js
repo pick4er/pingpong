@@ -11,3 +11,7 @@ export const NotificationTypes = {
   Warning: 'warning',
   Error: 'error',
 }
+
+export const MIN_EDITOR_WIDTH = 100
+export const MAX_LIST_WIDTH = 500
+export const MIN_LIST_WIDTH = 130

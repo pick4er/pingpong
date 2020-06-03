@@ -3,7 +3,6 @@ import { apiRequest } from 'api'
 import { RequestsHistory } from 'helpers'
 import {
   notifyAboutCopy,
-  notifyAboutDelete,
 } from 'flux/modules/notifications'
 import { NotificationTypes } from 'dictionary'
 
@@ -239,13 +238,6 @@ export const deleteRequestAction = (reqId) => (
   }
 
   dispatch(setIdToChange(reqId))
-  dispatch(
-    notifyAboutDelete({
-      type: NotificationTypes.Error,
-      message: 'Удалено',
-      id: reqId,
-    })
-  )
 
   const timerId = setTimeout(() => {
     const requestsHistory = new RequestsHistory(

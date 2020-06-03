@@ -1,12 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
+
 import { getRandomId } from 'helpers'
+import {
+  MAX_LIST_WIDTH,
+  MIN_LIST_WIDTH
+} from 'dictionary'
 
 import './index.scss'
 
-const MAX_LIST_WIDTH = 500
-const MIN_LIST_WIDTH = 130
 function computeListStyle(isOpen, triggerDomEl, listDomEl) {
   if (isOpen && triggerDomEl) {
     const triggerCoords = triggerDomEl.getBoundingClientRect()

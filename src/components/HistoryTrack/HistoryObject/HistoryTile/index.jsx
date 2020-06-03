@@ -8,7 +8,6 @@ import { NotificationTypes } from 'dictionary'
 import { getRequestAction, isResponseError } from 'helpers'
 import {
   selectCopyNotification,
-  selectDeleteNotification,
 } from 'flux/modules/notifications'
 
 import { ReactComponent as SuccessBadgeIcon } from 'assets/successbadge.svg'
@@ -24,7 +23,6 @@ function HistoryTile(props) {
     setIsOpen,
     id,
     isOpen,
-    deleteNotification,
     copyNotification,
   } = props
 
@@ -78,10 +76,6 @@ function HistoryTile(props) {
 }
 
 HistoryTile.propTypes = {
-  deleteNotification: T.shape({
-    id: T.string,
-    type: T.oneOf(Object.values(NotificationTypes)),
-  }).isRequired,
   isOpen: T.bool.isRequired,
   request: T.shape({}).isRequired,
   response: T.shape({}).isRequired,
@@ -95,7 +89,6 @@ HistoryTile.propTypes = {
 
 const mapStateToProps = (state) => ({
   copyNotification: selectCopyNotification(state),
-  deleteNotification: selectDeleteNotification(state),
 })
 
 export default connect(mapStateToProps)(HistoryTile)
