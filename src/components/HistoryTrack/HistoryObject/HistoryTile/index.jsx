@@ -53,7 +53,7 @@ function HistoryTile(props) {
   const requestTextCl = cx({
     'request-action-text': true,
     'history-tile__action-text': true,
-    'overflow-ellipsis': true
+    'overflow-ellipsis': true,
   })
 
   const notificationCl = cx({

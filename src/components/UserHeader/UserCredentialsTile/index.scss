@@ -1,6 +1,12 @@
 
 .user-credentials-tile {
   padding: 5px 15px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.user-credentials-tile__text {
+  max-width: 200px;
 }
 
 .user-credentials-tile__separator {

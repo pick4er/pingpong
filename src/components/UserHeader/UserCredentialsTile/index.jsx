@@ -28,9 +28,15 @@ function UserCredentialsTile(props) {
   return (
     <div className={classNames}>
       {login && (
-        <span className="user-credentials-tile__login">
+        <div
+          className={cx([
+            'user-credentials-tile__text',
+            'overflow-ellipsis',
+            'user-credentials-tile__login',
+          ])}
+        >
           {login}
-        </span>
+        </div>
       )}
       {login && sublogin && (
         <img
@@ -40,9 +46,15 @@ function UserCredentialsTile(props) {
         />
       )}
       {sublogin && (
-        <span className="user-credentials-tile__sublogin">
+        <div
+          className={cx([
+            'user-credentials-tile__text',
+            'overflow-ellipsis',
+            'user-credentials-tile__sublogin',
+          ])}
+        >
           {sublogin}
-        </span>
+        </div>
       )}
     </div>
   )

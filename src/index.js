@@ -15,7 +15,8 @@ const App = lazy(
   () =>
     new Promise((resolve) =>
       setTimeout(
-        () => resolve((() => import('App'))()), 200
+        () => resolve((() => import('App'))()),
+        200
       )
     )
 )

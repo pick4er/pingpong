@@ -3,6 +3,7 @@ import Sendsay from 'sendsay-api'
 export const sendsay = new Sendsay()
 
 sendsay.onError((error) => {
+  // eslint-disable-next-line no-param-reassign
   error.isError = true
   throw new Error(JSON.stringify(error))
 })
@@ -25,6 +26,7 @@ export const loginCredentialsRequest = () =>
 
 export const apiRequest = (req = {}) => sendsay.request(req)
 
-export const logout = () => sendsay.request({
-  action: 'logout'
-})
+export const logout = () =>
+  sendsay.request({
+    action: 'logout',
+  })
