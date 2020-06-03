@@ -5,11 +5,20 @@ import { getRandomId } from 'helpers'
 
 import './index.scss'
 
+const MAX_LIST_WIDTH = 500
+const MIN_LIST_WIDTH = 130
 function computeListStyle(isOpen, triggerDomEl, listDomEl) {
   if (isOpen && triggerDomEl) {
     const triggerCoords = triggerDomEl.getBoundingClientRect()
-    const listWidth = listDomEl.getBoundingClientRect().width
+    const triggerWidth = triggerDomEl.getBoundingClientRect().width
     const clientWidth = document.body.clientWidth
+
+    let listWidth = triggerWidth
+    if (triggerWidth > MAX_LIST_WIDTH) {
+      listWidth = MAX_LIST_WIDTH
+    } else if (triggerWidth < MIN_LIST_WIDTH) {
+      listWidth = MIN_LIST_WIDTH
+    }
 
     let top = triggerCoords.bottom
     let left = triggerCoords.left
@@ -24,11 +33,12 @@ function computeListStyle(isOpen, triggerDomEl, listDomEl) {
       top,
       left,
       zIndex,
+      width: listWidth
     }
   }
 
   return {
-    visibility: 'hidden',
+    display: 'none',
   }
 }
 
