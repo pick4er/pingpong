@@ -9,6 +9,7 @@
     "history": "^4.10.1",
     "js-beautify": "^1.11.0",
     "jsonlint-mod": "^1.7.5",
+    "lodash.debounce": "^4.0.8",
     "nanoid": "^3.1.9",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

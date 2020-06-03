@@ -16,6 +16,8 @@ const SET_TOKEN = 'USER/SET_TOKEN'
 const SET_LOGIN = 'USER/SET_LOGIN'
 const SET_SUBLOGIN = 'USER/SET_SUBLOGIN'
 const RESET_STATE = 'USER/RESET_STATE'
+const SET_REQUEST_WIDTH = 'USER/SET_REQUEST_WIDTH'
+const SET_RESPONSE_WIDTH = 'USER/SET_RESPONSE_WIDTH'
 
 const initialState = {
   isLoading: false,
@@ -23,6 +25,8 @@ const initialState = {
   sublogin: '',
   error: undefined,
   token: undefined,
+  requestWidth: undefined,
+  responseWidth: undefined,
 }
 
 export default function reducer(
@@ -34,6 +38,16 @@ export default function reducer(
       return {
         ...state,
         login: payload,
+      }
+    case SET_REQUEST_WIDTH:
+      return {
+        ...state,
+        requestWidth: payload,
+      }
+    case SET_RESPONSE_WIDTH:
+      return {
+        ...state,
+        responseWidth: payload,
       }
     case SET_SUBLOGIN:
       return {
@@ -92,6 +106,16 @@ export const selectToken = createSelector(
   ({ token }) => token
 )
 
+export const selectRequestWidth = createSelector(
+  selectUserModule,
+  ({ requestWidth }) => requestWidth
+)
+
+export const selectResponseWidth = createSelector(
+  selectUserModule,
+  ({ responseWidth }) => responseWidth
+)
+
 export const selectIsAuth = createSelector(
   selectToken,
   (token) => !!token
@@ -128,6 +152,16 @@ export const resetState = (payload) => ({
   payload,
 })
 
+export const setRequestWidth = (payload) => ({
+  type: SET_REQUEST_WIDTH,
+  payload,
+})
+
+export const setResponseWidth = (payload) => ({
+  type: SET_RESPONSE_WIDTH,
+  payload,
+})
+
 // Middleware
 const notifyAboutError = (message) => (dispatch) => {
   const error = JSON.parse(message)
@@ -147,6 +181,7 @@ export const loginAction = (credentials) => async (
   dispatch,
   getState
 ) => {
+  const { sublogin: formSublogin } = credentials
   const isLoading = selectIsLoading(getState())
   if (isLoading) {
     return
@@ -177,7 +212,9 @@ export const loginAction = (credentials) => async (
 
   const { account, sublogin } = credentialsRequest
   dispatch(setLogin(account))
-  dispatch(setSublogin(sublogin))
+  if (formSublogin) {
+    dispatch(setSublogin(sublogin))
+  }
   dispatch(setToken(sendsay.session))
 }
 

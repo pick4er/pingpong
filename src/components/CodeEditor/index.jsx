@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import CodeMirror from 'codemirror'
 import beautify from 'js-beautify'
 import jsonlint from 'jsonlint-mod'
+import debounce from 'lodash.debounce'
 
 import {
   selectRequest,
@@ -12,10 +13,14 @@ import {
   requestAction,
   selectIsLoading,
 } from 'flux/modules/requests'
-import { isResponseError } from 'helpers'
 import {
-  MIN_TEXTAREA_WIDTH,
-} from 'dictionary'
+  setRequestWidth,
+  setResponseWidth,
+  selectRequestWidth,
+  selectResponseWidth,
+} from 'flux/modules/user'
+import { isResponseError } from 'helpers'
+import { MIN_TEXTAREA_WIDTH } from 'dictionary'
 import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
 import Textarea from './Textarea'
 import Actions from './Actions'
@@ -33,7 +38,12 @@ window.jsonlint = jsonlint
 
 let requestEditor
 let responseEditor
-function initCodeEditor(requestDomEl, responseDomEl) {
+function initCodeEditor(
+  requestDomEl,
+  responseDomEl,
+  requestWidth,
+  responseWidth
+) {
   requestEditor = CodeMirror.fromTextArea(requestDomEl, {
     mode: { name: 'javascript', json: true },
     theme: 'textarea',
@@ -47,7 +57,10 @@ function initCodeEditor(requestDomEl, responseDomEl) {
   })
   requestEditor.setSize('100%', null)
   // eslint-disable-next-line no-param-reassign
-  requestDomEl.parentElement.style.width = '50%'
+  requestDomEl.parentElement.style.width =
+    typeof requestWidth === 'number'
+      ? `${requestWidth}px`
+      : requestWidth
 
   responseEditor = CodeMirror.fromTextArea(responseDomEl, {
     mode: {
@@ -61,7 +74,10 @@ function initCodeEditor(requestDomEl, responseDomEl) {
   })
   responseEditor.setSize('100%', null)
   // eslint-disable-next-line no-param-reassign
-  responseDomEl.parentElement.style.width = '50%'
+  responseDomEl.parentElement.style.width =
+    typeof responseWidth === 'number'
+      ? `${responseWidth}px`
+      : responseWidth
 }
 
 function getEditorsSizes(
@@ -102,14 +118,24 @@ function CodeEditor(props) {
     makeRequest,
     className,
     isLoading,
+    savedRequestWidth,
+    savedResponseWidth,
+    saveRequestWidth,
+    saveResponseWidth,
   } = props
 
   useEffect(() => {
+    if (requestEditor || responseEditor) {
+      return
+    }
+
     initCodeEditor(
       requestTextareaEl.current,
-      responseTextareaEl.current
+      responseTextareaEl.current,
+      savedRequestWidth,
+      savedResponseWidth
     )
-  }, [])
+  }, [savedRequestWidth, savedResponseWidth])
 
   useEffect(() => {
     requestEditor.setValue(beautify(requestText))
@@ -149,6 +175,8 @@ function CodeEditor(props) {
 
       requestWrapDomEl.style.width = `${nextRequestWidth}px`
       responseWrapDomEl.style.width = `${nextResponseWidth}px`
+      saveRequestWidth(nextRequestWidth)
+      saveResponseWidth(nextResponseWidth)
     }
 
     const onMouseUp = () => {
@@ -171,7 +199,7 @@ function CodeEditor(props) {
         onMouseDown
       )
     }
-  }, [])
+  }, [saveRequestWidth, saveResponseWidth])
 
   // WINDOW RESIZE
   useEffect(() => {
@@ -206,6 +234,8 @@ function CodeEditor(props) {
       ) {
         requestWrapDomEl.style.width = `${nextRequestWidth}px`
         responseWrapDomEl.style.width = `${nextResponseWidth}px`
+        setRequestWidth(nextResponseWidth)
+        setResponseWidth(nextResponseWidth)
       }
     }
 
@@ -279,6 +309,8 @@ function CodeEditor(props) {
 CodeEditor.defaultProps = {
   className: '',
   isLoading: false,
+  savedRequestWidth: '50%',
+  savedResponseWidth: '50%',
 }
 
 CodeEditor.propTypes = {
@@ -287,17 +319,32 @@ CodeEditor.propTypes = {
   makeRequest: T.func.isRequired,
   isLoading: T.bool,
   className: T.string,
+  saveRequestWidth: T.func.isRequired,
+  saveResponseWidth: T.func.isRequired,
+  savedRequestWidth: T.number,
+  savedResponseWidth: T.number,
 }
 
 const mapStateToProps = (state) => ({
   requestText: selectRequest(state),
   responseText: selectResponse(state),
+  savedRequestWidth: selectRequestWidth(state),
+  savedResponseWidth: selectResponseWidth(state),
   isLoading: selectIsLoading(state),
 })
 
-const mapDispatchToProps = {
-  makeRequest: requestAction,
-}
+const mapDispatchToProps = (dispatch) => ({
+  makeRequest: (requestText) =>
+    dispatch(requestAction(requestText)),
+  saveRequestWidth: debounce(
+    (width) => dispatch(setRequestWidth(width)),
+    1000
+  ),
+  saveResponseWidth: debounce(
+    (width) => dispatch(setResponseWidth(width)),
+    1000
+  ),
+})
 
 export default connect(
   mapStateToProps,

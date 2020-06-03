@@ -51,6 +51,7 @@ function HistoryTile(props) {
 
   return (
     <button
+      disabled={isCopyNotification}
       onClick={onClick}
       type="button"
       className={classNames}

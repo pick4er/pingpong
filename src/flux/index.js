@@ -31,7 +31,12 @@ function create() {
 
   const credentialsPersistConfig = {
     key: 'user',
-    whitelist: ['login', 'sublogin'],
+    whitelist: [
+      'login',
+      'sublogin',
+      'requestWidth',
+      'responseWidth',
+    ],
     storage,
   }
 

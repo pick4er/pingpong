@@ -191,7 +191,9 @@ export const execRequestAction = (reqId) => async (
     selectHistory(getState())
   )
   requestsHistoryAfterAction.removeRequest(reqId)
-  dispatch(setHistory(requestsHistoryAfterAction.serialize()))
+  dispatch(
+    setHistory(requestsHistoryAfterAction.serialize())
+  )
   dispatch(setRequest(JSON.stringify(request)))
 }
 

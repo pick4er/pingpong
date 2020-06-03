@@ -20,6 +20,11 @@ function UserCredentialsTile(props) {
     [className]: className,
   })
 
+  // if credantials in local storage lost
+  if (!login && !sublogin) {
+    return null
+  }
+
   return (
     <div className={classNames}>
       {login && (
