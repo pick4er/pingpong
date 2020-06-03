@@ -15,12 +15,12 @@ import {
 import { isResponseError } from 'helpers'
 import {
   MIN_TEXTAREA_WIDTH,
-  MIN_TEXTAREA_HEIGHT,
 } from 'dictionary'
 import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
 import Textarea from './Textarea'
 import Actions from './Actions'
 
+import './index.scss'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/lint/lint'
@@ -28,8 +28,6 @@ import 'codemirror/addon/lint/json-lint'
 import 'codemirror/addon/selection/mark-selection'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/addon/lint/lint.css'
-
-import './index.scss'
 
 window.jsonlint = jsonlint
 
@@ -81,15 +79,11 @@ function getEditorsSizes(
 
   const requestRect = requestWrapDomEl.getBoundingClientRect()
   const requestWidth = requestRect.width
-  const requestHeight = requestRect.height
 
   const responseRect = responseWrapDomEl.getBoundingClientRect()
   const responseWidth = responseRect.width
-  const responseHeight = responseRect.height
 
   return {
-    requestHeight,
-    responseHeight,
     requestWidth,
     responseWidth,
     requestWrapDomEl,
@@ -191,8 +185,6 @@ function CodeEditor(props) {
       const {
         requestWidth,
         responseWidth,
-        requestHeight,
-        responseHeight,
         requestWrapDomEl,
         responseWrapDomEl,
       } = getEditorsSizes(
@@ -209,21 +201,11 @@ function CodeEditor(props) {
       const nextResponseWidth =
         editorsWidth - nextRequestWidth
       if (
-        nextRequestWidth < MIN_TEXTAREA_WIDTH ||
-        nextResponseWidth < MIN_TEXTAREA_WIDTH
+        nextRequestWidth > MIN_TEXTAREA_WIDTH &&
+        nextResponseWidth > MIN_TEXTAREA_WIDTH
       ) {
-        return
-      }
-
-      requestWrapDomEl.style.width = `${nextRequestWidth}px`
-      responseWrapDomEl.style.width = `${nextResponseWidth}px`
-
-      if (requestHeight < MIN_TEXTAREA_HEIGHT) {
-        requestWrapDomEl.style.height = `${MIN_TEXTAREA_HEIGHT}px`
-      }
-
-      if (responseHeight < MIN_TEXTAREA_HEIGHT) {
-        responseWrapDomEl.style.height = `${MIN_TEXTAREA_HEIGHT}px`
+        requestWrapDomEl.style.width = `${nextRequestWidth}px`
+        responseWrapDomEl.style.width = `${nextResponseWidth}px`
       }
     }
 
@@ -256,6 +238,7 @@ function CodeEditor(props) {
     [className]: className,
   })
   const editorTextareaCl = cx({
+    'code-editor__textarea': true,
     'code-editor__editor_error': isError,
   })
   const dragIconCl = cx({
