@@ -24,6 +24,6 @@
 
 .button_with-outline {
   &:focus {
-    @include outline($blueOutline);
+    @include outline($outlineBlue);
   }
 }

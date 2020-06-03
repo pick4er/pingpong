@@ -124,7 +124,7 @@ function LoginForm(props) {
   const notificationCl = cx({
     'login-form__notification': true,
     'notification-animation_l': true,
-    'transparent-error-background': true,
+    'error-background': true,
   })
 
   return (

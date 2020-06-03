@@ -1,33 +1,45 @@
 
-$blackShadow: rgba(0, 0, 0, 0.1);
-$blackShadowHover: rgba(0, 0, 0, 0.25);
-$textBlack: #0D0D0D; // RGBA(13, 13, 13, 1)
-$white: #FFFFFF; // RGBA(255, 255, 255, 1)
+// COLORS
 $black: #000000; // RGBA(0, 0, 0, 1)
-$borderBlack: RGBA(0, 0, 0, 0.2);
-$borderHover: RGBA(0, 0, 0, 0.4);
-$greyOutline: RGBA(0, 0, 0, 0.1);
-$optionalGray: #999999; // RGBA(153, 153, 153, 1)
-$errorRed: #CF2C00; // RGBA(207, 44, 0, 1)
-$errorRedShadow: RGBA(207, 44, 0, 0.5);
-$deepErrorRed: #BC2800; // RGBA(188, 40, 0, 1)
-
-$blueOutline: RGBA(69, 165, 255, 0.5);
+$white: #FFFFFF; // RGBA(255, 255, 255, 1)
 $blue: #0055FB; // RGBA(0, 85, 251, 1)
-$lightBlue: RGBA(0, 85, 251, 0.8);
 $deepBlue: #0043C3; // RGBA(0, 67, 195, 1)
+$red: #CF2C00; // RGBA(207, 44, 0, 1)
+$deepRed: #BC2800; // RGBA(188, 40, 0, 1)
+$gray: #F7F7F7; // RGBA(247, 247, 247, 1)
+$pink: #FFE5DE; // RGBA(255, 229, 222, 1)
+$yellow: #fcfc4e; // RGBA(252, 252, 78, 1)
+
+// STATE
+$errorRed: $red;
+$infoGrey: $gray;
+$warningYellow: $yellow;
+
+// BORDERS
+$shadowBlack: rgba(0, 0, 0, 0.1);
+$shadowBlackHover: rgba(0, 0, 0, 0.25);
+$shadowRed: RGBA(207, 44, 0, 0.5);
+$borderBlack: RGBA(0, 0, 0, 0.2);
+$borderBlackHover: RGBA(0, 0, 0, 0.4);
+$outlineGray: RGBA(0, 0, 0, 0.1);
+$outlineBlue: RGBA(69, 165, 255, 0.5);
+
+// BACKGROUND
+$backgroundError: $pink;
+$backgroundInfo: $gray;
+$backgroundWarning: $yellow;
+$backgroundMain: $gray;
 $gradientBlueTo: $blue;
 $gradientBlueFrom: #45A6FF; // RGBA(69, 166, 255, 1)
 $gradientBlueActiveTo: $deepBlue;
 $gradientBlueActiveFrom: #3586D1; // RGBA(53, 134, 209, 1)
-$gradientDisabledGray: RGBA(196, 196, 196, 0.9);
+$backgroundDisabled: RGBA(196, 196, 196, 0.9);
 $gradientDisabledActiveTo: #C4C4C4; // RGBA(196, 196, 196, 1)
 $gradientDisabledActiveFrom: RGBA(196, 196, 196, 0.9);
 
-$transparentBackgroundErrorRed: RGBA(207, 44, 0, 0.1);
-$backgroundErrorRed: #FFE5DE; // RGBA(255, 229, 222, 1)
-$backgroundGray: #F7F7F7; // RGBA(247, 247, 247, 1)
-
-$linkFocusGray: #999999; // RGBA(153, 153, 153, 1)
+// TEXT
+$textBlack: #0D0D0D; // RGBA(13, 13, 13, 1)
+$hintTextGrey: #999999; // RGBA(153, 153, 153, 1)
 $linkGray: RGBA(153, 153, 153, 0.8);
-$linkHoverGray: RGBA(153, 153, 153, 0.6);
+$linkGrayHover: RGBA(153, 153, 153, 0.6);
+$linkGrayFocus: #999999; // RGBA(153, 153, 153, 1)

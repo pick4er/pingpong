@@ -5,7 +5,7 @@
   display: flex;
   flex-flow: column nowrap;
 
-  @include outline($greyOutline);
+  @include outline($outlineGray);
   // to keep focus on input, not &:after
   &:after {
     visibility: hidden;
