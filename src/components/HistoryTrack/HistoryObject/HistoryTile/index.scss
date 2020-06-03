@@ -10,13 +10,13 @@
   transition: min-width 2s ease;
 }
 
+.history-tile_fit-notification {
+  min-width: 105px;
+}
+
 .history-tile__action-text {
   flex-grow: 1;
   text-align: left;
-}
-
-.history-tile_fit-notification {
-  min-width: 105px;
 }
 
 .history-tile__status_badge {

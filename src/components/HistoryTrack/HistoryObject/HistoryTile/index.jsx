@@ -6,7 +6,10 @@ import { connect } from 'react-redux'
 import Notification from 'elements/Notification'
 import { NotificationTypes } from 'dictionary'
 import { getRequestAction, isResponseError } from 'helpers'
-import { selectCopyNotification } from 'flux/modules/notifications'
+import {
+  selectCopyNotification,
+  selectDeleteNotification,
+} from 'flux/modules/notifications'
 
 import { ReactComponent as SuccessBadgeIcon } from 'assets/successbadge.svg'
 import { ReactComponent as ErrorBadgeIcon } from 'assets/errorbadge.svg'
@@ -21,10 +24,11 @@ function HistoryTile(props) {
     setIsOpen,
     id,
     isOpen,
+    deleteNotification,
     copyNotification,
   } = props
 
-  const isNotification =
+  const isCopyNotification =
     copyNotification.id && copyNotification.id === id
 
   const onClick = () => {
@@ -36,7 +40,7 @@ function HistoryTile(props) {
     'history-tile': true,
     'tile-button_white': true,
     'tile-button_size-s': true,
-    'history-tile_fit-notification': isNotification,
+    'history-tile_fit-notification': isCopyNotification,
   })
   const requestTextCl = cx({
     'request-action-text': true,
@@ -46,7 +50,7 @@ function HistoryTile(props) {
   const notificationCl = cx({
     'history-tile__notification': true,
     'notification-animation_s': true,
-    hide: !isNotification,
+    hide: !isCopyNotification,
   })
 
   return (
@@ -74,6 +78,10 @@ function HistoryTile(props) {
 }
 
 HistoryTile.propTypes = {
+  deleteNotification: T.shape({
+    id: T.string,
+    type: T.oneOf(Object.values(NotificationTypes)),
+  }).isRequired,
   isOpen: T.bool.isRequired,
   request: T.shape({}).isRequired,
   response: T.shape({}).isRequired,
@@ -87,6 +95,7 @@ HistoryTile.propTypes = {
 
 const mapStateToProps = (state) => ({
   copyNotification: selectCopyNotification(state),
+  deleteNotification: selectDeleteNotification(state),
 })
 
 export default connect(mapStateToProps)(HistoryTile)

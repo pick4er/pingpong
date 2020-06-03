@@ -65,6 +65,9 @@ function Dropdown(props) {
     dropdown: true,
     dropdown_relative: isRelative,
   })
+  const listCl = cx({
+    dropdown__list: true,
+  })
 
   return (
     <div id={`dropdown-${id}`} className={classNames}>
@@ -76,7 +79,7 @@ function Dropdown(props) {
         ref={listRef}
         role="menu"
         style={listStyle}
-        className="dropdown__list"
+        className={listCl}
       >
         <ListComponent />
       </div>

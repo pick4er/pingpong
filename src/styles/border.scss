@@ -3,6 +3,7 @@
 .border {
   border-radius: 5px;
   border: 1px solid $borderBlack;
+  transition: border .3s ease;
 
   &:hover {
     border-color: $borderHover;
@@ -16,6 +17,7 @@
 @mixin border() {
   border-radius: 5px;
   border: 1px solid $borderBlack;
+  transition: border .3s ease;
 
   &:hover {
     border-color: $borderHover;
@@ -29,6 +31,7 @@
 .border_error {
   border: 1px solid $errorRed;
   box-shadow: 0px 0px 5px $errorRedShadow;
+  transition: border .3s ease;
 
   &:hover {
     border-color: $errorRed;
@@ -37,6 +40,7 @@
 @mixin borderError() {
   border: 1px solid $errorRed;
   box-shadow: 0px 0px 5px $errorRedShadow;
+  transition: border .3s ease;
 
   &:hover {
     border-color: $errorRed;
@@ -58,6 +62,11 @@
   &:hover {
     box-shadow: 0px 1px 4px $blackShadowHover;
   }
+}
+
+.border-shadow_grey_left {
+  box-shadow: -10px 1px 18px 1px $backgroundGray;
+  z-index: 1;
 }
 
 .list-separator_middle {

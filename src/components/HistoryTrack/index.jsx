@@ -7,6 +7,7 @@ import IconButton from 'elements/IconButton'
 import {
   selectHistory,
   removeHistoryAction,
+  selectIdToChange,
 } from 'flux/modules/requests'
 import { ReactComponent as CrossIconComponent } from 'assets/cross.svg'
 import HistoryObject from './HistoryObject'
@@ -14,7 +15,11 @@ import HistoryObject from './HistoryObject'
 import './index.scss'
 
 function HistoryTrack(props) {
-  const { requestsHistory, removeHistory } = props
+  const {
+    requestsHistory,
+    removeHistory,
+    idToChange,
+  } = props
 
   const isRequestsHistory = requestsHistory.length > 0
 
@@ -29,31 +34,40 @@ function HistoryTrack(props) {
     'requests-history__list': true,
     'request-history__list-reset': true,
   })
-  const removeItemCl = cx({
+  const removeHistoryCl = cx({
     'history-track__remove-list-item': true,
     'border-separator_left': true,
+    'border-shadow_grey_left': true,
   })
 
   return (
     <div className={classNames}>
       <ul className={listCl}>
         {requestsHistory.map(
-          ({ id, request, response }) => (
-            <li
-              key={id}
-              className="requests-history__list-item"
-            >
-              <HistoryObject
-                id={id}
-                request={request}
-                response={response}
-              />
-            </li>
-          )
+          ({ id, request, response }, index) => {
+            const shouldDelete = idToChange === id
+
+            const listItemCl = cx({
+              'requests-history__list-item': true,
+              'tile-animation_left': shouldDelete,
+              animation_instant: shouldDelete,
+              'history-track_list-item_should-delete': shouldDelete,
+            })
+
+            return (
+              <li key={id} className={listItemCl}>
+                <HistoryObject
+                  id={id}
+                  request={request}
+                  response={response}
+                />
+              </li>
+            )
+          }
         )}
       </ul>
 
-      <div className={removeItemCl}>
+      <div className={removeHistoryCl}>
         <IconButton
           onClick={removeHistory}
           icon={CrossIconComponent}
@@ -65,7 +79,12 @@ function HistoryTrack(props) {
   )
 }
 
+HistoryTrack.defaultProps = {
+  idToChange: '',
+}
+
 HistoryTrack.propTypes = {
+  idToChange: T.string,
   requestsHistory: T.arrayOf(
     T.shape({
       id: T.string.isRequired,
@@ -82,6 +101,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => ({
   requestsHistory: selectHistory(state),
+  idToChange: selectIdToChange(state),
 })
 
 export default connect(

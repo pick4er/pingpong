@@ -27,6 +27,7 @@ function IconButton(props) {
 
   return (
     <Button
+      withTransition={false}
       type={type}
       mode={mode}
       onClick={onClick}

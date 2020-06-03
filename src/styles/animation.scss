@@ -11,6 +11,11 @@
   100%   { transform: translate(0, -20px); opacity: 0; height: 20px; }
 }
 
+@keyframes tile_animation_left {
+  0%   { transform: translate(0, 0); opacity: 1; height: 30px; }
+  100%   { transform: translate(-100px, 0); opacity: 0; height: 30px; }
+}
+
 @keyframes loading_animation {
   0% {
     transform: rotate(0deg);
@@ -26,6 +31,14 @@
 
 .notification-animation_s {
   animation: notification_animation_s 0.5s linear 2s 1 normal forwards;
+}
+
+.tile-animation_left {
+  animation: tile_animation_left 0.5s linear 2s 1 normal forwards;
+}
+
+.animation_instant {
+  animation-delay: 0s;
 }
 
 .loading-animation {

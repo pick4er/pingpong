@@ -17,6 +17,7 @@ function Button(props) {
     isDisabled,
     className,
     withOutline,
+    withTransition,
   } = props
 
   const isTransparent = mode === Modes.Transparent
@@ -27,6 +28,7 @@ function Button(props) {
     button: true,
     'button_with-outline': withOutline,
     button_disabled: isDisabled,
+    button_transition: withTransition,
     button_transparent: isTransparent,
     [className]: className,
 
@@ -57,6 +59,7 @@ function Button(props) {
 Button.defaultProps = {
   onClick: () => {},
   className: '',
+  withTransition: true,
   withOutline: true,
   mode: Modes.blue,
   isLoading: false,
@@ -72,6 +75,7 @@ Button.propTypes = {
   isDisabled: T.bool,
   children: T.node,
   withOutline: T.bool,
+  withTransition: T.bool,
   mode: T.oneOf(Object.values(Modes)),
   type: T.oneOf(['submit', 'button', 'reset']),
 }
