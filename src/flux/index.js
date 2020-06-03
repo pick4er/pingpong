@@ -19,7 +19,7 @@ import devTools from './devTools'
 
 Cookies.defaults.secure = isProduction
 const token = Cookies.get(TOKEN_KEY)
-sendsay.session = token
+sendsay.setSessionFromCookie()
 const initialState = { user: { token } }
 
 function create() {

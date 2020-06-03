@@ -23,3 +23,7 @@ export const loginCredentialsRequest = () =>
   })
 
 export const apiRequest = (req = {}) => sendsay.request(req)
+
+export const logout = () => sendsay.request({
+  action: 'logout'
+})

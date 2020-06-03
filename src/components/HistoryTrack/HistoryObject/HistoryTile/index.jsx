@@ -86,8 +86,8 @@ function HistoryTile(props) {
         className="history-tile__list-toggler"
       />
       <Notification
-        notification={copyNotification}
         size="s"
+        notification={copyNotification}
         className={notificationCl}
       />
     </div>

@@ -24,7 +24,8 @@ $gradientDisabledGray: RGBA(196, 196, 196, 0.9);
 $gradientDisabledActiveTo: #C4C4C4; // RGBA(196, 196, 196, 1)
 $gradientDisabledActiveFrom: RGBA(196, 196, 196, 0.9);
 
-$backgroundErrorRed: RGBA(207, 44, 0, 0.1);
+$transparentBackgroundErrorRed: RGBA(207, 44, 0, 0.1);
+$backgroundErrorRed: #FFE5DE; // RGBA(255, 229, 222, 1)
 $backgroundGray: #F7F7F7; // RGBA(247, 247, 247, 1)
 
 $linkFocusGray: #999999; // RGBA(153, 153, 153, 1)

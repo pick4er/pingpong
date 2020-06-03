@@ -378,8 +378,8 @@ CodeEditor.propTypes = {
   className: T.string,
   saveRequestWidth: T.func.isRequired,
   saveResponseWidth: T.func.isRequired,
-  savedRequestWidth: T.number,
-  savedResponseWidth: T.number,
+  savedRequestWidth: T.oneOfType([T.number, T.string]),
+  savedResponseWidth: T.oneOfType([T.number, T.string]),
 }
 
 const mapStateToProps = (state) => ({

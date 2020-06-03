@@ -3,6 +3,7 @@ import { createSelector } from 'reselect'
 import {
   loginRequest,
   loginCredentialsRequest,
+  logout,
   sendsay,
 } from 'api'
 
@@ -195,6 +196,7 @@ export const loginAction = (credentials) => async (
   })
 
   if (selectError(getState())) {
+    dispatch(setIsLoading(false))
     return
   }
 
@@ -218,7 +220,8 @@ export const loginAction = (credentials) => async (
   dispatch(setToken(sendsay.session))
 }
 
-export const logoutAction = () => (dispatch) => {
+export const logoutAction = () => async (dispatch) => {
   dispatch(resetState())
+  await logout()
   Cookies.expire(TOKEN_KEY)
 }
