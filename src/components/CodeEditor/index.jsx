@@ -65,6 +65,33 @@ function initCodeEditor(requestDomEl, responseDomEl) {
   responseDomEl.parentElement.style.width = '50%'
 }
 
+const MIN_EDITOR_WIDTH = 100
+function getEditorsSizes(
+  requestTextareaEl,
+  responseTextareaEl
+) {
+  const requestTextareaDomEl = requestTextareaEl.current
+  const responseTextareaDomEl = responseTextareaEl.current
+
+  const requestWrapDomEl =
+    requestTextareaDomEl.parentElement
+
+  const responseWrapDomEl =
+    responseTextareaDomEl.parentElement
+
+  const requestWidth = requestWrapDomEl.getBoundingClientRect()
+    .width
+  const responseWidth = responseWrapDomEl.getBoundingClientRect()
+    .width
+
+  return {
+    requestWidth,
+    responseWidth,
+    requestWrapDomEl,
+    responseWrapDomEl,
+  }
+}
+
 function CodeEditor(props) {
   const dragEl = useRef(null)
   const requestTextareaEl = useRef(null)
@@ -81,20 +108,16 @@ function CodeEditor(props) {
   useEffect(() => {
     const dragDomEl = dragEl.current
 
-    const requestTextareaDomEl = requestTextareaEl.current
-    const responseTextareaDomEl = responseTextareaEl.current
-
     const onMouseMove = ($event) => {
-      const requestWrapDomEl =
-        requestTextareaDomEl.parentElement
-
-      const responseWrapDomEl =
-        responseTextareaDomEl.parentElement
-
-      const requestWidth = requestWrapDomEl.getBoundingClientRect()
-        .width
-      const responseWidth = responseWrapDomEl.getBoundingClientRect()
-        .width
+      const {
+        requestWidth,
+        responseWidth,
+        requestWrapDomEl,
+        responseWrapDomEl,
+      } = getEditorsSizes(
+        requestTextareaEl,
+        responseTextareaEl
+      )
 
       const prevLeft = dragDomEl.getBoundingClientRect()
         .left
@@ -103,8 +126,8 @@ function CodeEditor(props) {
       const nextRequestWidth = requestWidth - shift
       const nextResponseWidth = responseWidth + shift
       if (
-        nextRequestWidth < 100 ||
-        nextResponseWidth < 100
+        nextRequestWidth < MIN_EDITOR_WIDTH ||
+        nextResponseWidth < MIN_EDITOR_WIDTH
       ) {
         return
       }
@@ -132,6 +155,49 @@ function CodeEditor(props) {
         'mousedown',
         onMouseDown
       )
+    }
+  }, [])
+
+  useEffect(() => {
+    const paddingOffset = 12 * 2 // right and left
+    const borderOffset = (1 + 1) * 2 // right and left for two editors
+    const dragOffset = 10
+    const widthOffset =
+      paddingOffset + borderOffset + dragOffset
+
+    const onResize = () => {
+      const {
+        requestWidth,
+        responseWidth,
+        requestWrapDomEl,
+        responseWrapDomEl,
+      } = getEditorsSizes(
+        requestTextareaEl,
+        responseTextareaEl
+      )
+
+      const editorsWidth = window.innerWidth - widthOffset
+      const equalWidth = editorsWidth / 2
+      const widthDifference =
+        (requestWidth - responseWidth) / 2
+
+      const nextRequestWidth = equalWidth + widthDifference
+      const nextResponseWidth =
+        editorsWidth - nextRequestWidth
+      if (
+        nextRequestWidth < MIN_EDITOR_WIDTH ||
+        nextResponseWidth < MIN_EDITOR_WIDTH
+      ) {
+        return
+      }
+
+      requestWrapDomEl.style.width = `${nextRequestWidth}px`
+      responseWrapDomEl.style.width = `${nextResponseWidth}px`
+    }
+
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
     }
   }, [])
 
@@ -189,7 +255,7 @@ function CodeEditor(props) {
     'border-separator_top': true,
   })
   const dragIconCl = cx({
-    'code-editor__separator-icon': true,
+    'code-editor__drag-icon': true,
   })
 
   return (
@@ -203,10 +269,7 @@ function CodeEditor(props) {
             ref={requestTextareaEl}
           />
         </div>
-        <div
-          ref={dragEl}
-          className="code-editor__separator"
-        >
+        <div ref={dragEl} className="code-editor__drag">
           <DragIconComponent className={dragIconCl} />
         </div>
         <div className={editorWrapCl}>

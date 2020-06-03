@@ -10,8 +10,9 @@ const MIN_LIST_WIDTH = 130
 function computeListStyle(isOpen, triggerDomEl, listDomEl) {
   if (isOpen && triggerDomEl) {
     const triggerCoords = triggerDomEl.getBoundingClientRect()
-    const triggerWidth = triggerDomEl.getBoundingClientRect().width
-    const clientWidth = document.body.clientWidth
+    const triggerWidth = triggerDomEl.getBoundingClientRect()
+      .width
+    const { clientWidth } = document.body
 
     let listWidth = triggerWidth
     if (triggerWidth > MAX_LIST_WIDTH) {
@@ -20,11 +21,12 @@ function computeListStyle(isOpen, triggerDomEl, listDomEl) {
       listWidth = MIN_LIST_WIDTH
     }
 
-    let top = triggerCoords.bottom
-    let left = triggerCoords.left
+    const top = triggerCoords.bottom
+    let { left } = triggerCoords
     let zIndex = 0
     if (triggerCoords.left + listWidth > clientWidth) {
-      const shift = triggerCoords.left + listWidth - clientWidth
+      const shift =
+        triggerCoords.left + listWidth - clientWidth
       left = triggerCoords.left - shift - 10 // the last is little padding
       zIndex = 3 // to be above delete icon
     }
@@ -33,7 +35,7 @@ function computeListStyle(isOpen, triggerDomEl, listDomEl) {
       top,
       left,
       zIndex,
-      width: listWidth
+      width: listWidth,
     }
   }
 
@@ -82,7 +84,11 @@ function Dropdown(props) {
 
   const triggerDomEl = triggerRef.current
   const listDomEl = listRef.current
-  const listStyle = computeListStyle(isOpen, triggerDomEl, listDomEl)
+  const listStyle = computeListStyle(
+    isOpen,
+    triggerDomEl,
+    listDomEl
+  )
 
   const classNames = cx({
     dropdown: true,
