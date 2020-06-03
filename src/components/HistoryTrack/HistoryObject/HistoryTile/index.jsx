@@ -44,7 +44,7 @@ function HistoryTile(props) {
   })
 
   const notificationCl = cx({
-    'history-tile_notification': true,
+    'history-tile__notification': true,
     'notification-animation_s': true,
     hide: !isNotification,
   })
