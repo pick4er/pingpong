@@ -1,73 +1,45 @@
 @import 'styles/colors';
+@import 'styles/mixins';
 
 .input {
   display: flex;
   flex-flow: column nowrap;
-}
 
-.input_outline:focus-within {
-  position: relative;
-
+  @include outline($greyOutline);
+  // to keep focus on input, not &:after
   &:after {
-    content: '';
-    display: block;
-    bottom: -2px;
-    position: absolute;
-    right: -2px;
-    left: -2px;
-    height: 40px;
-    border: 2px solid $inputOutline;
-    border-radius: 7px;
+    visibility: hidden;
   }
 }
 
-.input__label {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
+.input:focus-within {
+  &:after {
+    visibility: visible;
+  }
+}
+
+.input__input-label {
   margin-bottom: 5px;
 }
 
-.input__label_name {
-  font-size: 16px;
+/* INPUT LABEL */
+.input-label {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
 }
 
-.input__label_name_error {
-  color: $errorRed;
-}
-
-.input__label_optional {
-  font-size: 12px;
-  color: $optionalGray;
+.input-label__hint {
   display: flex;
   align-items: flex-end;
 }
 
-.input__native-input {
+/* NATIVE INPUT */
+.native-input {
   background-color: white;
-  border-radius: 5px;
-  border: 1px solid $borderBlack;
   height: 40px;
-  position: relative;
-
-  &:hover {
-    border-color: $inputHover;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  &.input__native-input_error {
-    border: 1px solid $errorRed;
-    box-shadow: 0px 0px 5px rgba(207, 44, 0, 0.5);
-  }
 }
 
-.input__native-input_content {
-  font-size: 18px;
-  line-height: 30px;
-  font-style: normal;
-  font-weight: normal;
+.native-input__input-text {
   padding: 5px 10px;
 }

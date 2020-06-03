@@ -1,13 +1,26 @@
-
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+@import 'styles/colors';
+@import 'styles/mixins';
 
 .loader {
-  animation: lds-dual-ring 1.2s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+}
+
+.loader_white {
+  @include svgFill($white);
+}
+
+.loader_s {
+  height: 20px;
+}
+
+.loader_black {
+  @include svgFill($black);
+}
+
+.loader_l {
+  height: 60px;
+  @include svgSize(60px, 60px);
 }

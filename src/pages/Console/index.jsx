@@ -1,14 +1,18 @@
 import React from 'react'
 
+import UserHeader from 'components/UserHeader'
 import CodeEditor from 'components/CodeEditor'
-import RequestsHistory from 'components/RequestsHistory'
+import HistoryTrack from 'components/HistoryTrack'
+
+import './index.scss'
 
 function ConsolePage() {
   return (
-    <>
-      <RequestsHistory />
-      <CodeEditor />
-    </>
+    <div className="console-page">
+      <UserHeader />
+      <HistoryTrack />
+      <CodeEditor className="console-page__code-editor" />
+    </div>
   )
 }
 

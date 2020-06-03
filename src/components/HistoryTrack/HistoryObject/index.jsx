@@ -8,10 +8,11 @@ import HistoryTile from './HistoryTile'
 function HistoryObject(props) {
   const [isOpen, setIsOpen] = useState(false)
 
-  const { request, id } = props
+  const { request, id, response } = props
 
   return (
     <Dropdown
+      isRelative={false}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       triggerComponent={() => (
@@ -19,10 +20,13 @@ function HistoryObject(props) {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           request={request}
+          response={response}
           id={id}
         />
       )}
-      listComponent={() => <TileList id={id} />}
+      listComponent={() => (
+        <TileList id={id} setIsOpen={setIsOpen} />
+      )}
     />
   )
 }
@@ -30,6 +34,7 @@ function HistoryObject(props) {
 HistoryObject.propTypes = {
   id: T.string.isRequired,
   request: T.shape({}).isRequired,
+  response: T.shape({}).isRequired,
 }
 
 export default HistoryObject

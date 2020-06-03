@@ -1,13 +1,11 @@
-import getRequestId from './getRequestId'
+import getRandomId from './getRandomId'
 
 export default function createHistoryObject(
   req = {},
   res = {}
 ) {
-  const reqId = getRequestId(res)
-
   return {
-    id: reqId,
+    id: getRandomId(),
     request: req,
     response: res,
   }

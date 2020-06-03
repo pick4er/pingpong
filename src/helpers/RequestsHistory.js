@@ -3,7 +3,7 @@ import getRequestId from './getRequestId'
 import createHistoryObject from './createHistoryObject'
 
 export default class RequestsHistory {
-  static limit = 5
+  static limit = 15
 
   constructor(serializedHistory = []) {
     this.history = deepClone(serializedHistory)

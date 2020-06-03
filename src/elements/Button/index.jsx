@@ -3,39 +3,57 @@ import T from 'prop-types'
 import cx from 'classnames'
 
 import Loader from 'elements/Loader'
-import { ButtonModes } from 'dictionary'
+import { ButtonModes as Modes } from 'dictionary'
 
 import './index.scss'
 
 function Button(props) {
   const {
-    isLoading,
-    text,
     type,
+    mode,
     onClick,
     children,
-    mode,
+    isLoading,
     isDisabled,
     className,
+    textClassName,
+    withOutline,
+    withTransition,
   } = props
 
+  const isTransparent = mode === Modes.Transparent
+  const isBlue = mode === Modes.Blue
+
   const classNames = cx({
+    /* service */
     button: true,
-    button_blue: mode === ButtonModes.Blue,
-    button_red: mode === ButtonModes.Red,
-    button_transparent: mode === ButtonModes.Transparent,
+    'button_with-outline': withOutline,
     button_disabled: isDisabled,
+    button_transition: withTransition,
+    button_transparent: isTransparent,
     [className]: className,
+
+    /* text */
+    'button-text': true,
+    'button-text_white': !isTransparent,
+    'button-text_black': isTransparent,
+    'button-text_blue-active': isTransparent,
+    [textClassName]: textClassName,
+
+    /* background */
+    'gradient-background_blue': isBlue,
+    'gradient-background_disabled': isDisabled,
+    background_transparent: isTransparent,
   })
 
   return (
     <button
-      type={type}
+      type={type} // eslint-disable-line react/button-has-type
       onClick={onClick}
       disabled={isDisabled}
       className={classNames}
     >
-      {isLoading ? <Loader /> : children || text}
+      {isLoading ? <Loader /> : children}
     </button>
   )
 }
@@ -43,7 +61,10 @@ function Button(props) {
 Button.defaultProps = {
   onClick: () => {},
   className: '',
-  mode: ButtonModes.blue,
+  textClassName: '',
+  withTransition: true,
+  withOutline: true,
+  mode: Modes.blue,
   isLoading: false,
   type: 'button',
   children: '',
@@ -53,10 +74,13 @@ Button.defaultProps = {
 Button.propTypes = {
   onClick: T.func,
   className: T.string,
+  textClassName: T.string,
   isLoading: T.bool,
   isDisabled: T.bool,
-  children: T.elementType,
-  mode: T.oneOf([Object.values(ButtonModes)]),
+  children: T.node,
+  withOutline: T.bool,
+  withTransition: T.bool,
+  mode: T.oneOf(Object.values(Modes)),
   type: T.oneOf(['submit', 'button', 'reset']),
 }
 

@@ -1,0 +1,24 @@
+@import 'styles/border';
+
+.code-editor__textarea {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.code-editor__textarea-label {
+  margin-bottom: 3px;
+}
+
+.code-editor__textarea_error {
+  .cm-s-textarea {
+    @include borderError();
+  }
+}
+
+.cm-s-textarea {
+  &.CodeMirror {
+    height: 100%;
+  }
+
+  @include border();
+}

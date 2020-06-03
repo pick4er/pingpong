@@ -1,0 +1,12 @@
+@import 'styles/colors';
+
+.tile-button_white {
+  background-color: $white;
+  border: none;
+  cursor: pointer;
+}
+
+.tile-button_size-s {
+  padding: 5px 10px;
+  border-radius: 5px;
+}

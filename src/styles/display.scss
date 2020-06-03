@@ -1,0 +1,52 @@
+@import 'styles/colors';
+
+.hide {
+  display: none;
+}
+
+.list-styles-reset {
+  list-style: none;
+  margin: 0;
+}
+
+.button-styles-reset {
+  background: none;
+  border: none;
+}
+
+.list-button {
+  width: 100%;
+  text-align: left;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.05s ease; 
+
+  &:hover {
+    color: $white;
+    background-color: $blue;
+  }
+
+  &:focus {
+    color: $white;
+    background-color: $blue;
+  }
+
+  &:active {
+    color: $white;
+    background-color: $deepBlue;
+  }
+}
+
+.list-button_error {
+  &:hover {
+    background-color: $errorRed;
+  }
+
+  &:focus {
+    background-color: $errorRed;
+  }
+
+  &:active {
+    background-color: $deepErrorRed;
+  }
+}

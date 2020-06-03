@@ -9,9 +9,14 @@ import { notifyAboutLogin } from 'flux/modules/notifications'
 const SET_IS_LOADING = 'USER/SET_IS_LOADING'
 const SET_ERROR = 'USER/SET_ERROR'
 const SET_TOKEN = 'USER/SET_TOKEN'
+const SET_LOGIN = 'USER/SET_LOGIN'
+const SET_SUBLOGIN = 'USER/SET_SUBLOGIN'
+const RESET_STATE = 'USER/RESET_STATE'
 
 const initialState = {
   isLoading: false,
+  login: '',
+  sublogin: '',
   error: undefined,
   token: undefined,
 }
@@ -21,6 +26,16 @@ export default function reducer(
   { type, payload }
 ) {
   switch (type) {
+    case SET_LOGIN:
+      return {
+        ...state,
+        login: payload,
+      }
+    case SET_SUBLOGIN:
+      return {
+        ...state,
+        sublogin: payload,
+      }
     case SET_IS_LOADING:
       return {
         ...state,
@@ -36,6 +51,10 @@ export default function reducer(
         ...state,
         token: payload,
       }
+    case RESET_STATE:
+      return {
+        ...initialState,
+      }
     default:
       return state
   }
@@ -47,6 +66,16 @@ const selectUserModule = (state) => state.user
 export const selectIsLoading = createSelector(
   selectUserModule,
   ({ isLoading }) => isLoading || false
+)
+
+export const selectLogin = createSelector(
+  selectUserModule,
+  ({ login }) => login
+)
+
+export const selectSublogin = createSelector(
+  selectUserModule,
+  ({ sublogin }) => sublogin || 'pick4er'
 )
 
 export const selectError = createSelector(
@@ -80,17 +109,42 @@ export const setToken = (payload) => ({
   payload,
 })
 
+export const setLogin = (payload) => ({
+  type: SET_LOGIN,
+  payload,
+})
+
+export const setSublogin = (payload) => ({
+  type: SET_SUBLOGIN,
+  payload,
+})
+
+export const resetState = (payload) => ({
+  type: RESET_STATE,
+  payload,
+})
+
 // Middleware
 export const loginAction = (credentials) => async (
   dispatch,
   getState
 ) => {
+  const { login, sublogin } = credentials
+  const isLoading = selectIsLoading(getState())
+
+  if (isLoading) {
+    // show notification may be?
+    return
+  }
+
   dispatch(setIsLoading(true))
   dispatch(setError(undefined))
 
-  await loginRequest(credentials).catch((e) => {
-    const { explain, id } = e
-    dispatch(setError(e))
+  await loginRequest(credentials).catch(({ message }) => {
+    const error = JSON.parse(message)
+    const { explain, id } = error
+
+    dispatch(setError(error))
     dispatch(
       notifyAboutLogin({
         type: NotificationTypes.Error,
@@ -103,6 +157,14 @@ export const loginAction = (credentials) => async (
 
   const error = selectError(getState())
   if (!error) {
+    dispatch(setLogin(login))
+    dispatch(setSublogin(sublogin))
+
     Cookies.set(TOKEN_KEY, sendsay.session)
   }
+}
+
+export const logoutAction = () => (dispatch) => {
+  dispatch(resetState())
+  Cookies.expire(TOKEN_KEY)
 }

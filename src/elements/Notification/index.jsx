@@ -16,35 +16,39 @@ function Notification(props) {
     notification: { type, title, message },
     className,
     withIcon,
+    size,
   } = props
 
   const classNames = cx({
     notification: true,
-    notification_hide: !type,
-    [`notification_${type}`]: !!type,
+    hide: !type,
+    [`notification_size-${size}`]: size,
+    [`${type}-background`]: type,
     [className]: className,
+  })
+  const titleCl = cx({
+    notification__title: true,
+    'notification-title-text': true,
+    [`${type}-text`]: type,
+  })
+  const messageCl = cx({
+    notification__message: true,
+    'notification-message-text': true,
+    [`${type}-text`]: type,
   })
 
   return (
     <div className={classNames}>
       {withIcon && (
-        <img src={icons[type]} alt={`${type}_icon`} />
+        <img
+          className="notification__icon"
+          src={icons[type]}
+          alt={`${type}_icon`}
+        />
       )}
       <div className="notification__content">
-        {title && (
-          <h5
-            className={`notification__title notification__title_${type}`}
-          >
-            {title}
-          </h5>
-        )}
-        {message && (
-          <p
-            className={`notification__message notification__message_${type}`}
-          >
-            {message}
-          </p>
-        )}
+        {title && <h5 className={titleCl}>{title}</h5>}
+        {message && <p className={messageCl}>{message}</p>}
       </div>
     </div>
   )
@@ -57,11 +61,13 @@ Notification.defaultProps = {
     title: '',
     message: '',
   },
+  size: 'l',
   className: '',
 }
 
 Notification.propTypes = {
   withIcon: T.bool,
+  size: T.oneOf(['s', 'm', 'l']),
   notification: T.shape({
     type: T.oneOf(Object.values(NotificationTypes)),
     title: T.string,

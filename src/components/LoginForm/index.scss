@@ -1,45 +1,24 @@
 @import 'styles/colors';
 
-@keyframes notification_animation {
-  0%   { transform: translate(0, 0); opacity: 1; height: 70px; }
-  80%   { transform: translate(0, -100px); opacity: 0; height: 70px; }
-  90%   { transform: translate(0, -100px); opacity: 0; height: 40px; }
-  100%  { transform: translate(0, -100px); opacity: 0; height: 0px; margin-top: -41px; }
-}
-
 .login-form {
   display: flex;
   flex-flow: column nowrap;
 }
 
-.login-form__header {
-  margin: 0px;
+.login-form__header-text {
+  margin: 0;
   margin-bottom: 20px;
-  font-size: 24px;
-  line-height: 30px;
-  font-style: normal;
-  font-weight: normal;
 }
 
 .login-form__notification {
   margin-bottom: 20px;
 }
 
-.login-form__notification_animation {
-  animation: notification_animation 1s linear 5s 1 normal forwards;
-}
-
 .login-form__input + .login-form__input {
   margin-top: 20px;
-}
-
-.login-form__input_password {
-  font-size: 50px;
-  caret-color: transparent;
 }
 
 .login-form__button {
   margin-top: 20px;
   width: 110px;
-  font-size: 16px;
 }

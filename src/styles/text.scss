@@ -1,0 +1,103 @@
+@import 'styles/colors';
+
+/* SERVICE */
+.error-text {
+  color: $errorRed;
+}
+
+/* HEADER TEXT */
+.header-text {
+  font-size: 24px;
+  line-height: 30px;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.header-text_s {
+  font-size: 20px;
+}
+
+/* BUTTON TEXT */
+.button-text {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.button-text_black {
+  color: $textBlack;
+}
+
+.button-text_normal {
+  font-weight: normal;
+}
+
+.button-text_white {
+  color: $white;
+}
+
+.button-text_blue {
+  color: $blue;
+}
+
+.button-text_blue-active {
+  &:hover {
+    color: $blue;
+  }
+
+  &:focus {
+    color: $blue;
+  }
+
+  &:active {
+    color: $deepBlue;
+  }
+}
+
+/* INPUT TEXT */
+.input-text {
+  font-size: 18px;
+  line-height: 30px;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.input-text_password {
+  font-size: 25px;
+}
+
+.label-text {
+  font-size: 16px;
+}
+
+.hint-text {
+  font-size: 12px;
+  color: $optionalGray;
+}
+
+.hint-text_error {
+  color: $errorRed;
+}
+
+/* NOTIFICATION TEXT */
+.notification-title-text {
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.notification-message-text {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* REQUESTS */
+.request-action-text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+}

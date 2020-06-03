@@ -10,9 +10,14 @@ const SET_IS_LOADING = 'REQUESTS/SET_IS_LOADING'
 const SET_RESPONSE = 'REQUESTS/SET_RESPONSE'
 const SET_REQUEST = 'REQUESTS/SET_REQUEST'
 const SET_HISTORY = 'REQUESTS/SET_HISTORY'
+const SET_ID_TO_CHANGE = 'REQUESTS/SET_ID_TO_CHANGE'
+const SET_DELETE_ACTION_TIMER =
+  'REQUESTS/SET_DELETE_ACTION_TIMER'
 
 const initialState = {
   history: [],
+  idToChange: undefined,
+  deleteActionTimer: undefined,
   error: undefined,
   isLoading: undefined,
   response: '',
@@ -28,6 +33,16 @@ export default function reducer(
       return {
         ...state,
         error: payload,
+      }
+    case SET_DELETE_ACTION_TIMER:
+      return {
+        ...state,
+        deleteActionTimer: payload,
+      }
+    case SET_ID_TO_CHANGE:
+      return {
+        ...state,
+        idToChange: payload,
       }
     case SET_IS_LOADING:
       return {
@@ -82,6 +97,16 @@ export const selectHistory = createSelector(
   ({ history }) => history
 )
 
+export const selectIdToChange = createSelector(
+  selectRequestsModule,
+  ({ idToChange }) => idToChange
+)
+
+export const selectDeleteActionTimer = createSelector(
+  selectRequestsModule,
+  ({ deleteActionTimer }) => deleteActionTimer
+)
+
 // Action creators
 export const setIsLoading = (payload) => ({
   type: SET_IS_LOADING,
@@ -108,6 +133,16 @@ export const setHistory = (payload) => ({
   payload,
 })
 
+export const setIdToChange = (payload) => ({
+  type: SET_ID_TO_CHANGE,
+  payload,
+})
+
+export const setDeleteActionTimer = (payload) => ({
+  type: SET_DELETE_ACTION_TIMER,
+  payload,
+})
+
 // Middleware
 export const addRequestToHistory = (req = {}, res = {}) => (
   dispatch,
@@ -127,9 +162,15 @@ export const requestAction = (req = {}) => async (
   dispatch(setIsLoading(true))
   dispatch(setError(null))
 
-  const res = await apiRequest(req).catch((e) => {
-    dispatch(setError(e))
-  })
+  let res
+  try {
+    res = await apiRequest(req)
+  } catch ({ message }) {
+    const parsedMessage = JSON.parse(message)
+
+    res = parsedMessage
+    dispatch(setError(parsedMessage))
+  }
 
   dispatch(setIsLoading(false))
   dispatch(setResponse(JSON.stringify(res)))
@@ -189,10 +230,27 @@ export const deleteRequestAction = (reqId) => (
   dispatch,
   getState
 ) => {
-  const requestsHistory = new RequestsHistory(
-    selectHistory(getState())
-  )
+  const currentTimerId = selectDeleteActionTimer(getState())
+  if (currentTimerId) {
+    return
+  }
 
-  requestsHistory.removeRequest(reqId)
-  dispatch(setHistory(requestsHistory.serialize()))
+  dispatch(setIdToChange(reqId))
+
+  const timerId = setTimeout(() => {
+    const requestsHistory = new RequestsHistory(
+      selectHistory(getState())
+    )
+
+    requestsHistory.removeRequest(reqId)
+    dispatch(setHistory(requestsHistory.serialize()))
+
+    dispatch(setDeleteActionTimer(undefined))
+    dispatch(setIdToChange(''))
+  }, 1000)
+  dispatch(setDeleteActionTimer(timerId))
+}
+
+export const removeHistoryAction = () => (dispatch) => {
+  dispatch(setHistory(initialState.history))
 }

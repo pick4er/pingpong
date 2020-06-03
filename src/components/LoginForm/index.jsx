@@ -13,8 +13,10 @@ import {
 import { selectLoginNotification } from 'flux/modules/notifications'
 import {
   latinOnly,
+  required,
   emailOrLogin,
   startsWithLetter,
+  validateValues,
   moreThanXSymbols,
 } from 'helpers/validators'
 import { NotificationTypes } from 'dictionary'
@@ -23,6 +25,7 @@ import './index.scss'
 
 const validators = {
   login: [
+    required,
     moreThanXSymbols(4),
     latinOnly,
     startsWithLetter,
@@ -34,10 +37,30 @@ const validators = {
     startsWithLetter,
   ],
   password: [
+    required,
     moreThanXSymbols(8),
     latinOnly,
     moreThanXSymbols,
   ],
+}
+
+const checkIfFormError = (form, setIsError, isError) => {
+  const { login, sublogin, password } = form
+
+  const isNextError =
+    [
+      login.dataset.error,
+      sublogin.dataset.error,
+      password.dataset.error,
+    ].filter(Boolean).length > 0
+
+  if (isError && !isNextError) {
+    setIsError(false)
+  } else if (!isError && isNextError) {
+    setIsError(true)
+  }
+
+  return isNextError
 }
 
 function LoginForm(props) {
@@ -54,36 +77,23 @@ function LoginForm(props) {
   useEffect(() => {
     const formDomEl = formEl.current
 
-    const checkIfFormError = ($event) => {
-      const {
-        form: { login, sublogin, password },
-      } = $event.target
-
-      const possibleErrors = [
-        login.dataset.error,
-        sublogin.dataset.error,
-        password.dataset.error,
-      ].filter(Boolean)
-
-      if (isError && possibleErrors.length === 0) {
-        setIsError(false)
-      } else if (!isError && possibleErrors.length > 0) {
-        setIsError(true)
-      }
-
-      return undefined
-    }
-
-    formDomEl.addEventListener('change', checkIfFormError)
-    return () =>
-      formDomEl.removeEventListener(
-        'change',
-        checkIfFormError
+    const onChange = ($event) =>
+      checkIfFormError(
+        $event.target.form,
+        setIsError,
+        isError
       )
+    formDomEl.addEventListener('change', onChange)
+    return () =>
+      formDomEl.removeEventListener('change', onChange)
   }, [isError, setIsError])
 
   const onSubmit = ($event) => {
     $event.preventDefault()
+    if (isLoading) {
+      return undefined
+    }
+
     const { target } = $event
     const data = {
       login: target.login.value,
@@ -91,7 +101,19 @@ function LoginForm(props) {
       password: target.password.value,
     }
 
-    loginUser(data)
+    const errors = validateValues(data, validators)
+    const isFormError =
+      Object.values(errors).filter(
+        (errArr) => errArr.length > 0
+      ).length > 0
+
+    if (isFormError && !isError) {
+      setIsError(true)
+    } else if (!isFormError && !isError) {
+      loginUser(data)
+    }
+
+    return undefined
   }
 
   const classNames = cx({
@@ -101,8 +123,7 @@ function LoginForm(props) {
 
   const notificationCl = cx({
     'login-form__notification': true,
-    'login-form__notification_animation':
-      loginNotification.type,
+    'notification-animation_l': true,
   })
 
   return (
@@ -111,7 +132,9 @@ function LoginForm(props) {
       className={classNames}
       ref={formEl}
     >
-      <h5 className="login-form__header">API-консолька</h5>
+      <h5 className="header-text login-form__header-text">
+        API-консолька
+      </h5>
 
       <Notification
         withIcon
@@ -141,7 +164,7 @@ function LoginForm(props) {
         label="Пароль"
         name="password"
         className="login-form__input"
-        nativeInputCl=" login-form__input_password"
+        nativeInputClassName="input-text_password"
         validators={validators.password}
         type="password"
       />

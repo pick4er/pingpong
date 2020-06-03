@@ -1,16 +1,36 @@
+@import 'styles/colors';
 
-.CodeEditor--textareas {
+.code-editor {
   display: flex;
-  flex-flow: row nowrap;
-
-  .CodeMirror {
-    flex-grow: 1;
-    max-width: 50%;
-  }
+  flex-flow: column nowrap;
+  z-index: 0;
+  position: relative;
+  background-color: $white;
 }
 
-.CodeEditor--actions {
+.code-editor__actions {
+  padding: 15px;
+  padding-right: 11px;
+}
+
+.code-editor__request-button {
+  width: 110px;
+}
+
+.code-editor__textareas {
+  padding: 10px 15px;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  flex-grow: 1;
 }
+
+.code-editor__drag {
+  display: flex;
+  align-items: center;
+  cursor: ew-resize;
+}
+
+.code-editor__drag-icon {
+  width: 10px;
+}
+

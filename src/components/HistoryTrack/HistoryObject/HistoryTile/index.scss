@@ -1,0 +1,36 @@
+@import 'styles/colors';
+
+.history-tile {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  min-width: 90px;
+  overflow: hidden;
+  position: relative;
+  transition: min-width 2s ease;
+}
+
+.history-tile_fit-notification {
+  min-width: 105px;
+}
+
+.history-tile__action-text {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.history-tile__status_badge {
+  margin-right: 5px;
+}
+
+.history-tile__separator {
+  margin-left: 5px;
+}
+
+.history-tile__notification {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  display: flex;
+  justify-content: center;
+}

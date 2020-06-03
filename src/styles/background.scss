@@ -1,0 +1,39 @@
+@import 'styles/colors';
+
+/* SERVICE */
+.error-background {
+  background-color: $backgroundErrorRed;
+}
+
+.info-background {
+  background-color: $backgroundGray;
+}
+
+/* GRADIENT */
+.gradient-background_blue {
+  background: linear-gradient($gradientBlueFrom, $gradientBlueTo);
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    background: linear-gradient($gradientBlueActiveFrom, $gradientBlueActiveTo);
+  }
+}
+
+.gradient-background_disabled {
+  background: $gradientDisabledGray;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    background: linear-gradient($gradientDisabledActiveFrom, $gradientDisabledActiveTo);
+  }
+}
+
+.background_transparent {
+  background: transparent;
+}

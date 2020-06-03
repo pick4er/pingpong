@@ -1,0 +1,81 @@
+@import 'styles/colors';
+
+.border {
+  border-radius: 5px;
+  border: 1px solid $borderBlack;
+  transition: border .3s ease;
+
+  &:hover {
+    border-color: $borderHover;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+// used for codemirror styling
+@mixin border() {
+  border-radius: 5px;
+  border: 1px solid $borderBlack;
+  transition: border .3s ease;
+
+  &:hover {
+    border-color: $borderHover;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.border_error {
+  border: 1px solid $errorRed;
+  box-shadow: 0px 0px 5px $errorRedShadow;
+  transition: border .3s ease;
+
+  &:hover {
+    border-color: $errorRed;
+  }
+}
+@mixin borderError() {
+  border: 1px solid $errorRed;
+  box-shadow: 0px 0px 5px $errorRedShadow;
+  transition: border .3s ease;
+
+  &:hover {
+    border-color: $errorRed;
+  }
+}
+
+.border-separator_bottom {
+  border-bottom: 1px solid $borderBlack;
+}
+
+.border-separator_top {
+  border-top: 1px solid $borderBlack;
+}
+
+.shadow {
+  box-shadow: 0px 1px 2px $blackShadow;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0px 1px 4px $blackShadowHover;
+  }
+}
+
+.border-shadow_grey_left {
+  box-shadow: -10px 1px 18px 1px $backgroundGray;
+  z-index: 1;
+}
+
+.list-separator_middle {
+  height: 1px;
+  background-color: $borderBlack;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.border-separator_left {
+  border-left: 1px solid $borderBlack;
+}

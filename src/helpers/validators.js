@@ -1,11 +1,33 @@
 import pluralizeWord from './pluralizeWord'
 
+export function validateValues(values, validators) {
+  return Object.keys(values).reduce((errors, fieldName) => {
+    const fieldValue = values[fieldName]
+    const fieldErrors = validators[fieldName]
+      .map((validate) => validate(fieldValue))
+      .filter((error) => typeof error === 'string')
+
+    return {
+      ...errors,
+      [fieldName]: fieldErrors,
+    }
+  }, {})
+}
+
+export function required(value) {
+  if (typeof value === 'undefined' || value === '') {
+    return 'Заполните, пожалуйста, поле'
+  }
+
+  return undefined
+}
+
 export function latinOnly(value) {
-  if (typeof value === 'undefined') {
+  if (typeof value === 'undefined' || value === '') {
     return undefined
   }
 
-  const latinRegExp = /[^\u0000-\u00ff]/
+  const latinRegExp = /[^\u0020-\u00ff]/
   if (latinRegExp.test(value)) {
     return 'Поле принимает только латинские символы'
   }
@@ -14,7 +36,10 @@ export function latinOnly(value) {
 }
 
 export function emailOrLogin(value) {
-  if (typeof value === 'undefined') {
+  if (
+    typeof value === 'undefined' ||
+    value === 'undefined'
+  ) {
     return undefined
   }
 
@@ -32,17 +57,9 @@ export function emailOrLogin(value) {
   return 'Введите, пожалуйста, корректный логин'
 }
 
-export function required(value) {
-  if (typeof value === 'undefined') {
-    return 'Заполните, пожалуйста, поле'
-  }
-
-  return undefined
-}
-
 export function startsWithLetter(value) {
   const firstLetterRegExp = /^[a-z]/i
-  if (typeof value === 'undefined') {
+  if (typeof value === 'undefined' || value === '') {
     return undefined
   }
 
@@ -54,7 +71,7 @@ export function startsWithLetter(value) {
 }
 
 export const moreThanXSymbols = (x) => (value) => {
-  if (typeof value === 'undefined') {
+  if (typeof value === 'undefined' || value === '') {
     return undefined
   }
 

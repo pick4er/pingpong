@@ -4,6 +4,20 @@ import cx from 'classnames'
 
 import './index.scss'
 
+const validate = (value, validators, setError, error) => {
+  let nextError
+  validators.find((validator) => {
+    nextError = validator(value)
+    return !!nextError
+  })
+
+  if (nextError) {
+    setError(nextError)
+  } else if (error && !nextError) {
+    setError(undefined)
+  }
+}
+
 function Input(props) {
   const inputEl = useRef(null)
   const [error, setError] = useState(undefined)
@@ -15,65 +29,70 @@ function Input(props) {
     validators,
     isRequired,
     className,
-    nativeInputCl,
+    nativeInputClassName,
   } = props
 
   useEffect(() => {
     const inputDomEl = inputEl.current
+    const formEl = inputDomEl.form
 
-    const validate = ($event) => {
-      const { value } = $event.target
-
-      let nextError
-      validators.find(
-        (validator) => (nextError = validator(value))
+    const onChange = ($event) =>
+      validate(
+        $event.target.value,
+        validators,
+        setError,
+        error
+      )
+    const onSubmit = ($event) =>
+      validate(
+        $event.target[name].value,
+        validators,
+        setError,
+        error
       )
 
-      if (nextError) {
-        setError(nextError)
-      } else if (error && !nextError) {
-        setError(undefined)
-      }
-    }
+    formEl.addEventListener('submit', onSubmit)
+    inputDomEl.addEventListener('change', onChange)
 
-    inputDomEl.addEventListener('change', validate)
-    return () =>
-      inputDomEl.removeEventListener('change', validate)
-  }, [error, setError, validators])
+    return () => {
+      inputDomEl.removeEventListener('change', onChange)
+      formEl.removeEventListener('submit', onSubmit)
+    }
+  }, [error, setError, validators, name])
 
   const classNames = cx({
     input: true,
-    input_outline: true,
-    input_error: !!error,
     [className]: className,
   })
 
-  const inputClassNames = cx({
-    'input__native-input': true,
-    'input__native-input_content': true,
-    'input__native-input_error': !!error,
-    [nativeInputCl]: nativeInputCl,
+  const labelNameCl = cx({
+    'label-text': true,
+    'error-text': error,
   })
 
-  const labelClassName = cx({
-    input__label_name: true,
-    input__label_name_error: !!error,
+  const nativeInputCl = cx({
+    'input-text': true,
+    border: true,
+    border_error: error,
+    'native-input': true,
+    'native-input__input-text': true,
+    [nativeInputClassName]: nativeInputClassName,
   })
 
   return (
     <label className={classNames} title={error}>
-      <div className="input__label">
-        <span className={labelClassName}>{label}</span>
+      <div className="input-label input__input-label">
+        <span className={labelNameCl}>{label}</span>
 
         {!isRequired && (
-          <span className="input__label_optional">
+          <span className="hint-text input-label__hint">
             Опционально
           </span>
         )}
       </div>
       <input
         ref={inputEl}
-        className={inputClassNames}
+        className={nativeInputCl}
         autoComplete="off"
         type={type}
         name={name}
@@ -87,13 +106,13 @@ Input.defaultProps = {
   validators: [],
   isRequired: false,
   className: '',
-  nativeInputCl: '',
+  nativeInputClassName: '',
 }
 
 Input.propTypes = {
   className: T.string,
   isRequired: T.bool,
-  nativeInputCl: T.string,
+  nativeInputClassName: T.string,
   validators: T.arrayOf(T.func),
   label: T.string.isRequired,
   name: T.string.isRequired,

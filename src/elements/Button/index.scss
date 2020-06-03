@@ -4,31 +4,33 @@
 .button {
   border: none;
   border-radius: 5px;
-  height: 40px;
-  color: $white;
   cursor: pointer;
   padding: 10px;
+  opacity: 1;
+}
 
-  &:hover {
-    opacity: 0.9;
-  }
+.button_disabled {
+  cursor: default;
 
-  &.button_disabled {
-    cursor: default;
-    background: $buttonDisabledGray;
+  &:focus {
+    @include outline(transparent);
   }
 }
 
-.button_blue {
-  background: linear-gradient($buttonBlueFrom, $buttonBlueTo);
+.button_transparent {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 
-  &:not(.button_disabled) {
-    &:focus {
-      @include buttonOutline($buttonBlueOutline);
-    }
-
-    &:active {
-      background: linear-gradient($buttonBlueActiveFrom, $buttonBlueActiveTo);
-    }
+.button_with-outline {
+  &:focus {
+    @include outline($blueOutline);
   }
+}
+
+.button_transition {
+  transition: 
+    background .3s ease,
+    color .3s ease,
+    opacity .3s ease;
 }
