@@ -5,18 +5,30 @@ import { getRandomId } from 'helpers'
 
 import './index.scss'
 
-function computeListStyle(isOpen, triggerEl) {
-  if (isOpen && triggerEl) {
-    const coords = triggerEl.getBoundingClientRect()
+function computeListStyle(isOpen, triggerDomEl, listDomEl) {
+  if (isOpen && triggerDomEl) {
+    const triggerCoords = triggerDomEl.getBoundingClientRect()
+    const listWidth = listDomEl.getBoundingClientRect().width
+    const clientWidth = document.body.clientWidth
+
+    let top = triggerCoords.bottom
+    let left = triggerCoords.left
+    let zIndex = 0
+    if (triggerCoords.left + listWidth > clientWidth) {
+      const shift = triggerCoords.left + listWidth - clientWidth
+      left = triggerCoords.left - shift - 10 // the last is little padding
+      zIndex = 3 // to be above delete icon
+    }
 
     return {
-      top: coords.bottom,
-      left: coords.left,
+      top,
+      left,
+      zIndex,
     }
   }
 
   return {
-    display: 'none',
+    visibility: 'hidden',
   }
 }
 
@@ -59,7 +71,8 @@ function Dropdown(props) {
   }, [setIsOpen, isOpen, id])
 
   const triggerDomEl = triggerRef.current
-  const listStyle = computeListStyle(isOpen, triggerDomEl)
+  const listDomEl = listRef.current
+  const listStyle = computeListStyle(isOpen, triggerDomEl, listDomEl)
 
   const classNames = cx({
     dropdown: true,
