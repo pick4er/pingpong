@@ -17,4 +17,9 @@ export const loginRequest = ({
     password,
   })
 
+export const loginCredentialsRequest = () =>
+  sendsay.request({
+    action: 'pong',
+  })
+
 export const apiRequest = (req = {}) => sendsay.request(req)

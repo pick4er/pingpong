@@ -1,6 +1,10 @@
 import Cookies from 'cookies-js'
 import { createSelector } from 'reselect'
-import { loginRequest, sendsay } from 'api'
+import {
+  loginRequest,
+  loginCredentialsRequest,
+  sendsay,
+} from 'api'
 
 import { TOKEN_KEY, NotificationTypes } from 'dictionary'
 import { notifyAboutLogin } from 'flux/modules/notifications'
@@ -75,7 +79,7 @@ export const selectLogin = createSelector(
 
 export const selectSublogin = createSelector(
   selectUserModule,
-  ({ sublogin }) => sublogin || 'pick4er'
+  ({ sublogin }) => sublogin
 )
 
 export const selectError = createSelector(
@@ -125,15 +129,26 @@ export const resetState = (payload) => ({
 })
 
 // Middleware
+const notifyAboutError = (message) => (dispatch) => {
+  const error = JSON.parse(message)
+  const { explain, id } = error
+
+  dispatch(setError(error))
+  dispatch(
+    notifyAboutLogin({
+      type: NotificationTypes.Error,
+      title: 'Вход не вышел',
+      message: JSON.stringify({ explain, id }),
+    })
+  )
+}
+
 export const loginAction = (credentials) => async (
   dispatch,
   getState
 ) => {
-  const { login, sublogin } = credentials
   const isLoading = selectIsLoading(getState())
-
   if (isLoading) {
-    // show notification may be?
     return
   }
 
@@ -141,27 +156,29 @@ export const loginAction = (credentials) => async (
   dispatch(setError(undefined))
 
   await loginRequest(credentials).catch(({ message }) => {
-    const error = JSON.parse(message)
-    const { explain, id } = error
-
-    dispatch(setError(error))
-    dispatch(
-      notifyAboutLogin({
-        type: NotificationTypes.Error,
-        title: 'Вход не вышел',
-        message: JSON.stringify({ explain, id }),
-      })
-    )
+    dispatch(notifyAboutError(message))
   })
-  dispatch(setIsLoading(false))
 
-  const error = selectError(getState())
-  if (!error) {
-    dispatch(setLogin(login))
-    dispatch(setSublogin(sublogin))
-
-    Cookies.set(TOKEN_KEY, sendsay.session)
+  if (selectError(getState())) {
+    return
   }
+
+  Cookies.set(TOKEN_KEY, sendsay.session)
+  const credentialsRequest = await loginCredentialsRequest().catch(
+    ({ message }) => {
+      dispatch(notifyAboutError(message))
+    }
+  )
+
+  dispatch(setIsLoading(false))
+  if (selectError(getState())) {
+    return
+  }
+
+  const { login, account } = credentialsRequest
+  dispatch(setLogin(login))
+  dispatch(setSublogin(account))
+  dispatch(setToken(sendsay.session))
 }
 
 export const logoutAction = () => (dispatch) => {

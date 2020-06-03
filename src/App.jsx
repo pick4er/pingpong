@@ -17,6 +17,10 @@ function AppLayout(props) {
     return <Redirect to="/login" />
   }
 
+  if (isAuth && pathname === '/login') {
+    return <Redirect to="/" />
+  }
+
   return renderRoutes(routes)
 }
 
