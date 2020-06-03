@@ -2,12 +2,22 @@
 
 .history-tile {
   display: flex;
-  flex-flow: row nowrap;
   align-items: center;
+  justify-content: center;
   min-width: 90px;
+  background-color: $white;
   overflow: hidden;
   position: relative;
+  border-radius: 5px;
   transition: min-width 2s ease;
+}
+
+.history-tile__button {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-right: 15px;
 }
 
 .history-tile_fit-notification {
@@ -23,8 +33,10 @@
   margin-right: 5px;
 }
 
-.history-tile__separator {
-  margin-left: 5px;
+.history-tile__list-toggler {
+  position: absolute;
+  padding: 1px 4px;
+  right: 5px;
 }
 
 .history-tile__notification {

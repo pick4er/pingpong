@@ -167,7 +167,7 @@ function CodeEditor(props) {
     responseEditor,
   ])
 
-  // ATTACH ERROR LISTENERS
+  // ATTACH ERROR LISTENER
   useEffect(() => {
     if (!requestEditor) {
       return () => {}

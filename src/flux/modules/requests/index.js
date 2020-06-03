@@ -258,3 +258,15 @@ export const deleteRequestAction = (reqId) => (
 export const removeHistoryAction = () => (dispatch) => {
   dispatch(setHistory(initialState.history))
 }
+
+export const restoreRequestAction = (reqId) => (
+  dispatch,
+  getState
+) => {
+  const requestsHistory = new RequestsHistory(
+    selectHistory(getState())
+  )
+  const { request } = requestsHistory.findRequest(reqId)
+  dispatch(setRequest(JSON.stringify(request)))
+  dispatch(setResponse(initialState.response))
+}

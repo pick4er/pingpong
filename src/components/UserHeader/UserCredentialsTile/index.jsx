@@ -20,7 +20,7 @@ function UserCredentialsTile(props) {
     [className]: className,
   })
 
-  // if credantials in local storage lost
+  // if credantials lost in local storage
   if (!login && !sublogin) {
     return null
   }
