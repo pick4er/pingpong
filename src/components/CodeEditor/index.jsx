@@ -144,6 +144,8 @@ function CodeEditor(props) {
     saveResponseWidth,
   } = props
 
+  const isResponseError = checkIsResponseError(responseText)
+
   // INIT
   useEffect(() => {
     if (requestEditor || responseEditor) {
@@ -316,8 +318,6 @@ function CodeEditor(props) {
       makeRequest(JSON.parse(requestEditor.getValue()))
     }
   }
-
-  const isResponseError = checkIsResponseError(responseText)
 
   const classNames = cx({
     'code-editor': true,

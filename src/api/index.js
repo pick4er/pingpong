@@ -3,6 +3,7 @@ import Sendsay from 'sendsay-api'
 export const sendsay = new Sendsay()
 
 sendsay.onError((error) => {
+  error.isError = true
   throw new Error(JSON.stringify(error))
 })
 

@@ -5,6 +5,12 @@
   color: $errorRed;
 }
 
+.overflow-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 /* HEADER TEXT */
 .header-text {
   font-size: 24px;

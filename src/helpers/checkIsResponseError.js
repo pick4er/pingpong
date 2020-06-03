@@ -13,13 +13,5 @@ export default (res) => {
     throw new Error('Res must be either string or object')
   }
 
-  if (parsedRes.id === 'access_denied') {
-    return true
-  }
-
-  if (parsedRes.id === 'error/auth/failed') {
-    return true
-  }
-
-  return false
+  return parsedRes.isError
 }
