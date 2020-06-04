@@ -19,7 +19,7 @@ import devTools from './devTools'
 
 Cookies.defaults.secure = isProduction
 const token = Cookies.get(TOKEN_KEY)
-sendsay.session = token
+sendsay.setSessionFromCookie()
 const initialState = { user: { token } }
 
 function create() {
@@ -31,7 +31,12 @@ function create() {
 
   const credentialsPersistConfig = {
     key: 'user',
-    whitelist: ['login', 'sublogin'],
+    whitelist: [
+      'login',
+      'sublogin',
+      'requestWidth',
+      'responseWidth',
+    ],
     storage,
   }
 

@@ -21,7 +21,7 @@ function CodeEditorTextarea(props) {
   const labelCl = cx({
     'hint-text': true,
     'code-editor__textarea-label': true,
-    'hint-text_error': isError,
+    'error-text': isError,
   })
 
   return (

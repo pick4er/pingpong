@@ -18,7 +18,7 @@ const validate = (value, validators, setError, error) => {
   }
 }
 
-function Input(props) {
+function FormInput(props) {
   const inputEl = useRef(null)
   const [error, setError] = useState(undefined)
 
@@ -102,14 +102,14 @@ function Input(props) {
   )
 }
 
-Input.defaultProps = {
+FormInput.defaultProps = {
   validators: [],
   isRequired: false,
   className: '',
   nativeInputClassName: '',
 }
 
-Input.propTypes = {
+FormInput.propTypes = {
   className: T.string,
   isRequired: T.bool,
   nativeInputClassName: T.string,
@@ -119,4 +119,4 @@ Input.propTypes = {
   type: T.oneOf(['text', 'password']).isRequired,
 }
 
-export default Input
+export default FormInput

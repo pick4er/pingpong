@@ -3,11 +3,11 @@ import T from 'prop-types'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 
-import SmallSeparatorIcon from 'assets/separatorS.svg'
 import {
   selectLogin,
   selectSublogin,
 } from 'flux/modules/user'
+import SmallSeparatorIcon from 'assets/separatorS.svg'
 
 import './index.scss'
 
@@ -20,12 +20,23 @@ function UserCredentialsTile(props) {
     [className]: className,
   })
 
+  // if credantials lost in local storage
+  if (!login && !sublogin) {
+    return null
+  }
+
   return (
     <div className={classNames}>
       {login && (
-        <span className="user-credentials-tile__login">
+        <div
+          className={cx([
+            'user-credentials-tile__text',
+            'overflow-ellipsis',
+            'user-credentials-tile__login',
+          ])}
+        >
           {login}
-        </span>
+        </div>
       )}
       {login && sublogin && (
         <img
@@ -35,9 +46,15 @@ function UserCredentialsTile(props) {
         />
       )}
       {sublogin && (
-        <span className="user-credentials-tile__sublogin">
+        <div
+          className={cx([
+            'user-credentials-tile__text',
+            'overflow-ellipsis',
+            'user-credentials-tile__sublogin',
+          ])}
+        >
           {sublogin}
-        </span>
+        </div>
       )}
     </div>
   )

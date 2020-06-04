@@ -1,6 +1,11 @@
 import Cookies from 'cookies-js'
 import { createSelector } from 'reselect'
-import { loginRequest, sendsay } from 'api'
+import {
+  loginRequest,
+  loginCredentialsRequest,
+  logout,
+  sendsay,
+} from 'api'
 
 import { TOKEN_KEY, NotificationTypes } from 'dictionary'
 import { notifyAboutLogin } from 'flux/modules/notifications'
@@ -12,6 +17,8 @@ const SET_TOKEN = 'USER/SET_TOKEN'
 const SET_LOGIN = 'USER/SET_LOGIN'
 const SET_SUBLOGIN = 'USER/SET_SUBLOGIN'
 const RESET_STATE = 'USER/RESET_STATE'
+const SET_REQUEST_WIDTH = 'USER/SET_REQUEST_WIDTH'
+const SET_RESPONSE_WIDTH = 'USER/SET_RESPONSE_WIDTH'
 
 const initialState = {
   isLoading: false,
@@ -19,6 +26,8 @@ const initialState = {
   sublogin: '',
   error: undefined,
   token: undefined,
+  requestWidth: undefined,
+  responseWidth: undefined,
 }
 
 export default function reducer(
@@ -30,6 +39,16 @@ export default function reducer(
       return {
         ...state,
         login: payload,
+      }
+    case SET_REQUEST_WIDTH:
+      return {
+        ...state,
+        requestWidth: payload,
+      }
+    case SET_RESPONSE_WIDTH:
+      return {
+        ...state,
+        responseWidth: payload,
       }
     case SET_SUBLOGIN:
       return {
@@ -75,7 +94,7 @@ export const selectLogin = createSelector(
 
 export const selectSublogin = createSelector(
   selectUserModule,
-  ({ sublogin }) => sublogin || 'pick4er'
+  ({ sublogin }) => sublogin
 )
 
 export const selectError = createSelector(
@@ -86,6 +105,16 @@ export const selectError = createSelector(
 export const selectToken = createSelector(
   selectUserModule,
   ({ token }) => token
+)
+
+export const selectRequestWidth = createSelector(
+  selectUserModule,
+  ({ requestWidth }) => requestWidth
+)
+
+export const selectResponseWidth = createSelector(
+  selectUserModule,
+  ({ responseWidth }) => responseWidth
 )
 
 export const selectIsAuth = createSelector(
@@ -124,16 +153,38 @@ export const resetState = (payload) => ({
   payload,
 })
 
+export const setRequestWidth = (payload) => ({
+  type: SET_REQUEST_WIDTH,
+  payload,
+})
+
+export const setResponseWidth = (payload) => ({
+  type: SET_RESPONSE_WIDTH,
+  payload,
+})
+
 // Middleware
+const notifyAboutError = (message) => (dispatch) => {
+  const error = JSON.parse(message)
+  const { explain, id } = error
+
+  dispatch(setError(error))
+  dispatch(
+    notifyAboutLogin({
+      type: NotificationTypes.Error,
+      title: 'Вход не вышел',
+      message: JSON.stringify({ explain, id }),
+    })
+  )
+}
+
 export const loginAction = (credentials) => async (
   dispatch,
   getState
 ) => {
-  const { login, sublogin } = credentials
+  const { sublogin: formSublogin } = credentials
   const isLoading = selectIsLoading(getState())
-
   if (isLoading) {
-    // show notification may be?
     return
   }
 
@@ -141,30 +192,36 @@ export const loginAction = (credentials) => async (
   dispatch(setError(undefined))
 
   await loginRequest(credentials).catch(({ message }) => {
-    const error = JSON.parse(message)
-    const { explain, id } = error
-
-    dispatch(setError(error))
-    dispatch(
-      notifyAboutLogin({
-        type: NotificationTypes.Error,
-        title: 'Вход не вышел',
-        message: JSON.stringify({ explain, id }),
-      })
-    )
+    dispatch(notifyAboutError(message))
   })
-  dispatch(setIsLoading(false))
 
-  const error = selectError(getState())
-  if (!error) {
-    dispatch(setLogin(login))
-    dispatch(setSublogin(sublogin))
-
-    Cookies.set(TOKEN_KEY, sendsay.session)
+  if (selectError(getState())) {
+    dispatch(setIsLoading(false))
+    return
   }
+
+  Cookies.set(TOKEN_KEY, sendsay.session)
+  const credentialsRequest = await loginCredentialsRequest().catch(
+    ({ message }) => {
+      dispatch(notifyAboutError(message))
+    }
+  )
+
+  dispatch(setIsLoading(false))
+  if (selectError(getState())) {
+    return
+  }
+
+  const { account, sublogin } = credentialsRequest
+  dispatch(setLogin(account))
+  if (formSublogin) {
+    dispatch(setSublogin(sublogin))
+  }
+  dispatch(setToken(sendsay.session))
 }
 
-export const logoutAction = () => (dispatch) => {
+export const logoutAction = () => async (dispatch) => {
   dispatch(resetState())
+  await logout()
   Cookies.expire(TOKEN_KEY)
 }

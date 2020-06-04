@@ -13,14 +13,14 @@
   padding-right: 11px;
 }
 
-.code-editor__request-button {
-  width: 110px;
-}
-
 .code-editor__textareas {
+  flex-grow: 1;
   padding: 10px 15px;
   display: flex;
   flex-flow: row nowrap;
+}
+
+.code-editor__textarea {
   flex-grow: 1;
 }
 

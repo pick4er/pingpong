@@ -16,8 +16,7 @@ const App = lazy(
     new Promise((resolve) =>
       setTimeout(
         () => resolve((() => import('App'))()),
-        /* wait a bit to enjoy our fancy loader :) */
-        500
+        200
       )
     )
 )

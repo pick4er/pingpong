@@ -3,6 +3,7 @@
 .code-editor__textarea {
   display: flex;
   flex-flow: column nowrap;
+  min-height: 400px;
 }
 
 .code-editor__textarea-label {
@@ -16,8 +17,10 @@
 }
 
 .cm-s-textarea {
+  flex-grow: 1;
+
   &.CodeMirror {
-    height: 100%;
+    min-height: 400px;
   }
 
   @include border();

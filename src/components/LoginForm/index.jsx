@@ -3,7 +3,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 
-import Input from 'elements/Input'
+import FormInput from 'elements/FormInput'
 import Button from 'elements/Button'
 import Notification from 'elements/Notification'
 import {
@@ -120,10 +120,14 @@ function LoginForm(props) {
     'login-form': true,
     [className]: className,
   })
-
+  const headerCl = cx({
+    'header-text': true,
+    'login-form__header-text': true,
+  })
   const notificationCl = cx({
     'login-form__notification': true,
     'notification-animation_l': true,
+    'error-background': true,
   })
 
   return (
@@ -132,9 +136,7 @@ function LoginForm(props) {
       className={classNames}
       ref={formEl}
     >
-      <h5 className="header-text login-form__header-text">
-        API-консолька
-      </h5>
+      <h5 className={headerCl}>API-консолька</h5>
 
       <Notification
         withIcon
@@ -142,7 +144,7 @@ function LoginForm(props) {
         className={notificationCl}
       />
 
-      <Input
+      <FormInput
         isRequired
         name="login"
         label="Логин"
@@ -151,7 +153,7 @@ function LoginForm(props) {
         type="text"
       />
 
-      <Input
+      <FormInput
         name="sublogin"
         label="Сублогин"
         className="login-form__input"
@@ -159,7 +161,7 @@ function LoginForm(props) {
         type="text"
       />
 
-      <Input
+      <FormInput
         isRequired
         label="Пароль"
         name="password"

@@ -1,6 +1,9 @@
 import isProduction from './isProduction'
 import getResponseError from './getResponseError'
-import isResponseError from './isResponseError'
+import getEditorSize from './getEditorSize'
+import getEditorErrors from './getEditorErrors'
+import initCodeEditor from './initCodeEditor'
+import checkIsResponseError from './checkIsResponseError'
 import pluralizeWord from './pluralizeWord'
 import deepClone from './deepClone'
 import getRandomId from './getRandomId'
@@ -11,8 +14,11 @@ import getRequestAction from './getRequestAction'
 
 export {
   getRandomId,
-  isResponseError,
+  initCodeEditor,
+  checkIsResponseError,
+  getEditorErrors,
   getResponseError,
+  getEditorSize,
   pluralizeWord,
   isProduction,
   deepClone,

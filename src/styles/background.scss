@@ -1,15 +1,18 @@
 @import 'styles/colors';
 
-/* SERVICE */
 .error-background {
-  background-color: $backgroundErrorRed;
+  background-color: $backgroundError;
 }
 
 .info-background {
-  background-color: $backgroundGray;
+  background-color: $backgroundInfo;
 }
 
-/* GRADIENT */
+.warning-background {
+  background-color: $backgroundWarning;
+}
+
+
 .gradient-background_blue {
   background: linear-gradient($gradientBlueFrom, $gradientBlueTo);
 
@@ -23,7 +26,7 @@
 }
 
 .gradient-background_disabled {
-  background: $gradientDisabledGray;
+  background: $backgroundDisabled;
 
   &:hover {
     opacity: 0.9;

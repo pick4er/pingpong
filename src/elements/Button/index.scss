@@ -24,13 +24,6 @@
 
 .button_with-outline {
   &:focus {
-    @include outline($blueOutline);
+    @include outline($outlineBlue);
   }
-}
-
-.button_transition {
-  transition: 
-    background .3s ease,
-    color .3s ease,
-    opacity .3s ease;
 }
