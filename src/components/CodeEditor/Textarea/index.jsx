@@ -41,4 +41,3 @@ CodeEditorTextarea.propTypes = {
 }
 
 export default CodeEditorTextarea
-

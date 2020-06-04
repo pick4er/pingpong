@@ -1,0 +1,9 @@
+@import 'styles/colors';
+
+.not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $backgroundMain;
+  height: 100vh;
+}
