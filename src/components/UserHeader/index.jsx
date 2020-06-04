@@ -68,7 +68,7 @@ function UserHeader(props) {
     'header-text_s': true,
   })
   const iconButtonCl = cx({
-    'button-text_normal': true,
+    'text_normal': true,
     'user-header__logout-icon-button': true,
   })
 

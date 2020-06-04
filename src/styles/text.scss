@@ -1,6 +1,6 @@
 @import 'styles/colors';
 
-/* SERVICE */
+// SERVICE
 .error-text {
   color: $errorRed;
 }
@@ -15,7 +15,7 @@
   text-overflow: ellipsis;
 }
 
-/* HEADER TEXT */
+// HEADER TEXT
 .header-text {
   font-size: 24px;
   line-height: 30px;
@@ -27,7 +27,7 @@
   font-size: 20px;
 }
 
-/* BUTTON TEXT */
+// BUTTON TEXT
 .button-text {
   font-size: 16px;
   line-height: 20px;
@@ -35,23 +35,23 @@
   font-style: normal;
 }
 
-.button-text_black {
+.text_black {
   color: $textBlack;
 }
 
-.button-text_normal {
+.text_normal {
   font-weight: normal;
 }
 
-.button-text_white {
+.text_white {
   color: $white;
 }
 
-.button-text_blue {
+.text_blue {
   color: $blue;
 }
 
-.button-text_blue-active {
+.text_blue_active {
   &:hover {
     color: $blue;
   }
@@ -65,7 +65,7 @@
   }
 }
 
-/* INPUT TEXT */
+// INPUT TEXT
 .input-text {
   font-size: 18px;
   line-height: 30px;
@@ -86,11 +86,8 @@
   color: $hintTextGrey;
 }
 
-.hint-text_error {
-  color: $errorRed;
-}
 
-/* NOTIFICATION TEXT */
+// NOTIFICATION TEXT
 .notification-title-text {
   font-size: 18px;
   line-height: 23px;
@@ -105,7 +102,7 @@
   font-style: normal;
 }
 
-/* REQUESTS */
+// REQUESTS
 .request-action-text {
   font-size: 16px;
   font-style: normal;

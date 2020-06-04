@@ -6,7 +6,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 
 import { selectIsAuth } from 'flux/modules/user'
 
-function AppLayout(props) {
+function App(props) {
   const {
     routes,
     isAuth,
@@ -24,7 +24,7 @@ function AppLayout(props) {
   return renderRoutes(routes)
 }
 
-AppLayout.propTypes = {
+App.propTypes = {
   routes: T.arrayOf(T.object).isRequired,
   isAuth: T.bool.isRequired,
   location: T.shape({
@@ -37,5 +37,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default withRouter(
-  connect(mapStateToProps)(AppLayout)
+  connect(mapStateToProps)(App)
 )

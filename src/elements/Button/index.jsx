@@ -33,9 +33,9 @@ function Button(props) {
 
     /* text */
     'button-text': true,
-    'button-text_white': !isTransparent,
-    'button-text_black': isTransparent,
-    'button-text_blue-active': isTransparent,
+    'text_white': !isTransparent,
+    'text_black': isTransparent,
+    'text_blue_active': isTransparent,
     [textClassName]: textClassName,
 
     /* background */

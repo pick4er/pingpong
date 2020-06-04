@@ -3,7 +3,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 
-import Input from 'elements/Input'
+import FormInput from 'elements/FormInput'
 import Button from 'elements/Button'
 import Notification from 'elements/Notification'
 import {
@@ -143,7 +143,7 @@ function LoginForm(props) {
         className={notificationCl}
       />
 
-      <Input
+      <FormInput
         isRequired
         name="login"
         label="Логин"
@@ -152,7 +152,7 @@ function LoginForm(props) {
         type="text"
       />
 
-      <Input
+      <FormInput
         name="sublogin"
         label="Сублогин"
         className="login-form__input"
@@ -160,7 +160,7 @@ function LoginForm(props) {
         type="text"
       />
 
-      <Input
+      <FormInput
         isRequired
         label="Пароль"
         name="password"
