@@ -1,17 +1,11 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 
 import './index.scss'
 
 function CodeEditorTextarea(props) {
-  const {
-    className,
-    label,
-    name,
-    isError,
-    forwardedRef,
-  } = props
+  const { className, label, name, id, isError } = props
 
   const classNames = cx({
     'code-editor__textarea': true,
@@ -27,11 +21,7 @@ function CodeEditorTextarea(props) {
   return (
     <div className={classNames}>
       {label && <span className={labelCl}>{label}</span>}
-      <textarea
-        name={name}
-        autoComplete="off"
-        ref={forwardedRef}
-      />
+      <textarea name={name} autoComplete="off" id={id} />
     </div>
   )
 }
@@ -43,15 +33,12 @@ CodeEditorTextarea.defaultProps = {
 }
 
 CodeEditorTextarea.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  forwardedRef: T.any.isRequired,
   className: T.string,
   label: T.string,
+  id: T.string.isRequired,
   isError: T.bool,
   name: T.string.isRequired,
 }
 
-export default forwardRef((props, ref) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <CodeEditorTextarea {...props} forwardedRef={ref} />
-))
+export default CodeEditorTextarea
+

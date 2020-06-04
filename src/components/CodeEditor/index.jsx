@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 import { connect } from 'react-redux'
+import CodeMirror from 'codemirror'
+import jsonlint from 'jsonlint-mod'
 import beautify from 'js-beautify'
 import debounce from 'lodash.debounce'
 
@@ -18,23 +20,101 @@ import {
   selectResponseWidth,
 } from 'flux/modules/user'
 import { MIN_TEXTAREA_WIDTH } from 'dictionary'
-import {
-  checkIsResponseError,
-  initCodeEditor,
-  getEditorSize,
-  getEditorErrors,
-} from 'helpers'
+import { checkIsResponseError } from 'helpers'
 import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
 import Textarea from './Textarea'
 import Actions from './Actions'
 
+import 'codemirror/addon/selection/mark-selection'
+import 'codemirror/addon/edit/closebrackets'
+import 'codemirror/mode/javascript/javascript'
+import 'codemirror/addon/lint/lint'
+import 'codemirror/addon/lint/json-lint'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/addon/lint/lint.css'
 import './index.scss'
+
+window.jsonlint = jsonlint
+
+function initCodeEditor(
+  requestDomEl,
+  responseDomEl,
+  requestWidth,
+  responseWidth,
+  setRequestEditor,
+  setResponseEditor
+) {
+  if (!(requestDomEl && responseDomEl)) {
+    return
+  }
+
+  const requestEditor = CodeMirror.fromTextArea(
+    requestDomEl,
+    {
+      mode: { name: 'javascript', json: true },
+      theme: 'textarea',
+      lineWrapping: true,
+      autoCloseBrackets: true,
+      lint: {
+        lintOnChange: true,
+        selfContain: false,
+      },
+      selfContain: false,
+    }
+  )
+  requestEditor.setSize('100%', null)
+  // eslint-disable-next-line no-param-reassign
+  requestDomEl.parentElement.style.width =
+    typeof requestWidth === 'number'
+      ? `${requestWidth}px`
+      : requestWidth
+
+  const responseEditor = CodeMirror.fromTextArea(
+    responseDomEl,
+    {
+      mode: {
+        name: 'javascript',
+        json: true,
+      },
+      theme: 'textarea',
+      readOnly: 'nocursor',
+      lineWrapping: true,
+      styleSelectedText: true,
+    }
+  )
+  responseEditor.setSize('100%', null)
+  // eslint-disable-next-line no-param-reassign
+  responseDomEl.parentElement.style.width =
+    typeof responseWidth === 'number'
+      ? `${responseWidth}px`
+      : responseWidth
+
+  setRequestEditor(requestEditor)
+  setResponseEditor(responseEditor)
+}
+
+function getEditorSize(editorDomEl) {
+  const wrapDomEl = editorDomEl.parentElement
+  const editorDomRect = wrapDomEl.getBoundingClientRect()
+  const { width } = editorDomRect
+  const { height } = editorDomRect
+
+  return {
+    width,
+    height,
+    wrapDomEl,
+  }
+}
+
+function getEditorErrors(editorInstance) {
+  editorInstance.performLint()
+
+  const value = editorInstance.getValue()
+  return CodeMirror.lint.json(value) || []
+}
 
 function CodeEditor(props) {
   const dragEl = useRef(null)
-  const requestTextareaEl = useRef(null)
-  const responseTextareaEl = useRef(null)
-
   const [requestEditor, setRequestEditor] = useState(null)
   const [responseEditor, setResponseEditor] = useState(null)
   const [isLintError, setIsLintError] = useState(false)
@@ -55,18 +135,27 @@ function CodeEditor(props) {
 
   // INIT
   useEffect(() => {
-    if (requestEditor || responseEditor) {
-      return
-    }
-
-    initCodeEditor(
-      requestTextareaEl.current,
-      responseTextareaEl.current,
-      savedRequestWidth,
-      savedResponseWidth,
-      setRequestEditor,
-      setResponseEditor
+    const requestTextareaDomEl = document.getElementById(
+      'request-textarea'
     )
+    const responseTextareaDomEl = document.getElementById(
+      'response-textarea'
+    )
+
+    if (
+      requestTextareaDomEl &&
+      responseTextareaDomEl &&
+      !(requestEditor && responseEditor)
+    ) {
+      initCodeEditor(
+        requestTextareaDomEl,
+        responseTextareaDomEl,
+        savedRequestWidth,
+        savedResponseWidth,
+        setRequestEditor,
+        setResponseEditor
+      )
+    }
   }, [
     savedRequestWidth,
     savedResponseWidth,
@@ -117,16 +206,22 @@ function CodeEditor(props) {
   // RESIZE ON MOUSE MOVE
   useEffect(() => {
     const dragDomEl = dragEl.current
+    const requestTextareaDomEl = document.getElementById(
+      'request-textarea'
+    )
+    const responseTextareaDomEl = document.getElementById(
+      'response-textarea'
+    )
 
     const onMouseMove = ($event) => {
       const {
         width: requestWidth,
         wrapDomEl: requestWrapDomEl,
-      } = getEditorSize(requestTextareaEl.current)
+      } = getEditorSize(requestTextareaDomEl)
       const {
         width: responseWidth,
         wrapDomEl: responseWrapDomEl,
-      } = getEditorSize(responseTextareaEl.current)
+      } = getEditorSize(responseTextareaDomEl)
 
       const prevLeft = dragDomEl.getBoundingClientRect()
         .left
@@ -177,15 +272,22 @@ function CodeEditor(props) {
     const widthOffset =
       paddingOffset + borderOffset + dragOffset
 
+    const requestTextareaDomEl = document.getElementById(
+      'request-textarea'
+    )
+    const responseTextareaDomEl = document.getElementById(
+      'response-textarea'
+    )
+
     const onResize = () => {
       const {
         width: requestWidth,
         wrapDomEl: requestWrapDomEl,
-      } = getEditorSize(requestTextareaEl.current)
+      } = getEditorSize(requestTextareaDomEl)
       const {
         width: responseWidth,
         wrapDomEl: responseWrapDomEl,
-      } = getEditorSize(responseTextareaEl.current)
+      } = getEditorSize(responseTextareaDomEl)
 
       const editorsWidth = window.innerWidth - widthOffset
       const equalWidth = editorsWidth / 2
@@ -241,9 +343,9 @@ function CodeEditor(props) {
       <div className="code-editor__textareas">
         <Textarea
           className={editorTextareaCl}
-          ref={requestTextareaEl}
           label="Запрос:"
           name="request"
+          id="request-textarea"
           isError={isResponseError}
         />
         <div ref={dragEl} className="code-editor__drag">
@@ -251,9 +353,9 @@ function CodeEditor(props) {
         </div>
         <Textarea
           className={editorTextareaCl}
-          ref={responseTextareaEl}
           label="Ответ:"
           name="response"
+          id="response-textarea"
           isError={isResponseError}
         />
       </div>
