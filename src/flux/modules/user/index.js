@@ -200,7 +200,6 @@ export const loginAction = (credentials) => async (
     return
   }
 
-  Cookies.set(TOKEN_KEY, sendsay.session)
   const credentialsRequest = await loginCredentialsRequest().catch(
     ({ message }) => {
       dispatch(notifyAboutError(message))
@@ -217,6 +216,8 @@ export const loginAction = (credentials) => async (
   if (formSublogin) {
     dispatch(setSublogin(sublogin))
   }
+
+  Cookies.set(TOKEN_KEY, sendsay.session)
   dispatch(setToken(sendsay.session))
 }
 
