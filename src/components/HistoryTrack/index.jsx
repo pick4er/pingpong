@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import cx from 'classnames'
@@ -23,6 +23,19 @@ function HistoryTrack(props) {
 
   const isRequestsHistory = requestsHistory.length > 0
 
+  useEffect(() => {
+    const listDomEl = document.getElementById('track-list')
+
+    const onMouseWheel = ($event) => {
+      listDomEl.scrollLeft += $event.deltaY
+    }
+
+    listDomEl.addEventListener('wheel', onMouseWheel)
+    return () => {
+      listDomEl.removeEventListener('wheel', onMouseWheel)
+    }
+  }, [])
+
   const classNames = cx({
     'requests-history': true,
     'requests-history_increase-stack': true,
@@ -42,7 +55,7 @@ function HistoryTrack(props) {
 
   return (
     <div className={classNames}>
-      <ul className={listCl}>
+      <ul className={listCl} id="track-list">
         {requestsHistory.map(
           ({ id, request, response }) => {
             const shouldDelete = idToChange === id

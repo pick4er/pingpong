@@ -55,6 +55,10 @@ function HistoryTile(props) {
     'history-tile__action-text': true,
     'overflow-ellipsis': true,
   })
+  const separatorCl = cx({
+    'history-tile__list-toggler': true,
+    'history-tile__list-toggler-outline': true,
+  })
 
   const notificationCl = cx({
     'history-tile__notification': true,
@@ -84,7 +88,7 @@ function HistoryTile(props) {
         icon={SeparatorIcon}
         onClick={onTileListOpen}
         mode="transparent"
-        className="history-tile__list-toggler"
+        className={separatorCl}
       />
       <Notification
         size="s"
