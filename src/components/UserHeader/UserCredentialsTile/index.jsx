@@ -3,11 +3,11 @@ import T from 'prop-types'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 
-import SmallSeparatorIcon from 'assets/separatorS.svg'
 import {
   selectLogin,
   selectSublogin,
 } from 'flux/modules/user'
+import SmallSeparatorIcon from 'assets/separatorS.svg'
 
 import './index.scss'
 

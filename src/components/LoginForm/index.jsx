@@ -120,7 +120,10 @@ function LoginForm(props) {
     'login-form': true,
     [className]: className,
   })
-
+  const headerCl = cx({
+    'header-text': true,
+    'login-form__header-text': true,
+  })
   const notificationCl = cx({
     'login-form__notification': true,
     'notification-animation_l': true,
@@ -133,9 +136,7 @@ function LoginForm(props) {
       className={classNames}
       ref={formEl}
     >
-      <h5 className="header-text login-form__header-text">
-        API-консолька
-      </h5>
+      <h5 className={headerCl}>API-консолька</h5>
 
       <Notification
         withIcon

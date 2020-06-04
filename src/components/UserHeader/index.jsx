@@ -3,12 +3,12 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 
-import { logoutAction } from 'flux/modules/user'
 import IconButton from 'elements/IconButton'
-import LogoIcon from 'assets/logo.svg'
+import { logoutAction } from 'flux/modules/user'
 import { ReactComponent as LogoutIconComponent } from 'assets/logout.svg'
 import { ReactComponent as FullScreenIconComponent } from 'assets/fullscreen.svg'
 import { ReactComponent as SmallScreenIconComponent } from 'assets/smallscreen.svg'
+import LogoIcon from 'assets/logo.svg'
 import UserCredentialsTile from './UserCredentialsTile'
 
 import './index.scss'
@@ -68,7 +68,7 @@ function UserHeader(props) {
     'header-text_s': true,
   })
   const iconButtonCl = cx({
-    'text_normal': true,
+    text_normal: true,
     'user-header__logout-icon-button': true,
   })
 

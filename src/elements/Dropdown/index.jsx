@@ -82,20 +82,14 @@ function Dropdown(props) {
     }
   }, [setIsOpen, isOpen, id])
 
-  const triggerDomEl = triggerRef.current
-  const listDomEl = listRef.current
   const listStyle = computeListStyle(
     isOpen,
-    triggerDomEl,
-    listDomEl
+    triggerRef.current,
+    listRef.current
   )
 
   const classNames = cx({
-    dropdown: true,
     dropdown_relative: isRelative,
-  })
-  const listCl = cx({
-    dropdown__list: true,
   })
 
   return (
@@ -108,7 +102,7 @@ function Dropdown(props) {
         ref={listRef}
         role="menu"
         style={listStyle}
-        className={listCl}
+        className="dropdown__list"
       >
         <ListComponent />
       </div>

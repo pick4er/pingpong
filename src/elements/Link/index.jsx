@@ -2,13 +2,11 @@ import React from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 
-import './index.scss'
-
 function Link(props) {
   const { children, href, className } = props
 
   const classNames = cx({
-    link: true,
+    'link-text': true,
     [className]: className,
   })
 

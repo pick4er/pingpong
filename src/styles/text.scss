@@ -102,9 +102,25 @@
   font-style: normal;
 }
 
-// REQUESTS
+// REQUEST TEXT
 .request-action-text {
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
+}
+
+// LINK TEXT
+.link-text {
+  text-decoration: none;
+  color: $linkGray;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    color: $linkGrayHover;
+  }
+
+  &:focus {
+    color: $linkGrayFocus;
+  }
 }

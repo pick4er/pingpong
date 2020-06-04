@@ -2,9 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 import { connect } from 'react-redux'
-import CodeMirror from 'codemirror'
 import beautify from 'js-beautify'
-import jsonlint from 'jsonlint-mod'
 import debounce from 'lodash.debounce'
 
 import {
@@ -19,109 +17,18 @@ import {
   selectRequestWidth,
   selectResponseWidth,
 } from 'flux/modules/user'
-import { checkIsResponseError } from 'helpers'
 import { MIN_TEXTAREA_WIDTH } from 'dictionary'
+import {
+  checkIsResponseError,
+  initCodeEditor,
+  getEditorSize,
+  getEditorErrors,
+} from 'helpers'
 import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
 import Textarea from './Textarea'
 import Actions from './Actions'
 
 import './index.scss'
-import 'codemirror/mode/javascript/javascript'
-import 'codemirror/addon/edit/closebrackets'
-import 'codemirror/addon/lint/lint'
-import 'codemirror/addon/lint/json-lint'
-import 'codemirror/addon/selection/mark-selection'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/addon/lint/lint.css'
-
-window.jsonlint = jsonlint
-
-function initCodeEditor(
-  requestDomEl,
-  responseDomEl,
-  requestWidth,
-  responseWidth,
-  setRequestEditor,
-  setResponseEditor
-) {
-  const requestEditor = CodeMirror.fromTextArea(
-    requestDomEl,
-    {
-      mode: { name: 'javascript', json: true },
-      theme: 'textarea',
-      lineWrapping: true,
-      autoCloseBrackets: true,
-      lint: {
-        lintOnChange: true,
-        selfContain: false,
-      },
-      selfContain: false,
-    }
-  )
-  requestEditor.setSize('100%', null)
-  // eslint-disable-next-line no-param-reassign
-  requestDomEl.parentElement.style.width =
-    typeof requestWidth === 'number'
-      ? `${requestWidth}px`
-      : requestWidth
-
-  const responseEditor = CodeMirror.fromTextArea(
-    responseDomEl,
-    {
-      mode: {
-        name: 'javascript',
-        json: true,
-      },
-      theme: 'textarea',
-      readOnly: 'nocursor',
-      lineWrapping: true,
-      styleSelectedText: true,
-    }
-  )
-  responseEditor.setSize('100%', null)
-  // eslint-disable-next-line no-param-reassign
-  responseDomEl.parentElement.style.width =
-    typeof responseWidth === 'number'
-      ? `${responseWidth}px`
-      : responseWidth
-
-  setRequestEditor(requestEditor)
-  setResponseEditor(responseEditor)
-}
-
-function getEditorsSizes(
-  requestTextareaEl,
-  responseTextareaEl
-) {
-  const requestTextareaDomEl = requestTextareaEl.current
-  const responseTextareaDomEl = responseTextareaEl.current
-
-  const requestWrapDomEl =
-    requestTextareaDomEl.parentElement
-
-  const responseWrapDomEl =
-    responseTextareaDomEl.parentElement
-
-  const requestRect = requestWrapDomEl.getBoundingClientRect()
-  const requestWidth = requestRect.width
-
-  const responseRect = responseWrapDomEl.getBoundingClientRect()
-  const responseWidth = responseRect.width
-
-  return {
-    requestWidth,
-    responseWidth,
-    requestWrapDomEl,
-    responseWrapDomEl,
-  }
-}
-
-function getEditorErrors(editorInstance) {
-  editorInstance.performLint()
-
-  const value = editorInstance.getValue()
-  return CodeMirror.lint.json(value) || []
-}
 
 function CodeEditor(props) {
   const dragEl = useRef(null)
@@ -213,14 +120,13 @@ function CodeEditor(props) {
 
     const onMouseMove = ($event) => {
       const {
-        requestWidth,
-        responseWidth,
-        requestWrapDomEl,
-        responseWrapDomEl,
-      } = getEditorsSizes(
-        requestTextareaEl,
-        responseTextareaEl
-      )
+        width: requestWidth,
+        wrapDomEl: requestWrapDomEl,
+      } = getEditorSize(requestTextareaEl.current)
+      const {
+        width: responseWidth,
+        wrapDomEl: responseWrapDomEl,
+      } = getEditorSize(responseTextareaEl.current)
 
       const prevLeft = dragDomEl.getBoundingClientRect()
         .left
@@ -273,14 +179,13 @@ function CodeEditor(props) {
 
     const onResize = () => {
       const {
-        requestWidth,
-        responseWidth,
-        requestWrapDomEl,
-        responseWrapDomEl,
-      } = getEditorsSizes(
-        requestTextareaEl,
-        responseTextareaEl
-      )
+        width: requestWidth,
+        wrapDomEl: requestWrapDomEl,
+      } = getEditorSize(requestTextareaEl.current)
+      const {
+        width: responseWidth,
+        wrapDomEl: responseWrapDomEl,
+      } = getEditorSize(responseTextareaEl.current)
 
       const editorsWidth = window.innerWidth - widthOffset
       const equalWidth = editorsWidth / 2

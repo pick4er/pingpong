@@ -36,6 +36,4 @@ const mapStateToProps = (state) => ({
   isAuth: selectIsAuth(state),
 })
 
-export default withRouter(
-  connect(mapStateToProps)(App)
-)
+export default withRouter(connect(mapStateToProps)(App))
