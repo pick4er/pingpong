@@ -8,8 +8,10 @@ import RequestsHistory from './RequestsHistory'
 import getRequestId from './getRequestId'
 import createHistoryObject from './createHistoryObject'
 import getRequestAction from './getRequestAction'
+import isNumeric from './isNumeric'
 
 export {
+  isNumeric,
   getRandomId,
   checkIsResponseError,
   getResponseError,

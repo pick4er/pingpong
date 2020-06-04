@@ -3,7 +3,10 @@ const http = require('http');
  
 const server = http.createServer((req, res) => 
   handler(req, res, {
-    public: 'build'
+    public: 'build',
+    rewrites: [
+      { "source": "/*", "destination": "/index.html" }
+    ]
   })
 )
 
