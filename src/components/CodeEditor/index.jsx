@@ -44,10 +44,6 @@ function initCodeEditor(
   setRequestEditor,
   setResponseEditor
 ) {
-  if (!(requestDomEl && responseDomEl)) {
-    return
-  }
-
   const requestEditor = CodeMirror.fromTextArea(
     requestDomEl,
     {
@@ -64,10 +60,9 @@ function initCodeEditor(
   )
   requestEditor.setSize('100%', null)
   // eslint-disable-next-line no-param-reassign
-  requestDomEl.parentElement.style.width =
-    typeof requestWidth === 'number'
-      ? `${requestWidth}px`
-      : requestWidth
+  requestDomEl.parentElement.style.width = requestWidth
+    ? `${requestWidth}px`
+    : '50%'
 
   const responseEditor = CodeMirror.fromTextArea(
     responseDomEl,
@@ -84,10 +79,9 @@ function initCodeEditor(
   )
   responseEditor.setSize('100%', null)
   // eslint-disable-next-line no-param-reassign
-  responseDomEl.parentElement.style.width =
-    typeof responseWidth === 'number'
-      ? `${responseWidth}px`
-      : responseWidth
+  responseDomEl.parentElement.style.width = responseWidth
+    ? `${responseWidth}px`
+    : '50%'
 
   setRequestEditor(requestEditor)
   setResponseEditor(responseEditor)
@@ -135,6 +129,10 @@ function CodeEditor(props) {
 
   // INIT
   useEffect(() => {
+    if (requestEditor || responseEditor) {
+      return
+    }
+
     const requestTextareaDomEl = document.getElementById(
       'request-textarea'
     )
@@ -142,11 +140,7 @@ function CodeEditor(props) {
       'response-textarea'
     )
 
-    if (
-      requestTextareaDomEl &&
-      responseTextareaDomEl &&
-      !(requestEditor && responseEditor)
-    ) {
+    if (requestTextareaDomEl && responseTextareaDomEl) {
       initCodeEditor(
         requestTextareaDomEl,
         responseTextareaDomEl,
@@ -373,8 +367,8 @@ function CodeEditor(props) {
 CodeEditor.defaultProps = {
   className: '',
   isLoading: false,
-  savedRequestWidth: '50%',
-  savedResponseWidth: '50%',
+  savedRequestWidth: undefined,
+  savedResponseWidth: undefined,
 }
 
 CodeEditor.propTypes = {
@@ -385,8 +379,8 @@ CodeEditor.propTypes = {
   className: T.string,
   saveRequestWidth: T.func.isRequired,
   saveResponseWidth: T.func.isRequired,
-  savedRequestWidth: T.oneOfType([T.number, T.string]),
-  savedResponseWidth: T.oneOfType([T.number, T.string]),
+  savedRequestWidth: T.number,
+  savedResponseWidth: T.number,
 }
 
 const mapStateToProps = (state) => ({

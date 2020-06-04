@@ -7,6 +7,7 @@ import {
   sendsay,
 } from 'api'
 
+import { isNumeric } from 'helpers'
 import { TOKEN_KEY, NotificationTypes } from 'dictionary'
 import { notifyAboutLogin } from 'flux/modules/notifications'
 
@@ -109,12 +110,18 @@ export const selectToken = createSelector(
 
 export const selectRequestWidth = createSelector(
   selectUserModule,
-  ({ requestWidth }) => requestWidth
+  ({ requestWidth }) =>
+    isNumeric(requestWidth)
+      ? parseFloat(requestWidth)
+      : undefined
 )
 
 export const selectResponseWidth = createSelector(
   selectUserModule,
-  ({ responseWidth }) => responseWidth
+  ({ responseWidth }) =>
+    isNumeric(responseWidth)
+      ? parseFloat(responseWidth)
+      : undefined
 )
 
 export const selectIsAuth = createSelector(
@@ -222,7 +229,10 @@ export const loginAction = (credentials) => async (
 }
 
 export const logoutAction = () => async (dispatch) => {
-  dispatch(resetState())
+  dispatch(setLogin(initialState.login))
+  dispatch(setSublogin(initialState.sublogin))
+  dispatch(setToken(initialState.token))
+
   await logout()
   Cookies.expire(TOKEN_KEY)
 }
