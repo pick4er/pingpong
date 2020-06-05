@@ -9,20 +9,18 @@ import { ReactComponent as FormatIconComponent } from 'assets/format.svg'
 
 import './index.scss'
 
-function CodeEditorActions(props) {
-  const {
-    isError,
-    isLoading,
-    onRequest,
-    onBeautify,
+function CodeEditorActions({
+  isError,
+  isLoading,
+  onRequest,
+  onBeautify,
+  className,
+}) {
+  const classNames = cx([
+    'code-editor__actions',
+    'border-separator_top',
     className,
-  } = props
-
-  const classNames = cx({
-    'code-editor__actions': true,
-    'border-separator_top': true,
-    [className]: className,
-  })
+  ])
 
   return (
     <div className={classNames}>

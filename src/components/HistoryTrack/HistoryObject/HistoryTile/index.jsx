@@ -38,6 +38,7 @@ function HistoryTile({
   const isCopyNotification =
     copyNotification.id && copyNotification.id === id
 
+  const requestActionName = getRequestAction(request)
   const classNames = cx([
     'shadow',
     'history-tile',
@@ -72,8 +73,10 @@ function HistoryTile({
           <SuccessBadgeIcon className="history-tile__status_badge" />
         )}
         <div className={requestTextCl}>
-          {/* eslint-disable-next-line no-template-curly-in-string */}
-          {getRequestAction(request) || '`${нет_действия}`'}
+          {/* may be `true` */}
+          {typeof requestActionName === 'boolean'
+            ? '`${нет_действия}`'
+            : requestActionName || '`${нет_действия}`'}
         </div>
       </button>
       <IconButton

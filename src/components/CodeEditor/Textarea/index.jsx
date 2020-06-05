@@ -4,19 +4,23 @@ import cx from 'classnames'
 
 import './index.scss'
 
-function CodeEditorTextarea(props) {
-  const { className, label, name, id, isError } = props
-
-  const classNames = cx({
-    'code-editor__textarea': true,
-    'code-editor__textarea_error': isError,
-    [className]: className,
-  })
-  const labelCl = cx({
-    'hint-text': true,
-    'code-editor__textarea-label': true,
-    'error-text': isError,
-  })
+function CodeEditorTextarea({
+  className,
+  label,
+  name,
+  id,
+  isError,
+}) {
+  const classNames = cx([
+    'code-editor__textarea',
+    isError && 'code-editor__textarea_error',
+    className,
+  ])
+  const labelCl = cx([
+    'hint-text',
+    'code-editor__textarea-label',
+    isError && 'error-text',
+  ])
 
   return (
     <div className={classNames}>
