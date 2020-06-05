@@ -13,10 +13,8 @@ import UserCredentialsTile from './UserCredentialsTile'
 
 import './index.scss'
 
-function UserHeader(props) {
+function UserHeader({ logout }) {
   const [isFullscreen, setIsFullscreen] = useState(false)
-
-  const { logout } = props
 
   // INIT FULL SCREEN
   useEffect(() => {
@@ -25,8 +23,28 @@ function UserHeader(props) {
     }
   }, [setIsFullscreen])
 
+  // SUBSCRIBE ON FULLSCREEN CHANGE
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      if (isFullscreen && !document.fullscreenElement) {
+        setIsFullscreen(false)
+      }
+    }
+
+    document.addEventListener(
+      'fullscreenchange',
+      onFullscreenChange
+    )
+    return () => {
+      document.removeEventListener(
+        'fullscreenchange',
+        onFullscreenChange
+      )
+    }
+  }, [isFullscreen, setIsFullscreen])
+
   const toggleFullScreen = () => {
-    if (isFullscreen && document.fullscreenElement) {
+    if (isFullscreen) {
       document.exitFullscreen()
       setIsFullscreen(false)
     } else if (
@@ -38,25 +56,6 @@ function UserHeader(props) {
       setIsFullscreen(true)
     }
   }
-
-  useEffect(() => {
-    const onFullscreen = () => {
-      if (isFullscreen && !document.fullscreenElement) {
-        setIsFullscreen(false)
-      }
-    }
-
-    document.addEventListener(
-      'fullscreenchange',
-      onFullscreen
-    )
-    return () => {
-      document.removeEventListener(
-        'fullscreenchange',
-        onFullscreen
-      )
-    }
-  }, [isFullscreen, setIsFullscreen])
 
   const classNames = cx({
     'user-header': true,

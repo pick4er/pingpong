@@ -11,33 +11,25 @@ import SmallSeparatorIcon from 'assets/separatorS.svg'
 
 import './index.scss'
 
-function UserCredentialsTile(props) {
-  const { login, sublogin, className } = props
-
-  const classNames = cx({
-    'user-credentials-tile': true,
-    border: true,
-    [className]: className,
-  })
-
+function UserCredentialsTile({ login, sublogin }) {
   // if credantials lost in local storage
   if (!login && !sublogin) {
     return null
   }
 
+  const classNames = cx(['border', 'user-credentials-tile'])
+  const loginCl = cx([
+    'overflow-ellipsis',
+    'user-credentials-tile__text',
+  ])
+  const subloginCl = cx([
+    'overflow-ellipsis',
+    'user-credentials-tile__text',
+  ])
+
   return (
     <div className={classNames}>
-      {login && (
-        <div
-          className={cx([
-            'user-credentials-tile__text',
-            'overflow-ellipsis',
-            'user-credentials-tile__login',
-          ])}
-        >
-          {login}
-        </div>
-      )}
+      {login && <div className={loginCl}>{login}</div>}
       {login && sublogin && (
         <img
           src={SmallSeparatorIcon}
@@ -46,28 +38,18 @@ function UserCredentialsTile(props) {
         />
       )}
       {sublogin && (
-        <div
-          className={cx([
-            'user-credentials-tile__text',
-            'overflow-ellipsis',
-            'user-credentials-tile__sublogin',
-          ])}
-        >
-          {sublogin}
-        </div>
+        <div className={subloginCl}>{sublogin}</div>
       )}
     </div>
   )
 }
 
 UserCredentialsTile.defaultProps = {
-  className: '',
   sublogin: '',
   login: '',
 }
 
 UserCredentialsTile.propTypes = {
-  className: T.string,
   login: T.string,
   sublogin: T.string,
 }
