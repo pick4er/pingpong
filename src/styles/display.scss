@@ -51,3 +51,11 @@
     background-color: $deepRed;
   }
 }
+
+.fit-notification-inside {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  display: flex;
+  justify-content: center;
+}

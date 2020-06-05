@@ -14,15 +14,11 @@ import HistoryObject from './HistoryObject'
 
 import './index.scss'
 
-function HistoryTrack(props) {
-  const {
-    requestsHistory,
-    removeHistory,
-    idToChange,
-  } = props
-
-  const isRequestsHistory = requestsHistory.length > 0
-
+function HistoryTrack({
+  requestsHistory,
+  removeHistory,
+  idToChange,
+}) {
   useEffect(() => {
     const listDomEl = document.getElementById('track-list')
 
@@ -36,16 +32,17 @@ function HistoryTrack(props) {
     }
   }, [])
 
+  const isRequestsHistory = requestsHistory.length > 0
   const classNames = cx({
-    'requests-history': true,
-    'requests-history_increase-stack': true,
+    'history-track': true,
+    'history-track_increase-stack': true,
     // for soft transition on delete
-    'requests-history_hide': !isRequestsHistory,
+    'history-track_hide': !isRequestsHistory,
     'border-separator_bottom': isRequestsHistory,
   })
   const listCl = cx({
-    'requests-history__list': true,
-    'request-history__list-reset': true,
+    'list-styles-reset': true,
+    'history-track__list': true,
   })
   const removeHistoryCl = cx({
     'history-track__remove-list-item': true,
@@ -60,12 +57,14 @@ function HistoryTrack(props) {
           ({ id, request, response }) => {
             const shouldDelete = idToChange === id
 
-            const listItemCl = cx({
-              'requests-history__list-item': true,
-              'tile-animation_left': shouldDelete,
-              animation_instant: shouldDelete,
-              'history-track_list-item_should-delete': shouldDelete,
-            })
+            const listItemCl = cx([
+              'history-track__list-item',
+              shouldDelete && [
+                'history-track__list-item_delete',
+                'tile-animation_left',
+                'animation_instant',
+              ],
+            ])
 
             return (
               <li key={id} className={listItemCl}>

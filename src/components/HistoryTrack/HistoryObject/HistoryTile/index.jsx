@@ -19,20 +19,15 @@ import { ReactComponent as SeparatorIcon } from 'assets/separator.svg'
 
 import './index.scss'
 
-function HistoryTile(props) {
-  const {
-    request,
-    response,
-    setIsOpen,
-    id,
-    isOpen,
-    copyNotification,
-    restoreRequest,
-  } = props
-
-  const isCopyNotification =
-    copyNotification.id && copyNotification.id === id
-
+function HistoryTile({
+  id,
+  isOpen,
+  setIsOpen,
+  request,
+  response,
+  copyNotification,
+  restoreRequest,
+}) {
   const onClick = () => {
     restoreRequest(id)
   }
@@ -40,31 +35,29 @@ function HistoryTile(props) {
     setIsOpen(!isOpen)
   }
 
-  const classNames = cx({
-    shadow: true,
-    'history-tile': true,
-    'history-tile_fit-notification': isCopyNotification,
-  })
-  const buttonCl = cx({
-    'history-tile__button': true,
-    'tile-button_white': true,
-    'tile-button_size-s': true,
-  })
-  const requestTextCl = cx({
-    'request-action-text': true,
-    'history-tile__action-text': true,
-    'overflow-ellipsis': true,
-  })
-  const separatorCl = cx({
-    'history-tile__list-toggler': true,
-    'history-tile__list-toggler-outline': true,
-  })
+  const isCopyNotification =
+    copyNotification.id && copyNotification.id === id
 
-  const notificationCl = cx({
-    'history-tile__notification': true,
-    'notification-animation_s': true,
-    hide: !isCopyNotification,
-  })
+  const classNames = cx([
+    'shadow',
+    'history-tile',
+    isCopyNotification && 'history-tile_fit-notification',
+  ])
+  const buttonCl = cx([
+    'history-tile__button',
+    'tile-button_white',
+    'tile-button_size-s',
+  ])
+  const requestTextCl = cx([
+    'request-action-text',
+    'history-tile__action-text',
+    'overflow-ellipsis',
+  ])
+  const notificationCl = cx([
+    'fit-notification-inside',
+    'notification-animation_s',
+    !isCopyNotification && 'hide',
+  ])
 
   return (
     <div className={classNames}>
@@ -88,7 +81,7 @@ function HistoryTile(props) {
         icon={SeparatorIcon}
         onClick={onTileListOpen}
         mode="transparent"
-        className={separatorCl}
+        className="history-tile__separator"
       />
       <Notification
         size="s"
@@ -100,11 +93,11 @@ function HistoryTile(props) {
 }
 
 HistoryTile.propTypes = {
+  id: T.string.isRequired,
   isOpen: T.bool.isRequired,
+  setIsOpen: T.func.isRequired,
   request: T.shape({}).isRequired,
   response: T.shape({}).isRequired,
-  setIsOpen: T.func.isRequired,
-  id: T.string.isRequired,
   restoreRequest: T.func.isRequired,
   copyNotification: T.shape({
     id: T.string,
