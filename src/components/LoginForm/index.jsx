@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
 import cx from 'classnames'
@@ -16,7 +16,6 @@ import {
   required,
   emailOrLogin,
   startsWithLetter,
-  validateValues,
   moreThanXSymbols,
 } from 'helpers/validators'
 import { NotificationTypes } from 'dictionary'
@@ -36,84 +35,58 @@ const validators = {
     latinOnly,
     startsWithLetter,
   ],
-  password: [
-    required,
-    moreThanXSymbols(4),
-    latinOnly,
-    moreThanXSymbols,
-  ],
+  password: [required, moreThanXSymbols(4), latinOnly],
 }
 
-const checkIfFormError = (form, setIsError, isError) => {
-  const { login, sublogin, password } = form
+const getFormDomEl = () =>
+  document.getElementById('login-form')
 
-  const isNextError =
+const checkIfFormError = (isError, setIsError) => {
+  const formDomEl = getFormDomEl()
+
+  const { login, sublogin, password } = formDomEl
+  const nextIsError =
     [
       login.dataset.error,
       sublogin.dataset.error,
       password.dataset.error,
     ].filter(Boolean).length > 0
 
-  if (isError && !isNextError) {
-    setIsError(false)
-  } else if (!isError && isNextError) {
-    setIsError(true)
+  if (isError !== nextIsError) {
+    setIsError(nextIsError)
   }
-
-  return isNextError
 }
 
-function LoginForm(props) {
-  const formEl = useRef(null)
+function LoginForm({
+  className,
+  isLoading,
+  loginUser,
+  loginNotification,
+}) {
   const [isError, setIsError] = useState(false)
 
-  const {
-    className,
-    isLoading,
-    loginUser,
-    loginNotification,
-  } = props
-
   useEffect(() => {
-    const formDomEl = formEl.current
+    const formDomEl = getFormDomEl()
 
-    const onChange = ($event) =>
-      checkIfFormError(
-        $event.target.form,
-        setIsError,
-        isError
-      )
+    const onChange = () =>
+      checkIfFormError(isError, setIsError)
     formDomEl.addEventListener('change', onChange)
-    return () =>
+    return () => {
       formDomEl.removeEventListener('change', onChange)
+    }
   }, [isError, setIsError])
 
   const onSubmit = ($event) => {
     $event.preventDefault()
-    if (isLoading) {
-      return undefined
-    }
+    const {
+      target: { login, sublogin, password },
+    } = $event
 
-    const { target } = $event
-    const data = {
-      login: target.login.value,
-      sublogin: target.sublogin.value,
-      password: target.password.value,
-    }
-
-    const errors = validateValues(data, validators)
-    const isFormError =
-      Object.values(errors).filter(
-        (errArr) => errArr.length > 0
-      ).length > 0
-
-    if (isFormError && !isError) {
-      setIsError(true)
-    } else if (!isFormError && !isError) {
-      loginUser(data)
-    }
-
-    return undefined
+    loginUser({
+      login: login.value,
+      sublogin: sublogin.value,
+      password: password.value,
+    })
   }
 
   const classNames = cx({
@@ -134,7 +107,7 @@ function LoginForm(props) {
     <form
       onSubmit={onSubmit}
       className={classNames}
-      ref={formEl}
+      id="login-form"
     >
       <h5 className={headerCl}>API-консолька</h5>
 
