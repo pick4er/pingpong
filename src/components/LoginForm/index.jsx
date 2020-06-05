@@ -38,7 +38,7 @@ const validators = {
   ],
   password: [
     required,
-    moreThanXSymbols(8),
+    moreThanXSymbols(4),
     latinOnly,
     moreThanXSymbols,
   ],
