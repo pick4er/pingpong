@@ -1,14 +1,5 @@
 @import 'styles/colors';
 
-.login-page {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: $backgroundMain;
-}
-
 .login-page__icon {
   margin-bottom: 20px;
 }

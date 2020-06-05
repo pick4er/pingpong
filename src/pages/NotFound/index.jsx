@@ -1,10 +1,8 @@
 import React from 'react'
 
-import './index.scss'
-
 function NotFoundPage() {
   return (
-    <div className="not-found">
+    <div className="page">
       <h5 className="header-text">Страница не найдена</h5>
     </div>
   )

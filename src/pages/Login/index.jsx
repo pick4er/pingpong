@@ -8,7 +8,7 @@ import './index.scss'
 
 function LoginPage() {
   return (
-    <div className="login-page">
+    <div className="page">
       <img
         src={LogoIcon}
         className="login-page__icon"
