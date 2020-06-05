@@ -11,14 +11,12 @@ const icons = {
   [NotificationTypes.Error]: SadFaceIcon,
 }
 
-function Notification(props) {
-  const {
-    notification: { type, title, message },
-    className,
-    withIcon,
-    size,
-  } = props
-
+function Notification({
+  notification: { type, title, message },
+  className,
+  withIcon,
+  size,
+}) {
   const classNames = cx({
     notification: true,
     hide: !type,

@@ -7,29 +7,24 @@ import { ButtonModes } from 'dictionary'
 
 import './index.scss'
 
-function IconButton(props) {
-  const {
+function IconButton({
+  className,
+  textClassName,
+  iconClassName,
+  children,
+  direction,
+  mode,
+  type,
+  onClick,
+  withOutline,
+  icon: IconComponent,
+}) {
+  const classNames = cx([
+    'icon-button',
+    withOutline && 'icon-button_with-outline',
     className,
-    textClassName,
-    iconClassName,
-    icon: IconComponent,
-    children,
-    direction,
-    mode,
-    type,
-    onClick,
-    withOutline,
-  } = props
-
-  const classNames = cx({
-    'icon-button': true,
-    'icon-button_with-outline': withOutline,
-    [className]: className,
-  })
-  const iconCl = cx({
-    'icon-button__icon': true,
-    [iconClassName]: iconClassName,
-  })
+  ])
+  const iconCl = cx(['icon-button__icon', iconClassName])
 
   return (
     <Button

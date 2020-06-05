@@ -18,19 +18,17 @@ const validate = (value, validators, setError, error) => {
   }
 }
 
-function FormInput(props) {
+function FormInput({
+  name,
+  type,
+  label,
+  validators,
+  isRequired,
+  className,
+  nativeInputClassName,
+}) {
   const inputEl = useRef(null)
   const [error, setError] = useState(undefined)
-
-  const {
-    name,
-    type,
-    label,
-    validators,
-    isRequired,
-    className,
-    nativeInputClassName,
-  } = props
 
   useEffect(() => {
     const inputDomEl = inputEl.current
@@ -60,24 +58,21 @@ function FormInput(props) {
     }
   }, [error, setError, validators, name])
 
-  const classNames = cx({
-    input: true,
-    [className]: className,
-  })
+  const classNames = cx(['input', className])
 
-  const labelNameCl = cx({
-    'label-text': true,
-    'error-text': error,
-  })
+  const labelNameCl = cx([
+    'label-text',
+    error && 'error-text',
+  ])
 
-  const nativeInputCl = cx({
-    'input-text': true,
-    border: true,
-    border_error: error,
-    'native-input': true,
-    'native-input__input-text': true,
-    [nativeInputClassName]: nativeInputClassName,
-  })
+  const nativeInputCl = cx([
+    'input-text',
+    'border',
+    'native-input',
+    'native-input__input-text',
+    error && 'border_error',
+    nativeInputClassName,
+  ])
 
   return (
     <label className={classNames} title={error}>

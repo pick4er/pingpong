@@ -5,9 +5,7 @@ import { ReactComponent as LoaderIconComponent } from 'assets/loader.svg'
 
 import './index.scss'
 
-function Loader(props) {
-  const { size, color } = props
-
+function Loader({ size, color }) {
   const classNames = cx({
     loader: true,
     [`loader_${size}`]: true,

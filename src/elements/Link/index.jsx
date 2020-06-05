@@ -2,13 +2,8 @@ import React from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 
-function Link(props) {
-  const { children, href, className } = props
-
-  const classNames = cx({
-    'link-text': true,
-    [className]: className,
-  })
+function Link({ children, href, className }) {
+  const classNames = cx(['link-text', className])
 
   return (
     <a

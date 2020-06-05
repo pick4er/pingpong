@@ -7,19 +7,17 @@ import { ButtonModes as Modes } from 'dictionary'
 
 import './index.scss'
 
-function Button(props) {
-  const {
-    type,
-    mode,
-    onClick,
-    children,
-    isLoading,
-    isDisabled,
-    className,
-    textClassName,
-    withOutline,
-  } = props
-
+function Button({
+  type,
+  mode,
+  onClick,
+  children,
+  isLoading,
+  isDisabled,
+  className,
+  textClassName,
+  withOutline,
+}) {
   const isTransparent = mode === Modes.Transparent
   const isBlue = mode === Modes.Blue
 

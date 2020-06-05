@@ -44,18 +44,15 @@ function computeListStyle(isOpen, triggerDomEl) {
   }
 }
 
-function Dropdown(props) {
+function Dropdown({
+  triggerComponent: TriggerComponent,
+  listComponent: ListComponent,
+  setIsOpen,
+  isOpen,
+  isRelative,
+}) {
   const [id] = useState(getRandomId())
   const triggerRef = useRef(null)
-  const listRef = useRef(null)
-
-  const {
-    triggerComponent: TriggerComponent,
-    listComponent: ListComponent,
-    setIsOpen,
-    isOpen,
-    isRelative,
-  } = props
 
   useEffect(() => {
     const clickListener = ($event) => {
@@ -84,13 +81,10 @@ function Dropdown(props) {
 
   const listStyle = computeListStyle(
     isOpen,
-    triggerRef.current,
-    listRef.current
+    triggerRef.current
   )
 
-  const classNames = cx({
-    dropdown_relative: isRelative,
-  })
+  const classNames = cx([isRelative && 'dropdown_relative'])
 
   return (
     <div id={`dropdown-${id}`} className={classNames}>
@@ -99,7 +93,6 @@ function Dropdown(props) {
       </div>
 
       <div
-        ref={listRef}
         role="menu"
         style={listStyle}
         className="dropdown__list"
