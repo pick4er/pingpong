@@ -3,6 +3,7 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 
+import Tag from 'elements/ThemeTag'
 import IconButton from 'elements/IconButton'
 import {
   selectHistory,
@@ -33,12 +34,11 @@ function HistoryTrack({
   }, [])
 
   const isRequestsHistory = requestsHistory.length > 0
-  const classNames = cx({
+  const cl = cx({
     'history-track': true,
     'history-track_increase-stack': true,
     // for soft transition on delete
     'history-track_hide': !isRequestsHistory,
-    'border-separator_bottom': isRequestsHistory,
   })
   const listCl = cx({
     'list-styles-reset': true,
@@ -46,12 +46,15 @@ function HistoryTrack({
   })
   const removeHistoryCl = cx({
     'history-track__remove-list-item': true,
-    'border-separator_left': true,
     'border-shadow_grey_left': true,
   })
 
   return (
-    <div className={classNames}>
+    <Tag
+      tagName="div"
+      separator={cx([isRequestsHistory && 'sep_bottom'])}
+      className={cl}
+    >
       <ul className={listCl} id="track-list">
         {requestsHistory.map(
           ({ id, request, response }) => {
@@ -79,15 +82,19 @@ function HistoryTrack({
         )}
       </ul>
 
-      <div className={removeHistoryCl}>
+      <Tag
+        tagName="div"
+        separator="sep_left"
+        className={removeHistoryCl}
+      >
         <IconButton
           onClick={removeHistory}
           icon={CrossIconComponent}
           mode="transparent"
           direction="right"
         />
-      </div>
-    </div>
+      </Tag>
+    </Tag>
   )
 }
 

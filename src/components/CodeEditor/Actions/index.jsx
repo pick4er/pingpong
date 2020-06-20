@@ -1,6 +1,5 @@
 import React from 'react'
 import T from 'prop-types'
-import cx from 'classnames'
 
 import Link from 'elements/Link'
 import Button from 'elements/Button'
@@ -8,53 +7,43 @@ import IconButton from 'elements/IconButton'
 import { withTheme } from 'elements/ThemeTag'
 import { ReactComponent as FormatIconComponent } from 'assets/format.svg'
 
-import './index.scss'
-
-function CodeEditorActions({
+const CodeEditorActions = ({
   isError,
   isLoading,
   onRequest,
   onBeautify,
   tag: CodeEditorActionsTag,
-}) {
-  const cl = cx([
-    'code-editor__actions',
-    'border-separator_top',
-  ])
-
-  return (
-    <CodeEditorActionsTag
-      tagName="div"
-      display="fr"
-      className={cl}
+}) => (
+  <CodeEditorActionsTag
+    tagName="div"
+    display="fr"
+    separator="sep_top"
+    align="center between"
+  >
+    <Button
+      mode="blue"
+      type="button"
+      isDisabled={isError}
+      onClick={onRequest}
+      isLoading={isLoading}
+      width="w21"
     >
-      <Button
-        mode="blue"
-        type="button"
-        isDisabled={isError}
-        onClick={onRequest}
-        isLoading={isLoading}
-        width="w21"
-      >
-        Отправить
-      </Button>
+      Отправить
+    </Button>
 
-      <Link href="https://github.com/pick4er">
-        @pick4er
-      </Link>
+    <Link href="https://github.com/pick4er">@pick4er</Link>
 
-      <IconButton
-        icon={FormatIconComponent}
-        type="button"
-        onClick={onBeautify}
-        mode="transparent"
-        direction="left"
-      >
-        Форматировать
-      </IconButton>
-    </CodeEditorActionsTag>
-  )
-}
+    <IconButton
+      icon={FormatIconComponent}
+      type="button"
+      onClick={onBeautify}
+      mode="transparent"
+      direction="left"
+    >
+      Форматировать
+    </IconButton>
+  </CodeEditorActionsTag>
+)
 
 CodeEditorActions.defaultProps = {
   isLoading: false,

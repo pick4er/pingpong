@@ -3,6 +3,9 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 
+import Icon from 'elements/Icon'
+import Tag from 'elements/ThemeTag'
+import Heading from 'elements/Heading'
 import IconButton from 'elements/IconButton'
 import { logoutAction } from 'flux/modules/user'
 import { ReactComponent as LogoutIconComponent } from 'assets/logout.svg'
@@ -57,29 +60,28 @@ function UserHeader({ logout }) {
     }
   }
 
-  const classNames = cx({
-    'user-header': true,
-    'border-separator_bottom': true,
-  })
-  const headerCl = cx({
-    'user-header__header-text': true,
-    'header-text': true,
-    'header-text_s': true,
-  })
   const iconButtonCl = cx({
     text_normal: true,
     'user-header__logout-icon-button': true,
   })
 
   return (
-    <div className={classNames}>
-      <img
-        src={LogoIcon}
-        className="user-header__icon"
-        alt="pingpong-logo-icon"
-      />
-
-      <h5 className={headerCl}>API-консолька</h5>
+    <Tag
+      tagName="div"
+      display="fr"
+      align="center"
+      padding="p2_height p3_width"
+      separator="sep_bottom"
+    >
+      <Icon iconName="LogoIcon" />
+      <Heading
+        tagName="h5"
+        text="h5"
+        margin="m0 m4_left"
+        fGrow="grow1"
+      >
+        API-консолька
+      </Heading>
 
       <UserCredentialsTile />
 
@@ -103,7 +105,7 @@ function UserHeader({ logout }) {
         onClick={toggleFullScreen}
         className="user-header__full-screen-button"
       />
-    </div>
+    </Tag>
   )
 }
 

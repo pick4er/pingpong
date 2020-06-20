@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import T from 'prop-types'
-import cx from 'classnames'
 import { connect } from 'react-redux'
 import beautify from 'js-beautify'
 import debounce from 'lodash.debounce'
@@ -253,11 +252,11 @@ function CodeEditor({
       <Tag
         tagName="div"
         display="fr"
-        fGrow="grow_1"
-        padding="p2_h p3_w"
+        fGrow="grow1"
+        padding="p2_height p3_width"
       >
         <Textarea
-          fGrow="grow_1"
+          fGrow="grow1"
           label="Запрос:"
           name="request"
           id="request-textarea"
@@ -267,7 +266,7 @@ function CodeEditor({
           <Icon iconName="DragIcon" width="w2" />
         </div>
         <Textarea
-          fGrow="grow_1"
+          fGrow="grow1"
           label="Ответ:"
           name="response"
           id="response-textarea"

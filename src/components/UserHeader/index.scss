@@ -1,17 +1,3 @@
-@import 'styles/colors';
-
-.user-header {
-  padding: 10px 15px;
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-.user-header__header-text {
-  margin: 0px;
-  margin-left: 20px;
-  flex-grow: 1;
-}
-
 .user-header__logout-icon-button {
   margin-left: 10px;
 }

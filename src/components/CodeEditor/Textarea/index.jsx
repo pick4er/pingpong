@@ -24,7 +24,10 @@ function CodeEditorTextarea({
   ])
 
   return (
-    <CodeEditorTextareaTag className={classNames}>
+    <CodeEditorTextareaTag
+      tagName="div"
+      className={classNames}
+    >
       {label && (
         <Tag tagName="span" className={labelCl}>
           {label}

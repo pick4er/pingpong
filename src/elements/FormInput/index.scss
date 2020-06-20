@@ -2,9 +2,6 @@
 @import 'styles/mixins';
 
 .input {
-  display: flex;
-  flex-flow: column nowrap;
-
   @include outline($outlineGray);
   // to keep focus on input, not &:after
   &:after {
@@ -18,28 +15,8 @@
   }
 }
 
-.input__input-label {
-  margin-bottom: 5px;
-}
-
-/* INPUT LABEL */
-.input-label {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-}
-
-.input-label__hint {
-  display: flex;
-  align-items: flex-end;
-}
-
 /* NATIVE INPUT */
 .native-input {
   background-color: white;
   height: 40px;
-}
-
-.native-input__input-text {
-  padding: 5px 10px;
 }

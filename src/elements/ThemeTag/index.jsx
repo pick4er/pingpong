@@ -14,14 +14,16 @@ const styleTypes = {
   width: T.string, // w1, w2... only
   height: T.string, // hgt1, hgt2... only
   borderRadius: T.string, // br1, ...
+  separator: T.string, // sep_top, sep_left, ...
   display: T.string, // fr, fc, ...
   shadow: T.string, // sh1, ...
   bg: T.string, // bg_white, bg_error
   overflow: T.string, // ellipsis
   text: T.string, // txt1, txt2, ..., h1, h2, ...
   fGrow: T.string, // fgrow1, fgrow2, ...
+  align: T.string, // fleft, center, fstart, ...
   animation: T.string, // ...?
-  color: T.string,
+  color: T.string, // text_white, error-text
 }
 const styleProps = Object.keys(styleTypes)
 const styleDefaults = styleProps.reduce(
@@ -32,6 +34,7 @@ const styleDefaults = styleProps.reduce(
   {}
 )
 
+// TODO: forward refs
 /* eslint-disable react/jsx-props-no-spreading, no-param-reassign */
 const Tag = ({ className, tagName: TagName, ...rest }) => (
   <TagName
@@ -92,6 +95,7 @@ export const withTheme = (Component) => {
     )
   )
 
+  /* TODO: destroy memoized Tag on unmount */
   const ThemedComponent = (props) => (
     /* TODO: force-delete className from props */
     <Component

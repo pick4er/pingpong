@@ -23,6 +23,24 @@
   }
 }
 
+.fstart {
+  align-items: flex-start;
+}
+
+.fend {
+  align-items: flex-end;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+// OTHER
 .hide {
   display: none;
 }

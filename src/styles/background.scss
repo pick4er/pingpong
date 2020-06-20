@@ -8,6 +8,10 @@
   background-color: $white;
 }
 
+.bg_main {
+  background-color: $backgroundMain;
+}
+
 .gradient-background_blue {
   background: linear-gradient($gradientBlueFrom, $gradientBlueTo);
 

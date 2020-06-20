@@ -14,56 +14,49 @@ const headerTags = {
   s: 'p',
 }
 
-function Notification({
+const Notification = ({
   notification: { type, title, message },
   withIcon,
   size,
   tag: NotificationTag,
-}) {
-  const display = cx(['fr', !type && 'hide'])
-  const cl = cx({
-    notification: true,
-    [`notification_size-${size}`]: size,
-  })
-
-  return (
-    <NotificationTag
-      tagName="div"
-      display={display}
-      className={cl}
-      bg={`bg_${type}`}
-      borderRadius="br3"
-    >
-      {withIcon && (
-        <Icon iconName="SadFaceIcon" margin="m2_right" />
+}) => (
+  <NotificationTag
+    tagName="div"
+    display={cx(['fr', !type && 'hide'])}
+    className={cx([size && `notification_size-${size}`])}
+    align="fstart"
+    bg={`bg_${type}`}
+    borderRadius="br3"
+  >
+    {withIcon && (
+      <Icon iconName="SadFaceIcon" margin="m2_right" />
+    )}
+    <Tag tagName="div" display="fc">
+      {title && (
+        <Heading
+          tagName={headerTags[size]}
+          margin="m0 m1_bottom"
+          overflow="ellipsis"
+          text={headerTags[size]}
+          color={`${type}-text`}
+        >
+          {title}
+        </Heading>
       )}
-      <Tag tagName="div" display="fc">
-        {title && (
-          <Heading
-            tagName={headerTags[size]}
-            margin="m0 m1_bottom"
-            overflow="ellipsis"
-            text={headerTags[size]}
-            color={`${type}-text`}
-          >
-            {title}
-          </Heading>
-        )}
-        {message && (
-          <Tag
-            tagName="p"
-            margin="m0"
-            overflow="ellipsis"
-            text="notification-message-text"
-            color={`${type}-text`}
-          >
-            {message}
-          </Tag>
-        )}
-      </Tag>
-    </NotificationTag>
-  )
-}
+      {message && (
+        <Tag
+          tagName="p"
+          margin="m0"
+          overflow="ellipsis"
+          text="notification-message-text"
+          color={`${type}-text`}
+        >
+          {message}
+        </Tag>
+      )}
+    </Tag>
+  </NotificationTag>
+)
 
 Notification.defaultProps = {
   withIcon: false,

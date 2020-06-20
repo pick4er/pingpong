@@ -7,22 +7,20 @@ import Tag from 'elements/ThemeTag'
 
 import './index.scss'
 
-function Loader({ size, color }) {
-  const classNames = cx({
-    loader: true,
-    [`loader_${size}`]: true,
-    [`loader_${color}`]: true,
-  })
-
-  return (
-    <Tag tagName="span" className={classNames}>
-      <Icon
-        iconName="LoaderIcon"
-        animation="loading-animation"
-      />
-    </Tag>
-  )
-}
+const Loader = ({ size, color }) => (
+  <Tag
+    tagName="span"
+    display="fr"
+    align="center"
+    height="h4"
+    className={cx([`loader_${size}`, `loader_${color}`])}
+  >
+    <Icon
+      iconName="LoaderIcon"
+      animation="loading-animation"
+    />
+  </Tag>
+)
 
 Loader.defaultProps = {
   size: 's',

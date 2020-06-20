@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 
-import { withTheme } from 'elements/ThemeTag'
+import Tag, { withTheme } from 'elements/ThemeTag'
 
 import './index.scss'
 
@@ -68,7 +68,8 @@ function FormInput({
     'input-text',
     'border',
     'native-input',
-    'native-input__input-text',
+    'p1_height',
+    'p2_width',
     error && 'border_error',
     type === 'password' && 'input-text_password',
   ])
@@ -80,15 +81,25 @@ function FormInput({
       display="fc"
       title={error}
     >
-      <div className="input-label input__input-label">
+      <Tag
+        tagName="div"
+        margin="m1_bottom"
+        display="fr"
+        align="between"
+      >
         <span className={labelNameCl}>{label}</span>
 
         {!isRequired && (
-          <span className="hint-text input-label__hint">
+          <Tag
+            tagName="span"
+            display="fr"
+            align="fend"
+            className="hint-text"
+          >
             Опционально
-          </span>
+          </Tag>
         )}
-      </div>
+      </Tag>
       <input
         ref={inputEl}
         className={nativeInputCl}
