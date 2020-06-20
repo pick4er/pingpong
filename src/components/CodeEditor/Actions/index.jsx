@@ -5,6 +5,7 @@ import cx from 'classnames'
 import Link from 'elements/Link'
 import Button from 'elements/Button'
 import IconButton from 'elements/IconButton'
+import { withTheme } from 'elements/ThemeTag'
 import { ReactComponent as FormatIconComponent } from 'assets/format.svg'
 
 import './index.scss'
@@ -14,23 +15,26 @@ function CodeEditorActions({
   isLoading,
   onRequest,
   onBeautify,
-  className,
+  tag: CodeEditorActionsTag,
 }) {
-  const classNames = cx([
+  const cl = cx([
     'code-editor__actions',
     'border-separator_top',
-    className,
   ])
 
   return (
-    <div className={classNames}>
+    <CodeEditorActionsTag
+      tagName="div"
+      display="fr"
+      className={cl}
+    >
       <Button
         mode="blue"
         type="button"
         isDisabled={isError}
         onClick={onRequest}
         isLoading={isLoading}
-        className="code-editor__request-button"
+        width="w21"
       >
         Отправить
       </Button>
@@ -48,22 +52,21 @@ function CodeEditorActions({
       >
         Форматировать
       </IconButton>
-    </div>
+    </CodeEditorActionsTag>
   )
 }
 
 CodeEditorActions.defaultProps = {
-  className: '',
   isLoading: false,
   isError: false,
 }
 
 CodeEditorActions.propTypes = {
-  className: T.string,
   isLoading: T.bool,
   isError: T.bool,
   onRequest: T.func.isRequired,
   onBeautify: T.func.isRequired,
+  tag: T.elementType.isRequired,
 }
 
-export default CodeEditorActions
+export default withTheme(CodeEditorActions)

@@ -2,19 +2,20 @@ import React from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 
+import Tag, { withTheme } from 'elements/ThemeTag'
+
 import './index.scss'
 
 function CodeEditorTextarea({
-  className,
   label,
   name,
   id,
   isError,
+  tag: CodeEditorTextareaTag,
 }) {
   const classNames = cx([
     'code-editor__textarea',
     isError && 'code-editor__textarea_error',
-    className,
   ])
   const labelCl = cx([
     'hint-text',
@@ -23,25 +24,28 @@ function CodeEditorTextarea({
   ])
 
   return (
-    <div className={classNames}>
-      {label && <span className={labelCl}>{label}</span>}
+    <CodeEditorTextareaTag className={classNames}>
+      {label && (
+        <Tag tagName="span" className={labelCl}>
+          {label}
+        </Tag>
+      )}
       <textarea name={name} autoComplete="off" id={id} />
-    </div>
+    </CodeEditorTextareaTag>
   )
 }
 
 CodeEditorTextarea.defaultProps = {
-  className: '',
   label: '',
   isError: false,
 }
 
 CodeEditorTextarea.propTypes = {
-  className: T.string,
   label: T.string,
   id: T.string.isRequired,
   isError: T.bool,
   name: T.string.isRequired,
+  tag: T.elementType.isRequired,
 }
 
-export default CodeEditorTextarea
+export default withTheme(CodeEditorTextarea)

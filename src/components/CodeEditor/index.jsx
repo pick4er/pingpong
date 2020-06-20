@@ -24,8 +24,8 @@ import {
   getEditorSize,
   getEditorErrors,
 } from 'helpers'
-import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
-import { withTheme } from 'elements/ThemeTag'
+import Tag, { withTheme } from 'elements/ThemeTag'
+import Icon from 'elements/Icon'
 import Textarea from './Textarea'
 import Actions from './Actions'
 
@@ -242,35 +242,40 @@ function CodeEditor({
   }
 
   const isResponseError = checkIsResponseError(responseText)
-  const editorTextareaCl = cx([
-    'code-editor__textarea',
-    isResponseError && 'code-editor__editor_error',
-  ])
-  const dragIconCl = cx(['code-editor__drag-icon'])
 
   return (
-    <CodeEditorTag tagName="div" className="code-editor">
-      <div className="code-editor__textareas">
+    <CodeEditorTag
+      tagName="div"
+      className="code-editor"
+      display="fc"
+      bg="bg_white"
+    >
+      <Tag
+        tagName="div"
+        display="fr"
+        fGrow="grow_1"
+        padding="p2_h p3_w"
+      >
         <Textarea
-          className={editorTextareaCl}
+          fGrow="grow_1"
           label="Запрос:"
           name="request"
           id="request-textarea"
           isError={isResponseError}
         />
         <div id="drag-el" className="code-editor__drag">
-          <DragIconComponent className={dragIconCl} />
+          <Icon iconName="DragIcon" width="w2" />
         </div>
         <Textarea
-          className={editorTextareaCl}
+          fGrow="grow_1"
           label="Ответ:"
           name="response"
           id="response-textarea"
           isError={isResponseError}
         />
-      </div>
+      </Tag>
       <Actions
-        className="code-editor__actions"
+        padding="p3 p2_right"
         isError={isLintError}
         isLoading={isLoading}
         onRequest={onRequest}

@@ -1,27 +1,6 @@
-@import 'styles/colors';
-
 .code-editor {
-  display: flex;
-  flex-flow: column nowrap;
   z-index: 0;
   position: relative;
-  background-color: $white;
-}
-
-.code-editor__actions {
-  padding: 15px;
-  padding-right: 11px;
-}
-
-.code-editor__textareas {
-  flex-grow: 1;
-  padding: 10px 15px;
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-.code-editor__textarea {
-  flex-grow: 1;
 }
 
 .code-editor__drag {
@@ -29,8 +8,3 @@
   align-items: center;
   cursor: ew-resize;
 }
-
-.code-editor__drag-icon {
-  width: 10px;
-}
-
