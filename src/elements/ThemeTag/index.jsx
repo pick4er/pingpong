@@ -13,6 +13,8 @@ const styleProps = [
   'width',
   'borderRadius',
   'display',
+  'shadow',
+  'bg',
 ]
 
 const styleDefaults = styleProps.reduce(
@@ -30,6 +32,8 @@ const styleTypes = {
   width: T.string,
   borderRadius: T.string,
   display: T.string,
+  shadow: T.string,
+  bg: T.string,
 }
 
 /* eslint-disable react/jsx-props-no-spreading, no-param-reassign */

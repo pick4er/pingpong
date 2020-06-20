@@ -24,6 +24,17 @@
   }
 }
 
+@for $i from 0 through 10 {
+  $offsetX: 0;
+  $offsetY: $i * 2px;
+  $blurRadius: $i * 5px;
+  $color: rgba(0, 0, 0, 0.1);
+
+  .sh#{$i} {
+    box-shadow: $offsetX $offsetY $blurRadius $color;
+  }
+}
+
 .border {
   border-radius: 5px;
   border: 1px solid $borderBlack;

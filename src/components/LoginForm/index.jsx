@@ -22,8 +22,6 @@ import {
 } from 'helpers/validators'
 import { NotificationTypes } from 'dictionary'
 
-import './index.scss'
-
 const validators = {
   login: [
     required,
@@ -90,20 +88,22 @@ function LoginForm({
     })
   }
 
-  const classNames = cx(['fc', 'login-form'])
   const notificationCl = cx([
-    'm4_bottom',
     'notification-animation_l',
     'error-background',
   ])
-  const buttonWidth = cx([])
 
   return (
     <Tag
       tagName="form"
       onSubmit={onSubmit}
-      className={classNames}
       id="login-form"
+      display="fc"
+      width="w104"
+      padding="p8_height p6_width"
+      borderRadius="br3"
+      shadow="sh2"
+      bg="bg_white"
     >
       <Heading tagName="h5" margin="m0 m4_bottom">
         API-консолька
@@ -112,6 +112,7 @@ function LoginForm({
       <Notification
         withIcon
         notification={loginNotification}
+        margin="m4_bottom"
         className={notificationCl}
       />
 
@@ -144,7 +145,7 @@ function LoginForm({
       <Button
         type="submit"
         mode="blue"
-        width={buttonWidth}
+        width="w21"
         isDisabled={isError}
         isLoading={isLoading}
       >

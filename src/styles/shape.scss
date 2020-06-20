@@ -1,5 +1,13 @@
 @import 'styles/colors';
 
+@for $i from 0 through 200 {
+  $value: $i * 5px;
+
+  .w#{$i} {
+    width: $value;
+  }
+}
+
 .tile-button_white {
   background-color: $white;
   border: none;
