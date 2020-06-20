@@ -4,10 +4,10 @@ import T from 'prop-types'
 import { withTheme } from 'elements/ThemeTag'
 import { headingTags } from 'dictionary'
 
-const Heading = ({ tag: Tag, tagName, children }) => (
-  <Tag tagName={tagName} className={tagName}>
+const Heading = ({ tag: HeadingTag, tagName, children }) => (
+  <HeadingTag tagName={tagName}>
     {children}
-  </Tag>
+  </HeadingTag>
 )
 
 Heading.propTypes = {

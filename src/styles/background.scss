@@ -1,17 +1,12 @@
 @import 'styles/colors';
 
-.error-background {
+.bg_error {
   background-color: $backgroundError;
 }
 
-.info-background {
-  background-color: $backgroundInfo;
+.bg_white {
+  background-color: $white;
 }
-
-.warning-background {
-  background-color: $backgroundWarning;
-}
-
 
 .gradient-background_blue {
   background: linear-gradient($gradientBlueFrom, $gradientBlueTo);
@@ -39,8 +34,4 @@
 
 .background_transparent {
   background: transparent;
-}
-
-.bg_white {
-  background-color: $white;
 }

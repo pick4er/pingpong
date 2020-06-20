@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import cx from 'classnames'
 
 import FormInput from 'elements/FormInput'
 import Button from 'elements/Button'
@@ -88,11 +87,6 @@ function LoginForm({
     })
   }
 
-  const notificationCl = cx([
-    'notification-animation_l',
-    'error-background',
-  ])
-
   return (
     <Tag
       tagName="form"
@@ -105,7 +99,7 @@ function LoginForm({
       shadow="sh2"
       bg="bg_white"
     >
-      <Heading tagName="h5" margin="m0 m4_bottom">
+      <Heading tagName="h3" text="h3" margin="m0 m4_bottom">
         API-консолька
       </Heading>
 
@@ -113,7 +107,7 @@ function LoginForm({
         withIcon
         notification={loginNotification}
         margin="m4_bottom"
-        className={notificationCl}
+        animation="notification-animation_l"
       />
 
       <FormInput

@@ -26,7 +26,7 @@ function FormInput({
   label,
   validators,
   isRequired,
-  tag: Tag,
+  tag: FormInputTag,
 }) {
   const inputEl = useRef(null)
   const [error, setError] = useState(undefined)
@@ -74,7 +74,7 @@ function FormInput({
   ])
 
   return (
-    <Tag tagName="label" className="input" title={error}>
+    <FormInputTag tagName="label" className="input" title={error}>
       <div className="input-label input__input-label">
         <span className={labelNameCl}>{label}</span>
 
@@ -92,7 +92,7 @@ function FormInput({
         name={name}
         data-error={error}
       />
-    </Tag>
+    </FormInputTag>
   )
 }
 

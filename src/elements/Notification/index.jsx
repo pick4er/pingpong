@@ -3,48 +3,77 @@ import T from 'prop-types'
 import cx from 'classnames'
 
 import Icon from 'elements/Icon'
-import { withTheme } from 'elements/ThemeTag'
+import Heading from 'elements/Heading'
+import Tag, { withTheme } from 'elements/ThemeTag'
 import { NotificationTypes } from 'dictionary'
 
 import './index.scss'
+
+const headerTags = {
+  m: 'h4',
+  s: 'p',
+}
 
 function Notification({
   notification: { type, title, message },
   withIcon,
   size,
-  tag: Tag,
+  tag: NotificationTag,
 }) {
+  const display = cx([
+    'fr',
+    !type && 'hide'
+  ])
+  const headerTagName = headerTags[size]
   const cl = cx({
-    fr: true,
     notification: true,
-    hide: !type,
     [`notification_size-${size}`]: size,
-    [`${type}-background`]: type,
+    [`bg_${type}`]: type,
   })
   const titleCl = cx({
-    m0: true,
-    m1_bottom: true,
-    'overflow-ellipsis': true,
     'notification-title-text': true,
     [`${type}-text`]: type,
   })
   const messageCl = cx({
-    m0: true,
-    'overflow-ellipsis': true,
     'notification-message-text': true,
     [`${type}-text`]: type,
   })
 
   return (
-    <Tag tagName="div" className={cl}>
+    <NotificationTag
+      tagName="div"
+      display={display}
+      className={cl}
+      borderRadius="br3"
+    >
       {withIcon && (
         <Icon iconName="SadFaceIcon" margin="m2_right" />
       )}
-      <div className="fc">
-        {title && <h5 className={titleCl}>{title}</h5>}
-        {message && <p className={messageCl}>{message}</p>}
-      </div>
-    </Tag>
+      <Tag tagName="div" display="fc">
+        {title && (
+          <Heading
+            tagName={headerTagName}
+            margin="m0 m1_bottom"
+            overflow="ellipsis"
+            text={headerTagName}
+            color="error-text"
+          >
+            {title}
+          </Heading>
+        )}
+        {message && (
+          <Tag
+            tagName="p"
+            margin="m0"
+            overflow="ellipsis"
+            text="notification-message-text"
+            color="error-text"
+          >
+            {message}
+          </Tag>
+        )}
+      </Tag>
+    </NotificationTag>
   )
 }
 
@@ -55,12 +84,12 @@ Notification.defaultProps = {
     title: '',
     message: '',
   },
-  size: 'l',
+  size: 'm',
 }
 
 Notification.propTypes = {
   withIcon: T.bool,
-  size: T.oneOf(['s', 'm', 'l']),
+  size: T.oneOf(['s', 'm']),
   tag: T.elementType.isRequired,
   notification: T.shape({
     type: T.oneOf(Object.values(NotificationTypes)),

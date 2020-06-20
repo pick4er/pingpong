@@ -15,7 +15,7 @@ function Button({
   children,
   isLoading,
   isDisabled,
-  tag: Tag,
+  tag: ButtonTag,
 }) {
   const isTransparent = mode === Modes.Transparent
   const isBlue = mode === Modes.Blue
@@ -39,7 +39,7 @@ function Button({
   })
 
   return (
-    <Tag
+    <ButtonTag
       tagName="button"
       type={type} // eslint-disable-line react/button-has-type
       onClick={onClick}
@@ -47,7 +47,7 @@ function Button({
       className={classNames}
     >
       {isLoading ? <Loader /> : children}
-    </Tag>
+    </ButtonTag>
   )
 }
 

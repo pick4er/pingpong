@@ -31,8 +31,8 @@ const icons = {
   LoaderIcon,
 }
 
-const Icon = ({ iconName, tag: Tag }) => (
-  <Tag tagName={icons[iconName]} />
+const Icon = ({ iconName, tag: IconTag }) => (
+  <IconTag tagName={icons[iconName]} />
 )
 
 Icon.propTypes = {

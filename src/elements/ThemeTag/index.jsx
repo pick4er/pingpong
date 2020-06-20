@@ -7,16 +7,22 @@ import omit from 'lodash.omit'
 import { TagNames } from 'dictionary'
 import { memoize } from 'helpers'
 
-const styleProps = [
-  'margin',
-  'padding',
-  'width',
-  'borderRadius',
-  'display',
-  'shadow',
-  'bg',
-]
-
+// TODO: precise types
+const styleTypes = {
+  margin: T.string, // m1, m2... only
+  padding: T.string, // p1, p2... only
+  width: T.string, // w1, w2... only
+  height: T.string, // hgt1, hgt2... only
+  borderRadius: T.string, // br1, ...
+  display: T.string, // fr, fc, ...
+  shadow: T.string, // sh1, ...
+  bg: T.string, // bg_white, bg_error
+  overflow: T.string, // ellipsis
+  text: T.string, // txt1, txt2, ..., h1, h2, ...
+  animation: T.string, // ...?
+  color: T.string,
+}
+const styleProps = Object.keys(styleTypes)
 const styleDefaults = styleProps.reduce(
   (acc, prop) => ({
     ...acc,
@@ -25,26 +31,16 @@ const styleDefaults = styleProps.reduce(
   {}
 )
 
-// TODO: precise types
-const styleTypes = {
-  margin: T.string,
-  padding: T.string,
-  width: T.string,
-  borderRadius: T.string,
-  display: T.string,
-  shadow: T.string,
-  bg: T.string,
-}
-
 /* eslint-disable react/jsx-props-no-spreading, no-param-reassign */
-function Tag({ className, tagName: TagName, ...rest }) {
-  const styleClassNames = pick(rest, styleProps)
-  const cl = cx([Object.values(styleClassNames), className])
-
-  return (
-    <TagName className={cl} {...omit(rest, styleProps)} />
-  )
-}
+const Tag = ({ className, tagName: TagName, ...rest }) => (
+  <TagName
+    className={cx([
+      Object.values(pick(rest, styleProps)),
+      className,
+    ])}
+    {...omit(rest, styleProps)}
+  />
+)
 
 Tag.defaultProps = {
   ...styleDefaults,
@@ -73,32 +69,31 @@ Tag.propTypes = {
 
 export default Tag
 
-const createTag = memoize(
-  (tagStyleProps) => ({ tagName, className, ...rest }) => (
-    <Tag
-      {...rest}
-      {...tagStyleProps}
-      tagName={tagName}
-      className={className}
-    />
-  )
-)
-
 export const withTheme = (Component) => {
   Component.propTypes = {
     ...Component.propTypes,
     tag: T.elementType,
   }
 
-  function ThemedComponent(props) {
-    /* force-delete className, margin, padding etc. from props may be? */
-    return (
-      <Component
-        tag={createTag(pick(props, styleProps))}
-        {...props}
+  const createTag = memoize(
+    (tagProps) => ({ tagName, className, ...componentProps }) => (
+      /* TODO: remove undefined object values in tagProps and componentProps */
+      <Tag
+        {...tagProps}
+        {...componentProps}
+        tagName={tagName}
+        className={className}
       />
     )
-  }
+  )
+
+  const ThemedComponent = (props) => (
+    /* TODO: force-delete className from props */
+    <Component
+      tag={createTag(pick(props, styleProps))}
+      {...props}
+    />
+  )
 
   ThemedComponent.defaultProps = {
     ...Component.defaultProps,

@@ -3,8 +3,8 @@ import T from 'prop-types'
 
 import { withTheme } from 'elements/ThemeTag'
 
-const Link = ({ children, href, tag: Tag }) => (
-  <Tag
+const Link = ({ children, href, tag: LinkTag }) => (
+  <LinkTag
     tagName="a"
     target="_blank"
     rel="noopener noreferrer"
@@ -12,7 +12,7 @@ const Link = ({ children, href, tag: Tag }) => (
     className="link-text"
   >
     {children}
-  </Tag>
+  </LinkTag>
 )
 
 Link.propTypes = {
