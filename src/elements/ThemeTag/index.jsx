@@ -19,6 +19,7 @@ const styleTypes = {
   bg: T.string, // bg_white, bg_error
   overflow: T.string, // ellipsis
   text: T.string, // txt1, txt2, ..., h1, h2, ...
+  fGrow: T.string, // fgrow1, fgrow2, ...
   animation: T.string, // ...?
   color: T.string,
 }

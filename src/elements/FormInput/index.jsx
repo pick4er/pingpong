@@ -77,6 +77,7 @@ function FormInput({
     <FormInputTag
       tagName="label"
       className="input"
+      display="fc"
       title={error}
     >
       <div className="input-label input__input-label">

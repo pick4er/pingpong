@@ -1,11 +1,14 @@
 import React from 'react'
 
-function NotFoundPage() {
-  return (
-    <div className="page">
-      <h5 className="header-text">Страница не найдена</h5>
-    </div>
-  )
-}
+import Tag from 'elements/ThemeTag'
+import Heading from 'elements/Heading'
+
+const NotFoundPage = () => (
+  <Tag tagName="div" className="page">
+    <Heading tagName="h5" text="h5">
+      Страница не найдена
+    </Heading>
+  </Tag>
+)
 
 export default NotFoundPage

@@ -25,6 +25,7 @@ import {
   getEditorErrors,
 } from 'helpers'
 import { ReactComponent as DragIconComponent } from 'assets/drag.svg'
+import { withTheme } from 'elements/ThemeTag'
 import Textarea from './Textarea'
 import Actions from './Actions'
 
@@ -34,12 +35,12 @@ function CodeEditor({
   requestText,
   responseText,
   makeRequest,
-  className,
   isLoading,
   savedRequestWidth,
   savedResponseWidth,
   saveRequestWidth,
   saveResponseWidth,
+  tag: CodeEditorTag,
 }) {
   const [requestEditor, setRequestEditor] = useState(null)
   const [responseEditor, setResponseEditor] = useState(null)
@@ -241,7 +242,6 @@ function CodeEditor({
   }
 
   const isResponseError = checkIsResponseError(responseText)
-  const classNames = cx(['code-editor', className])
   const editorTextareaCl = cx([
     'code-editor__textarea',
     isResponseError && 'code-editor__editor_error',
@@ -249,7 +249,7 @@ function CodeEditor({
   const dragIconCl = cx(['code-editor__drag-icon'])
 
   return (
-    <div className={classNames}>
+    <CodeEditorTag tagName="div" className="code-editor">
       <div className="code-editor__textareas">
         <Textarea
           className={editorTextareaCl}
@@ -276,12 +276,11 @@ function CodeEditor({
         onRequest={onRequest}
         onBeautify={onBeautify}
       />
-    </div>
+    </CodeEditorTag>
   )
 }
 
 CodeEditor.defaultProps = {
-  className: '',
   isLoading: false,
   savedRequestWidth: undefined,
   savedResponseWidth: undefined,
@@ -292,11 +291,11 @@ CodeEditor.propTypes = {
   responseText: T.string.isRequired,
   makeRequest: T.func.isRequired,
   isLoading: T.bool,
-  className: T.string,
   saveRequestWidth: T.func.isRequired,
   saveResponseWidth: T.func.isRequired,
   savedRequestWidth: T.number,
   savedResponseWidth: T.number,
+  tag: T.elementType.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -320,7 +319,6 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CodeEditor)
+export default withTheme(
+  connect(mapStateToProps, mapDispatchToProps)(CodeEditor)
+)

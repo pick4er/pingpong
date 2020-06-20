@@ -21,7 +21,6 @@ function Notification({
   tag: NotificationTag,
 }) {
   const display = cx(['fr', !type && 'hide'])
-  const headerTagName = headerTags[size]
   const cl = cx({
     notification: true,
     [`notification_size-${size}`]: size,
@@ -41,10 +40,10 @@ function Notification({
       <Tag tagName="div" display="fc">
         {title && (
           <Heading
-            tagName={headerTagName}
+            tagName={headerTags[size]}
             margin="m0 m1_bottom"
             overflow="ellipsis"
-            text={headerTagName}
+            text={headerTags[size]}
             color={`${type}-text`}
           >
             {title}

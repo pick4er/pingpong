@@ -84,10 +84,10 @@ function Dropdown({
     triggerRef.current
   )
 
-  const classNames = cx([isRelative && 'dropdown_relative'])
+  const cl = cx([isRelative && 'dropdown_relative'])
 
   return (
-    <div id={`dropdown-${id}`} className={classNames}>
+    <div id={`dropdown-${id}`} className={cl}>
       <div ref={triggerRef}>
         <TriggerComponent />
       </div>

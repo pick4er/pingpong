@@ -1,7 +1,9 @@
 import React from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
-import { ReactComponent as LoaderIconComponent } from 'assets/loader.svg'
+
+import Icon from 'elements/Icon'
+import Tag from 'elements/ThemeTag'
 
 import './index.scss'
 
@@ -13,9 +15,12 @@ function Loader({ size, color }) {
   })
 
   return (
-    <span className={classNames}>
-      <LoaderIconComponent className="loading-animation" />
-    </span>
+    <Tag tagName="span" className={classNames}>
+      <Icon
+        iconName="LoaderIcon"
+        animation="loading-animation"
+      />
+    </Tag>
   )
 }
 

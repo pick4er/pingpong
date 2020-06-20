@@ -1,12 +1,12 @@
 import React from 'react'
-import Loader from 'elements/Loader'
 
-function LoadingPage() {
-  return (
-    <div className="page">
-      <Loader size="l" color="black" />
-    </div>
-  )
-}
+import Loader from 'elements/Loader'
+import Tag from 'elements/ThemeTag'
+
+const LoadingPage = () => (
+  <Tag tagName="div" className="page">
+    <Loader size="l" color="black" />
+  </Tag>
+)
 
 export default LoadingPage
