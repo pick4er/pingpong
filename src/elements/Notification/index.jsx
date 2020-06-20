@@ -20,23 +20,11 @@ function Notification({
   size,
   tag: NotificationTag,
 }) {
-  const display = cx([
-    'fr',
-    !type && 'hide'
-  ])
+  const display = cx(['fr', !type && 'hide'])
   const headerTagName = headerTags[size]
   const cl = cx({
     notification: true,
     [`notification_size-${size}`]: size,
-    [`bg_${type}`]: type,
-  })
-  const titleCl = cx({
-    'notification-title-text': true,
-    [`${type}-text`]: type,
-  })
-  const messageCl = cx({
-    'notification-message-text': true,
-    [`${type}-text`]: type,
   })
 
   return (
@@ -44,6 +32,7 @@ function Notification({
       tagName="div"
       display={display}
       className={cl}
+      bg={`bg_${type}`}
       borderRadius="br3"
     >
       {withIcon && (
@@ -56,7 +45,7 @@ function Notification({
             margin="m0 m1_bottom"
             overflow="ellipsis"
             text={headerTagName}
-            color="error-text"
+            color={`${type}-text`}
           >
             {title}
           </Heading>
@@ -67,7 +56,7 @@ function Notification({
             margin="m0"
             overflow="ellipsis"
             text="notification-message-text"
-            color="error-text"
+            color={`${type}-text`}
           >
             {message}
           </Tag>

@@ -76,7 +76,11 @@ export const withTheme = (Component) => {
   }
 
   const createTag = memoize(
-    (tagProps) => ({ tagName, className, ...componentProps }) => (
+    (tagProps) => ({
+      tagName,
+      className,
+      ...componentProps
+    }) => (
       /* TODO: remove undefined object values in tagProps and componentProps */
       <Tag
         {...tagProps}

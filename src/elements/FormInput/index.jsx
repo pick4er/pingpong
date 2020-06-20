@@ -74,7 +74,11 @@ function FormInput({
   ])
 
   return (
-    <FormInputTag tagName="label" className="input" title={error}>
+    <FormInputTag
+      tagName="label"
+      className="input"
+      title={error}
+    >
       <div className="input-label input__input-label">
         <span className={labelNameCl}>{label}</span>
 
