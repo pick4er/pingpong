@@ -88,17 +88,10 @@ function LoginForm({
     })
   }
 
-  const classNames = cx([
-    'login-form',
-    'flex-column',
-  ])
-  const headerCl = cx([
-    'h5',
-    'm0',
-    'm4_bottom',
-  ])
+  const classNames = cx(['fc', 'login-form'])
+  const headerCl = cx(['h5', 'm0', 'm4_bottom'])
   const notificationCl = cx([
-    'login-form__notification',
+    'm4_bottom',
     'notification-animation_l',
     'error-background',
   ])
@@ -121,7 +114,7 @@ function LoginForm({
         isRequired
         name="login"
         label="Логин"
-        className="login-form__input"
+        margin="m4_bottom"
         validators={validators.login}
         type="text"
       />
@@ -129,7 +122,7 @@ function LoginForm({
       <FormInput
         name="sublogin"
         label="Сублогин"
-        className="login-form__input"
+        margin="m4_bottom"
         validators={validators.sublogin}
         type="text"
       />
@@ -138,8 +131,7 @@ function LoginForm({
         isRequired
         label="Пароль"
         name="password"
-        className="login-form__input"
-        nativeInputClassName="input-text_password"
+        margin="m4_bottom"
         validators={validators.password}
         type="password"
       />

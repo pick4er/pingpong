@@ -1,9 +1,10 @@
 @use "sass:string";
+@import 'styles/functions';
 
 @each $rule in margin, padding {
   @for $i from 0 through 6 {
     $value: 5px * $i;
-    $prefix: str-slice($rule, 1, 1);
+    $prefix: str-shrink($rule);
 
     .#{$prefix}#{$i} {
       #{$rule}: $value;

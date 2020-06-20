@@ -24,8 +24,7 @@ function FormInput({
   label,
   validators,
   isRequired,
-  className,
-  nativeInputClassName,
+  margin,
 }) {
   const inputEl = useRef(null)
   const [error, setError] = useState(undefined)
@@ -58,7 +57,7 @@ function FormInput({
     }
   }, [error, setError, validators, name])
 
-  const classNames = cx(['input', className])
+  const classNames = cx(['input', margin])
 
   const labelNameCl = cx([
     'label-text',
@@ -71,7 +70,7 @@ function FormInput({
     'native-input',
     'native-input__input-text',
     error && 'border_error',
-    nativeInputClassName,
+    type === 'password' && 'input-text_password',
   ])
 
   return (
@@ -100,14 +99,12 @@ function FormInput({
 FormInput.defaultProps = {
   validators: [],
   isRequired: false,
-  className: '',
-  nativeInputClassName: '',
+  margin: '',
 }
 
 FormInput.propTypes = {
-  className: T.string,
+  margin: T.string,
   isRequired: T.bool,
-  nativeInputClassName: T.string,
   validators: T.arrayOf(T.func),
   label: T.string.isRequired,
   name: T.string.isRequired,
