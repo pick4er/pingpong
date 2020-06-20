@@ -2,8 +2,8 @@ import React from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 
-function Link({ children, href, className }) {
-  const classNames = cx(['link-text', className])
+function Link({ children, href, margin }) {
+  const classNames = cx(['link-text', margin])
 
   return (
     <a
@@ -18,13 +18,13 @@ function Link({ children, href, className }) {
 }
 
 Link.defaultProps = {
-  className: '',
+  margin: undefined,
 }
 
 Link.propTypes = {
   children: T.elementType.isRequired,
   href: T.string.isRequired,
-  className: T.string,
+  margin: T.string,
 }
 
 export default Link

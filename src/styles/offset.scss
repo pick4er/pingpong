@@ -1,48 +1,27 @@
+@use "sass:string";
 
-/* m - margin, p - padding */
-@each $rule in m, p {
-  @for $i from 1 through 6 {
-    $offset: 5px * $i;
+@each $rule in margin, padding {
+  @for $i from 0 through 6 {
+    $value: 5px * $i;
+    $prefix: str-slice($rule, 1, 1);
 
-    @if $rule == m {
-      .m#{$i} {
-        margin: $offset;
+    .#{$prefix}#{$i} {
+      #{$rule}: $value;
 
-        &_top {
-          margin-top: $offset;
-        }
-
-        &_bottom {
-          margin-bottom: $offset;
-        }
-
-        &_left {
-          margin-left: $offset;
-        }
-
-        &_right {
-          margin-right: $offset;
-        }
+      &_top {
+        #{$rule}-top: $value;
       }
-    } @else if $rule == p {
-      .p#{$i} {
-        padding: $offset;
 
-        &_top {
-          padding-top: $offset;
-        }
+      &_bottom {
+        #{$rule}-bottom: $value;
+      }
 
-        &_bottom {
-          padding-bottom: $offset;
-        }
+      &_left {
+        #{$rule}-left: $value;
+      }
 
-        &_left {
-          padding-left: $offset;
-        }
-
-        &_right {
-          padding-right: $offset;
-        }
+      &_right {
+        #{$rule}-right: $value;
       }
     }
   }

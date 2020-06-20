@@ -1,4 +1,20 @@
+@use "sass:string";
 @import 'styles/colors';
+@import 'styles/functions';
+
+@each $direction in row, column, row-reverse, column-reverse {
+  $directionPrefix: str-shrink($direction);
+
+  .f#{$directionPrefix} {
+    display: flex;
+    flex-direction: #{$direction};
+    flex-wrap: nowrap;
+
+    &_wrap {
+      flex-wrap: wrap;
+    }
+  }
+}
 
 .hide {
   display: none;
@@ -11,6 +27,11 @@
   justify-content: center;
   height: 100vh;
   background-color: $backgroundMain;
+}
+
+.flex-column {
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .list-styles-reset {

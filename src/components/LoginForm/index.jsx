@@ -58,7 +58,6 @@ const checkIfFormError = (isError, setIsError) => {
 }
 
 function LoginForm({
-  className,
   isLoading,
   loginUser,
   loginNotification,
@@ -89,19 +88,20 @@ function LoginForm({
     })
   }
 
-  const classNames = cx({
-    'login-form': true,
-    [className]: className,
-  })
-  const headerCl = cx({
-    'header-text': true,
-    'login-form__header-text': true,
-  })
-  const notificationCl = cx({
-    'login-form__notification': true,
-    'notification-animation_l': true,
-    'error-background': true,
-  })
+  const classNames = cx([
+    'login-form',
+    'flex-column',
+  ])
+  const headerCl = cx([
+    'h5',
+    'm0',
+    'm4_bottom',
+  ])
+  const notificationCl = cx([
+    'login-form__notification',
+    'notification-animation_l',
+    'error-background',
+  ])
 
   return (
     <form
@@ -158,7 +158,6 @@ function LoginForm({
 }
 
 LoginForm.defaultProps = {
-  className: '',
   loginNotification: {
     type: undefined,
     message: '',
@@ -168,7 +167,6 @@ LoginForm.defaultProps = {
 
 LoginForm.propTypes = {
   loginUser: T.func.isRequired,
-  className: T.string,
   isLoading: T.bool.isRequired,
   loginNotification: T.shape({
     type: T.oneOf(Object.values(NotificationTypes)),

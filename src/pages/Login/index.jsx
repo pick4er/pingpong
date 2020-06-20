@@ -4,16 +4,14 @@ import Icon from 'elements/Icon'
 import LoginForm from 'components/LoginForm'
 import Link from 'elements/Link'
 
-import './index.scss'
-
 function LoginPage() {
   return (
     <div className="page">
       <Icon iconName="LogoIcon" margin="m4_bottom" />
-      <LoginForm className="login-page__login-form" />
+      <LoginForm />
       <Link
         href="https://github.com/pick4er"
-        className="login__link"
+        margin="m4_top"
       >
         @pick4er
       </Link>
