@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 
+import { withTheme } from 'elements/ThemeTag'
+
 import './index.scss'
 
 const validate = (value, validators, setError, error) => {
@@ -24,7 +26,7 @@ function FormInput({
   label,
   validators,
   isRequired,
-  margin,
+  tag: Tag,
 }) {
   const inputEl = useRef(null)
   const [error, setError] = useState(undefined)
@@ -57,8 +59,6 @@ function FormInput({
     }
   }, [error, setError, validators, name])
 
-  const classNames = cx(['input', margin])
-
   const labelNameCl = cx([
     'label-text',
     error && 'error-text',
@@ -74,7 +74,7 @@ function FormInput({
   ])
 
   return (
-    <label className={classNames} title={error}>
+    <Tag tagName="label" className="input" title={error}>
       <div className="input-label input__input-label">
         <span className={labelNameCl}>{label}</span>
 
@@ -92,23 +92,22 @@ function FormInput({
         name={name}
         data-error={error}
       />
-    </label>
+    </Tag>
   )
 }
 
 FormInput.defaultProps = {
   validators: [],
   isRequired: false,
-  margin: undefined,
 }
 
 FormInput.propTypes = {
-  margin: T.string,
   isRequired: T.bool,
   validators: T.arrayOf(T.func),
   label: T.string.isRequired,
   name: T.string.isRequired,
   type: T.oneOf(['text', 'password']).isRequired,
+  tag: T.elementType.isRequired,
 }
 
-export default FormInput
+export default withTheme(FormInput)

@@ -3,6 +3,7 @@ import T from 'prop-types'
 import cx from 'classnames'
 
 import Loader from 'elements/Loader'
+import { withTheme } from 'elements/ThemeTag'
 import { ButtonModes as Modes } from 'dictionary'
 
 import './index.scss'
@@ -14,6 +15,7 @@ function Button({
   children,
   isLoading,
   isDisabled,
+  tag: Tag,
 }) {
   const isTransparent = mode === Modes.Transparent
   const isBlue = mode === Modes.Blue
@@ -37,14 +39,15 @@ function Button({
   })
 
   return (
-    <button
+    <Tag
+      tagName="button"
       type={type} // eslint-disable-line react/button-has-type
       onClick={onClick}
       disabled={isDisabled}
       className={classNames}
     >
       {isLoading ? <Loader /> : children}
-    </button>
+    </Tag>
   )
 }
 
@@ -64,6 +67,7 @@ Button.propTypes = {
   children: T.node,
   mode: T.oneOf(Object.values(Modes)),
   type: T.oneOf(['submit', 'button', 'reset']),
+  tag: T.elementType.isRequired,
 }
 
-export default Button
+export default withTheme(Button)

@@ -1,6 +1,5 @@
 import React from 'react'
 import T from 'prop-types'
-import cx from 'classnames'
 
 import { ReactComponent as DragIcon } from 'assets/drag.svg'
 import { ReactComponent as FormatIcon } from 'assets/format.svg'
@@ -13,6 +12,8 @@ import { ReactComponent as LogoIcon } from 'assets/logo.svg'
 import { ReactComponent as FullScreenIcon } from 'assets/fullscreen.svg'
 import { ReactComponent as SmallScreenIcon } from 'assets/smallscreen.svg'
 import { ReactComponent as LoaderIcon } from 'assets/loader.svg'
+
+import { withTheme } from 'elements/ThemeTag'
 
 const icons = {
   DragIcon,
@@ -28,20 +29,13 @@ const icons = {
   LoaderIcon,
 }
 
-function Icon({ margin, iconName }) {
-  const IconComponent = icons[iconName]
-
-  const cl = cx([margin])
-  return <IconComponent className={cl} />
-}
-
-Icon.defaultProps = {
-  margin: undefined,
-}
+const Icon = ({ iconName, tag: Tag }) => (
+  <Tag tagName={icons[iconName]} />
+)
 
 Icon.propTypes = {
-  margin: T.string,
   iconName: T.oneOf(Object.keys(icons)).isRequired,
+  tag: T.elementType.isRequired,
 }
 
-export default Icon
+export default withTheme(Icon)
