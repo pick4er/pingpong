@@ -1,30 +1,25 @@
 import React from 'react'
 import T from 'prop-types'
-import cx from 'classnames'
 
-function Link({ children, href, margin }) {
-  const classNames = cx(['link-text', margin])
+import { withTheme } from 'elements/ThemeTag'
 
+function Link({ children, href, tag: Tag }) {
   return (
-    <a
+    <Tag
+      tagName="a"
       target="_blank"
       rel="noopener noreferrer"
       href={href}
-      className={classNames}
+      className='link-text'
     >
       {children}
-    </a>
+    </Tag>
   )
-}
-
-Link.defaultProps = {
-  margin: undefined,
 }
 
 Link.propTypes = {
   children: T.elementType.isRequired,
   href: T.string.isRequired,
-  margin: T.string,
 }
 
-export default Link
+export default withTheme(Link)

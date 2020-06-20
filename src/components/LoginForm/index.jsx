@@ -95,6 +95,7 @@ function LoginForm({
     'notification-animation_l',
     'error-background',
   ])
+  const buttonWidth = cx([])
 
   return (
     <form
@@ -139,8 +140,8 @@ function LoginForm({
       <Button
         type="submit"
         mode="blue"
+        width={buttonWidth}
         isDisabled={isError}
-        className="login-form__button"
         isLoading={isLoading}
       >
         Войти

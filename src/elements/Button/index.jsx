@@ -14,9 +14,6 @@ function Button({
   children,
   isLoading,
   isDisabled,
-  className,
-  textClassName,
-  withOutline,
 }) {
   const isTransparent = mode === Modes.Transparent
   const isBlue = mode === Modes.Blue
@@ -24,17 +21,14 @@ function Button({
   const classNames = cx({
     /* service */
     button: true,
-    'button_with-outline': withOutline,
     button_disabled: isDisabled,
     button_transparent: isTransparent,
-    [className]: className,
 
     /* text */
     'button-text': true,
     text_white: !isTransparent,
     text_black: isTransparent,
     text_blue_active: isTransparent,
-    [textClassName]: textClassName,
 
     /* background */
     'gradient-background_blue': isBlue,
@@ -56,9 +50,6 @@ function Button({
 
 Button.defaultProps = {
   onClick: () => {},
-  className: '',
-  textClassName: '',
-  withOutline: true,
   mode: Modes.blue,
   isLoading: false,
   type: 'button',
@@ -68,12 +59,9 @@ Button.defaultProps = {
 
 Button.propTypes = {
   onClick: T.func,
-  className: T.string,
-  textClassName: T.string,
   isLoading: T.bool,
   isDisabled: T.bool,
   children: T.node,
-  withOutline: T.bool,
   mode: T.oneOf(Object.values(Modes)),
   type: T.oneOf(['submit', 'button', 'reset']),
 }

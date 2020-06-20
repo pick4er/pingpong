@@ -99,7 +99,7 @@ function FormInput({
 FormInput.defaultProps = {
   validators: [],
   isRequired: false,
-  margin: '',
+  margin: undefined,
 }
 
 FormInput.propTypes = {

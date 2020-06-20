@@ -7,6 +7,11 @@
   cursor: pointer;
   padding: 10px;
   opacity: 1;
+  width: min-content;
+
+  &:focus {
+    @include outline($outlineBlue);
+  }
 }
 
 .button_disabled {
@@ -20,10 +25,4 @@
 .button_transparent {
   padding-top: 0px;
   padding-bottom: 0px;
-}
-
-.button_with-outline {
-  &:focus {
-    @include outline($outlineBlue);
-  }
 }
