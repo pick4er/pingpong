@@ -4,6 +4,7 @@ import checkIsResponseError from './checkIsResponseError'
 import pluralizeWord from './pluralizeWord'
 import deepClone from './deepClone'
 import sendsay from './sendsay'
+import memoize from './memoize'
 import initCodeEditor from './initCodeEditor'
 import getEditorSize from './getEditorSize'
 import getEditorErrors from './getEditorErrors'
@@ -16,6 +17,7 @@ import isNumeric from './isNumeric'
 
 export {
   sendsay,
+  memoize,
   isNumeric,
   getRandomId,
   initCodeEditor,

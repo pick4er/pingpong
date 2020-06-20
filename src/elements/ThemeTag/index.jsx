@@ -1,35 +1,55 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
+import pick from 'lodash.pick'
+import omit from 'lodash.omit'
 
 import { TagNames } from 'dictionary'
+import { memoize } from 'helpers'
+
+const styleProps = [
+  'margin',
+  'padding',
+  'width',
+  'borderRadius',
+  'display',
+]
+
+const styleDefaults = styleProps.reduce(
+  (acc, prop) => ({
+    ...acc,
+    [prop]: undefined,
+  }),
+  {}
+)
+
+// TODO: precise types
+const styleTypes = {
+  margin: T.string,
+  padding: T.string,
+  width: T.string,
+  borderRadius: T.string,
+  display: T.string,
+}
 
 /* eslint-disable react/jsx-props-no-spreading, no-param-reassign */
-function Tag({
-  margin,
-  padding,
-  width,
-  className,
-  tagName: TagName,
-  ...rest
-}) {
-  const cl = cx([margin, padding, width, className])
+function Tag({ className, tagName: TagName, ...rest }) {
+  const styleClassNames = pick(rest, styleProps)
+  const cl = cx([Object.values(styleClassNames), className])
 
-  return <TagName className={cl} {...rest} />
+  return (
+    <TagName className={cl} {...omit(rest, styleProps)} />
+  )
 }
 
 Tag.defaultProps = {
-  margin: undefined,
-  padding: undefined,
-  width: undefined,
+  ...styleDefaults,
   className: undefined,
   tagName: undefined,
 }
 
 Tag.propTypes = {
-  margin: T.string,
-  padding: T.string,
-  width: T.string,
+  ...styleTypes,
   className: T.string,
   tagName: (props, propName) => {
     const isDomTag =
@@ -39,7 +59,7 @@ Tag.propTypes = {
 
     if (!(isDomTag || isReactComponent)) {
       return new Error(
-        `Invalid tagName prop type '${props[propName]}'' supplied to Tag element`
+        `Invalid tagName prop type '${props[propName]}' supplied to Tag element`
       )
     }
 
@@ -49,19 +69,15 @@ Tag.propTypes = {
 
 export default Tag
 
-const createTag = (margin, padding, width) => ({
-  tagName,
-  className,
-  ...rest
-}) => (
-  <Tag
-    margin={margin}
-    padding={padding}
-    width={width}
-    tagName={tagName}
-    className={className}
-    {...rest}
-  />
+const createTag = memoize(
+  (tagStyleProps) => ({ tagName, className, ...rest }) => (
+    <Tag
+      {...rest}
+      {...tagStyleProps}
+      tagName={tagName}
+      className={className}
+    />
+  )
 )
 
 export const withTheme = (Component) => {
@@ -71,29 +87,23 @@ export const withTheme = (Component) => {
   }
 
   function ThemedComponent(props) {
-    const { margin, padding, width } = props
-
-    const TagComponent = useMemo(
-      () => createTag(margin, padding, width),
-      [margin, padding, width]
-    )
-
     /* force-delete className, margin, padding etc. from props may be? */
-    return <Component tag={TagComponent} {...props} />
+    return (
+      <Component
+        tag={createTag(pick(props, styleProps))}
+        {...props}
+      />
+    )
   }
 
   ThemedComponent.defaultProps = {
     ...Component.defaultProps,
-    margin: undefined,
-    padding: undefined,
-    width: undefined,
+    ...styleDefaults,
   }
 
   ThemedComponent.propTypes = {
     ...Component.propTypes,
-    margin: T.string,
-    padding: T.string,
-    width: T.string,
+    ...styleTypes,
   }
 
   return ThemedComponent

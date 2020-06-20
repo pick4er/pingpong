@@ -1,5 +1,29 @@
 @import 'styles/colors';
 
+@for $i from 0 through 10 {
+  $value: $i * 2px;
+
+  .br#{$i} {
+    border-radius: $value;
+
+    &_tl {
+      border-top-left-radius: $value;
+    }
+
+    &_tr {
+      border-top-right-radius: $value;
+    }
+
+    &_br {
+      border-bottom-right-radius: $value;
+    }
+
+    &_br {
+      border-bottom-left-radius: $value;
+    }
+  }
+}
+
 .border {
   border-radius: 5px;
   border: 1px solid $borderBlack;

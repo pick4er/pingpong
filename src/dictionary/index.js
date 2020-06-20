@@ -25,6 +25,7 @@ export const TagNames = [
   'p',
   'textarea',
   'a',
+  'form',
   'label',
   ...headingTags,
 ]

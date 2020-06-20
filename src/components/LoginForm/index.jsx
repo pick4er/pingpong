@@ -6,6 +6,7 @@ import cx from 'classnames'
 import FormInput from 'elements/FormInput'
 import Button from 'elements/Button'
 import Heading from 'elements/Heading'
+import Tag from 'elements/ThemeTag'
 import Notification from 'elements/Notification'
 import {
   loginAction,
@@ -98,7 +99,8 @@ function LoginForm({
   const buttonWidth = cx([])
 
   return (
-    <form
+    <Tag
+      tagName="form"
       onSubmit={onSubmit}
       className={classNames}
       id="login-form"
@@ -148,7 +150,7 @@ function LoginForm({
       >
         Войти
       </Button>
-    </form>
+    </Tag>
   )
 }
 
