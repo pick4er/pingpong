@@ -11,7 +11,7 @@ function LoginPage() {
     <div className="page">
       <img
         src={LogoIcon}
-        className="login-page__icon"
+        className="m4_bottom"
         alt="pingpong-logo-icon"
       />
       <LoginForm className="login-page__login-form" />

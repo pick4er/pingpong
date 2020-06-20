@@ -1,0 +1,49 @@
+
+/* m - margin, p - padding */
+@each $rule in m, p {
+  @for $i from 1 through 6 {
+    $offset: 5px * $i;
+
+    @if $rule == m {
+      .m#{$i} {
+        margin: $offset;
+
+        &_top {
+          margin-top: $offset;
+        }
+
+        &_bottom {
+          margin-bottom: $offset;
+        }
+
+        &_left {
+          margin-left: $offset;
+        }
+
+        &_right {
+          margin-right: $offset;
+        }
+      }
+    } @else if $rule == p {
+      .p#{$i} {
+        padding: $offset;
+
+        &_top {
+          padding-top: $offset;
+        }
+
+        &_bottom {
+          padding-bottom: $offset;
+        }
+
+        &_left {
+          padding-left: $offset;
+        }
+
+        &_right {
+          padding-right: $offset;
+        }
+      }
+    }
+  }
+}
