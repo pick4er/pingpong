@@ -1,19 +1,15 @@
 import React from 'react'
 
+import Icon from 'elements/Icon'
 import LoginForm from 'components/LoginForm'
 import Link from 'elements/Link'
-import LogoIcon from 'assets/logo.svg'
 
 import './index.scss'
 
 function LoginPage() {
   return (
     <div className="page">
-      <img
-        src={LogoIcon}
-        className="m4_bottom"
-        alt="pingpong-logo-icon"
-      />
+      <Icon iconName="LogoIcon" margin="m4_bottom" />
       <LoginForm className="login-page__login-form" />
       <Link
         href="https://github.com/pick4er"
