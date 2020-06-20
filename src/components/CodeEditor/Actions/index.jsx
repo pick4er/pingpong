@@ -3,9 +3,8 @@ import T from 'prop-types'
 
 import Link from 'elements/Link'
 import Button from 'elements/Button'
-import IconButton from 'elements/IconButton'
+import Icon from 'elements/Icon'
 import { withTheme } from 'elements/ThemeTag'
-import { ReactComponent as FormatIconComponent } from 'assets/format.svg'
 
 const CodeEditorActions = ({
   isError,
@@ -33,15 +32,14 @@ const CodeEditorActions = ({
 
     <Link href="https://github.com/pick4er">@pick4er</Link>
 
-    <IconButton
-      icon={FormatIconComponent}
-      type="button"
+    <Button
       onClick={onBeautify}
       mode="transparent"
       direction="left"
     >
       Форматировать
-    </IconButton>
+      <Icon iconName="FormatIcon" />
+    </Button>
   </CodeEditorActionsTag>
 )
 

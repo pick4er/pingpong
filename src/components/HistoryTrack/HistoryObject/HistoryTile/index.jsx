@@ -3,8 +3,10 @@ import T from 'prop-types'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 
-import IconButton from 'elements/IconButton'
+import Icon from 'elements/Icon'
+import Button from 'elements/Button'
 import Notification from 'elements/Notification'
+
 import { NotificationTypes } from 'dictionary'
 import {
   getRequestAction,
@@ -12,10 +14,6 @@ import {
 } from 'helpers'
 import { selectCopyNotification } from 'flux/modules/notifications'
 import { restoreRequestAction } from 'flux/modules/requests'
-
-import { ReactComponent as SuccessBadgeIcon } from 'assets/successbadge.svg'
-import { ReactComponent as ErrorBadgeIcon } from 'assets/errorbadge.svg'
-import { ReactComponent as SeparatorIcon } from 'assets/separator.svg'
 
 import './index.scss'
 
@@ -68,9 +66,15 @@ function HistoryTile({
         type="button"
       >
         {checkIsResponseError(response) ? (
-          <ErrorBadgeIcon className="history-tile__status_badge" />
+          <Icon
+            iconName="ErrorBadgeIcon"
+            className="history-tile__status_badge"
+          />
         ) : (
-          <SuccessBadgeIcon className="history-tile__status_badge" />
+          <Icon
+            iconName="SuccessBadgeIcon"
+            className="history-tile__status_badge"
+          />
         )}
         <div className={requestTextCl}>
           {/* may be `true` */}
@@ -79,13 +83,14 @@ function HistoryTile({
             : requestActionName || '`${нет_действия}`'}
         </div>
       </button>
-      <IconButton
-        withOutline={false}
-        icon={SeparatorIcon}
+      <Button
         onClick={onTileListOpen}
         mode="transparent"
         className="history-tile__separator"
-      />
+      >
+        <Icon iconName="SeparatorIcon" />
+      </Button>
+
       <Notification
         size="s"
         notification={copyNotification}

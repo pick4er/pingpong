@@ -4,13 +4,13 @@ import { connect } from 'react-redux'
 import cx from 'classnames'
 
 import Tag from 'elements/ThemeTag'
-import IconButton from 'elements/IconButton'
+import Icon from 'elements/Icon'
+import Button from 'elements/Button'
 import {
   selectHistory,
   removeHistoryAction,
   selectIdToChange,
 } from 'flux/modules/requests'
-import { ReactComponent as CrossIconComponent } from 'assets/cross.svg'
 import HistoryObject from './HistoryObject'
 
 import './index.scss'
@@ -87,12 +87,13 @@ function HistoryTrack({
         separator="sep_left"
         className={removeHistoryCl}
       >
-        <IconButton
+        <Button
           onClick={removeHistory}
-          icon={CrossIconComponent}
           mode="transparent"
           direction="right"
-        />
+        >
+          <Icon iconName="CrossIcon" />
+        </Button>
       </Tag>
     </Tag>
   )

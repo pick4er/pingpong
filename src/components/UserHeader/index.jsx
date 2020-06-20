@@ -6,12 +6,8 @@ import cx from 'classnames'
 import Icon from 'elements/Icon'
 import Tag from 'elements/ThemeTag'
 import Heading from 'elements/Heading'
-import IconButton from 'elements/IconButton'
+import Button from 'elements/Button'
 import { logoutAction } from 'flux/modules/user'
-import { ReactComponent as LogoutIconComponent } from 'assets/logout.svg'
-import { ReactComponent as FullScreenIconComponent } from 'assets/fullscreen.svg'
-import { ReactComponent as SmallScreenIconComponent } from 'assets/smallscreen.svg'
-import LogoIcon from 'assets/logo.svg'
 import UserCredentialsTile from './UserCredentialsTile'
 
 import './index.scss'
@@ -85,26 +81,29 @@ function UserHeader({ logout }) {
 
       <UserCredentialsTile />
 
-      <IconButton
-        icon={LogoutIconComponent}
-        direction="right"
+      <Button
         mode="transparent"
         onClick={logout}
+        direction="right"
         className={iconButtonCl}
       >
+        <Icon iconName="LogoutIcon" />
         Выйти
-      </IconButton>
-      <IconButton
-        icon={
-          isFullscreen
-            ? SmallScreenIconComponent
-            : FullScreenIconComponent
-        }
-        direction="right"
+      </Button>
+
+      <Button
         mode="transparent"
+        direction="right"
         onClick={toggleFullScreen}
-        className="user-header__full-screen-button"
-      />
+      >
+        <Icon
+          iconName={
+            isFullscreen
+              ? 'SmallScreenIcon'
+              : 'FullScreenIcon'
+          }
+        />
+      </Button>
     </Tag>
   )
 }
