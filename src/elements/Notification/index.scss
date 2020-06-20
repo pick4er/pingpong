@@ -1,9 +1,4 @@
-@import 'styles/colors';
-@import 'styles/mixins';
-
 .notification {
-  display: flex;
-  flex-flow: row nowrap;
   align-items: flex-start;
   border-radius: 5px;
 }
@@ -16,24 +11,4 @@
 .notification_size-s {
   height: 20px;
   padding: 0 5px;
-}
-
-.notification__icon {
-  margin-right: 8px;
-}
-
-.notification__content {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.notification__title {
-  margin: 0;
-  margin-bottom: 4px;
-  @include overflowEllipsis();
-}
-
-.notification__message {
-  margin: 0;
-  @include overflowEllipsis();
 }

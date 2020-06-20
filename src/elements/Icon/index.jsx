@@ -1,6 +1,7 @@
 import React from 'react'
 import T from 'prop-types'
 
+import { ReactComponent as SadFaceIcon } from 'assets/sadFace.svg'
 import { ReactComponent as DragIcon } from 'assets/drag.svg'
 import { ReactComponent as FormatIcon } from 'assets/format.svg'
 import { ReactComponent as CrossIcon } from 'assets/cross.svg'
@@ -20,6 +21,7 @@ const icons = {
   FormatIcon,
   CrossIcon,
   LogoIcon,
+  SadFaceIcon,
   SuccessBadgeIcon,
   ErrorBadgeIcon,
   SeparatorIcon,

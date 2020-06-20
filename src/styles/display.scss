@@ -2,6 +2,7 @@
 @import 'styles/colors';
 @import 'styles/functions';
 
+// FLEX
 @each $direction in row, column, row-reverse, column-reverse {
   $directionPrefix: str-shrink($direction);
 
