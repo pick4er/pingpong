@@ -5,6 +5,7 @@ import cx from 'classnames'
 
 import FormInput from 'elements/FormInput'
 import Button from 'elements/Button'
+import Heading from 'elements/Heading'
 import Notification from 'elements/Notification'
 import {
   loginAction,
@@ -89,7 +90,6 @@ function LoginForm({
   }
 
   const classNames = cx(['fc', 'login-form'])
-  const headerCl = cx(['h5', 'm0', 'm4_bottom'])
   const notificationCl = cx([
     'm4_bottom',
     'notification-animation_l',
@@ -103,7 +103,9 @@ function LoginForm({
       className={classNames}
       id="login-form"
     >
-      <h5 className={headerCl}>API-консолька</h5>
+      <Heading tagName="h5" margin="m0 m4_bottom">
+        API-консолька
+      </Heading>
 
       <Notification
         withIcon
