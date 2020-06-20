@@ -201,11 +201,11 @@ export const loginAction = (credentials) => async (
     return
   }
 
-  const credentialsRequest = await sendsay.request({ action: 'pong' }).catch(
-    ({ message }) => {
+  const credentialsRequest = await sendsay
+    .request({ action: 'pong' })
+    .catch(({ message }) => {
       dispatch(notifyAboutError(message))
-    }
-  )
+    })
 
   dispatch(setIsLoading(false))
   if (selectError(getState())) {

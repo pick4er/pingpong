@@ -6,7 +6,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 
 import { selectIsAuth } from 'flux/modules/user'
 
-let i = 0;
+let i = 0
 function App(props) {
   const {
     routes,

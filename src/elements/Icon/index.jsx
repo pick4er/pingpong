@@ -28,10 +28,7 @@ const icons = {
   LoaderIcon,
 }
 
-function Icon({
-  margin,
-  iconName,
-}) {
+function Icon({ margin, iconName }) {
   const IconComponent = icons[iconName]
 
   const cl = cx([margin])
@@ -39,7 +36,7 @@ function Icon({
 }
 
 Icon.defaultProps = {
-  margin: undefined
+  margin: undefined,
 }
 
 Icon.propTypes = {

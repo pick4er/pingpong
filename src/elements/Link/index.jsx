@@ -10,7 +10,7 @@ function Link({ children, href, tag: Tag }) {
       target="_blank"
       rel="noopener noreferrer"
       href={href}
-      className='link-text'
+      className="link-text"
     >
       {children}
     </Tag>
@@ -20,6 +20,7 @@ function Link({ children, href, tag: Tag }) {
 Link.propTypes = {
   children: T.elementType.isRequired,
   href: T.string.isRequired,
+  tag: T.elementType.isRequired,
 }
 
 export default withTheme(Link)
