@@ -1,13 +1,7 @@
 import Cookies from 'cookies-js'
 import { createSelector } from 'reselect'
-import {
-  loginRequest,
-  loginCredentialsRequest,
-  logout,
-  sendsay,
-} from 'api'
 
-import { isNumeric } from 'helpers'
+import { sendsay, isNumeric } from 'helpers'
 import { TOKEN_KEY, NotificationTypes } from 'dictionary'
 import { notifyAboutLogin } from 'flux/modules/notifications'
 
@@ -198,7 +192,7 @@ export const loginAction = (credentials) => async (
   dispatch(setIsLoading(true))
   dispatch(setError(undefined))
 
-  await loginRequest(credentials).catch(({ message }) => {
+  await sendsay.login(credentials).catch(({ message }) => {
     dispatch(notifyAboutError(message))
   })
 
@@ -207,7 +201,7 @@ export const loginAction = (credentials) => async (
     return
   }
 
-  const credentialsRequest = await loginCredentialsRequest().catch(
+  const credentialsRequest = await sendsay.request({ action: 'pong' }).catch(
     ({ message }) => {
       dispatch(notifyAboutError(message))
     }
@@ -233,6 +227,6 @@ export const logoutAction = () => async (dispatch) => {
   dispatch(setSublogin(initialState.sublogin))
   dispatch(setToken(initialState.token))
 
-  await logout()
+  await sendsay.request({ action: 'logout' })
   Cookies.expire(TOKEN_KEY)
 }

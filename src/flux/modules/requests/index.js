@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect'
-import { apiRequest } from 'api'
-import { RequestsHistory } from 'helpers'
+import { sendsay, RequestsHistory } from 'helpers'
 import { notifyAboutCopy } from 'flux/modules/notifications'
 import { NotificationTypes } from 'dictionary'
 
@@ -164,7 +163,7 @@ export const requestAction = (req = {}) => async (
 
   let res
   try {
-    res = await apiRequest(req)
+    res = await sendsay.request(req)
   } catch ({ message }) {
     const parsedMessage = JSON.parse(message)
 
