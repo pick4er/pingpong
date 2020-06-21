@@ -11,13 +11,8 @@ import {
 
 import './index.scss'
 
-function UserCredentialsTile({ login, sublogin }) {
-  // if credantials lost in local storage
-  if (!login && !sublogin) {
-    return null
-  }
-
-  return (
+const UserCredentialsTile = ({ login, sublogin }) =>
+  !(login || sublogin) ? null : (
     <Tag
       tagName="div"
       border="border"
@@ -49,7 +44,6 @@ function UserCredentialsTile({ login, sublogin }) {
       )}
     </Tag>
   )
-}
 
 UserCredentialsTile.defaultProps = {
   sublogin: '',
