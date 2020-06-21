@@ -32,13 +32,9 @@ const CodeEditorActions = ({
 
     <Link href="https://github.com/pick4er">@pick4er</Link>
 
-    <Button
-      onClick={onBeautify}
-      mode="transparent"
-      direction="left"
-    >
-      Форматировать
+    <Button onClick={onBeautify} mode="transparent">
       <Icon iconName="FormatIcon" />
+      Форматировать
     </Button>
   </CodeEditorActionsTag>
 )

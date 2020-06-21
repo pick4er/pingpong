@@ -31,9 +31,9 @@ const icons = {
   LoaderIcon,
 }
 
-const Icon = ({ iconName, tag: IconTag }) => (
-  <IconTag tagName={icons[iconName]} />
-)
+function Icon({ iconName, tag: IconTag }) {
+  return <IconTag tagName={icons[iconName]} />
+}
 
 Icon.propTypes = {
   iconName: T.oneOf(Object.keys(icons)).isRequired,

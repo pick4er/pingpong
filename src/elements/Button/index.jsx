@@ -3,20 +3,39 @@ import T from 'prop-types'
 import cx from 'classnames'
 
 import Loader from 'elements/Loader'
-import { withTheme } from 'elements/ThemeTag'
+import Tag, { withTheme } from 'elements/ThemeTag'
+import { toArray } from 'helpers'
 import { ButtonModes as Modes } from 'dictionary'
 
 import './index.scss'
 
+// TODO: improve check via displayName or instanceof
+const isIcon = (element) => !!element?.props?.iconName
+const directionDisplays = {
+  right: 'fr',
+  top: 'fcr',
+  bottom: 'fc',
+}
+
+const renderWithIcon = (children, direction = 'right') => (
+  <Tag tagName="div" display={directionDisplays[direction]}>
+    {children}
+  </Tag>
+)
+
+/* eslint-disable no-nested-ternary */
 function Button({
   type,
   mode,
   onClick,
   children,
   isLoading,
+  direction,
   isDisabled,
   tag: ButtonTag,
 }) {
+  const withIcon = toArray(children).find(isIcon)
+
   const isTransparent = mode === Modes.Transparent
   const isBlue = mode === Modes.Blue
 
@@ -46,12 +65,20 @@ function Button({
       disabled={isDisabled}
       className={classNames}
     >
-      {isLoading ? <Loader /> : children}
+      {isLoading ? (
+        <Loader />
+      ) : withIcon ? (
+        renderWithIcon(children, direction)
+      ) : (
+        children
+      )}
     </ButtonTag>
   )
 }
+/* eslint-enable no-nested-ternary */
 
 Button.defaultProps = {
+  direction: undefined,
   onClick: () => {},
   mode: Modes.blue,
   isLoading: false,
@@ -66,6 +93,7 @@ Button.propTypes = {
   isDisabled: T.bool,
   children: T.node,
   mode: T.oneOf(Object.values(Modes)),
+  direction: T.oneOf(['left', 'right', 'top', 'bottom']),
   type: T.oneOf(['submit', 'button', 'reset']),
   tag: T.elementType.isRequired,
 }

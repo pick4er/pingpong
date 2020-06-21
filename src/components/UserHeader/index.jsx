@@ -84,16 +84,14 @@ function UserHeader({ logout }) {
       <Button
         mode="transparent"
         onClick={logout}
-        direction="right"
         className={iconButtonCl}
       >
-        <Icon iconName="LogoutIcon" />
         Выйти
+        <Icon iconName="LogoutIcon" />
       </Button>
 
       <Button
         mode="transparent"
-        direction="right"
         onClick={toggleFullScreen}
       >
         <Icon

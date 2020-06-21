@@ -14,10 +14,12 @@ import getRequestId from './getRequestId'
 import createHistoryObject from './createHistoryObject'
 import getRequestAction from './getRequestAction'
 import isNumeric from './isNumeric'
+import toArray from './toArray'
 
 export {
   sendsay,
   memoize,
+  toArray,
   isNumeric,
   getRandomId,
   initCodeEditor,

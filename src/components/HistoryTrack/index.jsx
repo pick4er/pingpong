@@ -90,7 +90,6 @@ function HistoryTrack({
         <Button
           onClick={removeHistory}
           mode="transparent"
-          direction="right"
         >
           <Icon iconName="CrossIcon" />
         </Button>

@@ -104,6 +104,7 @@ export const withTheme = (Component) => {
     />
   )
 
+  // TODO: rewrite Component name in ThemedComponent name
   ThemedComponent.defaultProps = {
     ...Component.defaultProps,
     ...styleDefaults,
