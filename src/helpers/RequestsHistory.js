@@ -9,40 +9,40 @@ export default class RequestsHistory {
     this.history = deepClone(serializedHistory)
   }
 
-  addRequest(req = {}, res = {}) {
+  add(req = {}, res = {}) {
     const reqId = getRequestId(res)
 
-    if (this.hasRequest(reqId)) {
-      return this.moveRequestOnTop(reqId)
+    if (this.has(reqId)) {
+      return this.moveOnTop(reqId)
     }
 
     const newRequest = createHistoryObject(req, res)
     this.history = [newRequest].concat(this.history)
 
     if (this.history.length > RequestsHistory.limit) {
-      this.removeLastRequest()
+      this.removeLast()
     }
 
     return newRequest
   }
 
-  findRequest(reqId) {
+  find(reqId) {
     return this.history.find(({ id }) => id === reqId)
   }
 
-  hasRequest(reqOrId = {}) {
+  has(reqOrId = {}) {
     const reqId =
       typeof reqOrId === 'string'
         ? reqOrId
         : getRequestId(reqOrId)
-    return !!this.findRequest(reqId)
+    return !!this.find(reqId)
   }
 
-  removeLastRequest() {
+  removeLast() {
     return this.history.pop()
   }
 
-  removeRequest(reqId) {
+  remove(reqId) {
     const index = this.history.findIndex(
       ({ id }) => id === reqId
     )
@@ -56,8 +56,8 @@ export default class RequestsHistory {
     return removedRequest
   }
 
-  moveRequestOnTop(reqId) {
-    const movedRequest = this.removeRequest(reqId)
+  moveOnTop(reqId) {
+    const movedRequest = this.remove(reqId)
     if (typeof movedRequest === 'undefined') {
       return undefined
     }
