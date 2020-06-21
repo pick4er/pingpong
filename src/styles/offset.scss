@@ -2,7 +2,7 @@
 @import 'styles/functions';
 
 @each $rule in margin, padding {
-  @for $i from 0 through 8 {
+  @for $i from -8 through 8 {
     $value: 5px * $i;
     $prefix: str-shrink($rule);
 

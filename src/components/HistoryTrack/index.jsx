@@ -90,6 +90,8 @@ function HistoryTrack({
         <Button
           onClick={removeHistory}
           mode="transparent"
+          padding="p1_width"
+          bg="ibutton_blue"
         >
           <Icon iconName="CrossIcon" />
         </Button>

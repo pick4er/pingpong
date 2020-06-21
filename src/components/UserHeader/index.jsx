@@ -10,8 +10,6 @@ import Button from 'elements/Button'
 import { logoutAction } from 'flux/modules/user'
 import UserCredentialsTile from './UserCredentialsTile'
 
-import './index.scss'
-
 function UserHeader({ logout }) {
   const [isFullscreen, setIsFullscreen] = useState(false)
 
@@ -58,7 +56,6 @@ function UserHeader({ logout }) {
 
   const iconButtonCl = cx({
     text_normal: true,
-    'user-header__logout-icon-button': true,
   })
 
   return (
@@ -84,15 +81,19 @@ function UserHeader({ logout }) {
       <Button
         mode="transparent"
         onClick={logout}
-        className={iconButtonCl}
+        margin="m2_left"
+        text="button-text text_normal"
+        bg="ibutton_blue"
       >
         Выйти
-        <Icon iconName="LogoutIcon" />
+        <Icon iconName="LogoutIcon" margin="m1_left" />
       </Button>
 
       <Button
         mode="transparent"
         onClick={toggleFullScreen}
+        margin="m2_left m-1_right"
+        bg="ibutton_blue"
       >
         <Icon
           iconName={

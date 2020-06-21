@@ -66,15 +66,9 @@ function HistoryTile({
         type="button"
       >
         {checkIsResponseError(response) ? (
-          <Icon
-            iconName="ErrorBadgeIcon"
-            className="history-tile__status_badge"
-          />
+          <Icon iconName="ErrorBadgeIcon" />
         ) : (
-          <Icon
-            iconName="SuccessBadgeIcon"
-            className="history-tile__status_badge"
-          />
+          <Icon iconName="SuccessBadgeIcon" />
         )}
         <div className={requestTextCl}>
           {/* may be `true` */}
@@ -83,18 +77,13 @@ function HistoryTile({
             : requestActionName || '`${нет_действия}`'}
         </div>
       </button>
-      <Button
-        onClick={onTileListOpen}
-        mode="transparent"
-        className="history-tile__separator"
-      >
+      <Button onClick={onTileListOpen} mode="transparent">
         <Icon iconName="SeparatorIcon" />
       </Button>
 
       <Notification
         size="s"
         notification={copyNotification}
-        className={notificationCl}
       />
     </div>
   )

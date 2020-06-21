@@ -1,4 +1,26 @@
+@use "sass:color";
 @import 'styles/colors';
+
+$iColors: (
+  "blue": $blue,
+);
+@each $colorName, $colorValue in $iColors {
+  $activeColor: darken($colorValue, 10%);
+
+  .ibutton_#{$colorName} {
+    &:hover {
+      @include svgFill($colorValue);
+    }
+
+    &:focus {
+      @include svgFill($colorValue);
+    }
+
+    &:active {
+      @include svgFill($activeColor);
+    }
+  }
+}
 
 .bg_error {
   background-color: $backgroundError;

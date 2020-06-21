@@ -12,16 +12,17 @@ import './index.scss'
 // TODO: improve check via displayName or instanceof
 const isIcon = (element) => !!element?.props?.iconName
 const directionDisplays = {
-  right: 'fr',
-  top: 'fcr',
-  bottom: 'fc',
+  right: {
+    display: 'fr',
+    align: 'center',
+  },
+  top: {
+    display: 'fcr',
+  },
+  bottom: {
+    display: 'fc',
+  },
 }
-
-const renderWithIcon = (children, direction = 'right') => (
-  <Tag tagName="div" display={directionDisplays[direction]}>
-    {children}
-  </Tag>
-)
 
 /* eslint-disable no-nested-ternary */
 function Button({
@@ -35,6 +36,9 @@ function Button({
   tag: ButtonTag,
 }) {
   const withIcon = toArray(children).find(isIcon)
+  const iconStyles = withIcon
+    ? directionDisplays[direction]
+    : {}
 
   const isTransparent = mode === Modes.Transparent
   const isBlue = mode === Modes.Blue
@@ -64,21 +68,16 @@ function Button({
       onClick={onClick}
       disabled={isDisabled}
       className={classNames}
+      {...iconStyles}
     >
-      {isLoading ? (
-        <Loader />
-      ) : withIcon ? (
-        renderWithIcon(children, direction)
-      ) : (
-        children
-      )}
+      {isLoading ? <Loader /> : children}
     </ButtonTag>
   )
 }
 /* eslint-enable no-nested-ternary */
 
 Button.defaultProps = {
-  direction: undefined,
+  direction: 'right',
   onClick: () => {},
   mode: Modes.blue,
   isLoading: false,
