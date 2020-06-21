@@ -43,11 +43,7 @@ function UserHeader({ logout }) {
     if (isFullscreen) {
       document.exitFullscreen()
       setIsFullscreen(false)
-    } else if (
-      !isFullscreen &&
-      !document.fullscreenElement &&
-      document.fullscreenEnabled
-    ) {
+    } else {
       document.documentElement.requestFullscreen()
       setIsFullscreen(true)
     }
