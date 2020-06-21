@@ -9,22 +9,23 @@
   color: $textBlack;
 }
 
-.overflow-ellipsis {
+.ellipsis {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 // HEADER TEXT
-.header-text {
-  font-size: 24px;
-  line-height: 30px;
-  font-style: normal;
-  font-weight: normal;
-}
+@for $i from 0 through 6 {
+  $fontSize: 30px - $i * 3;
+  $lineHeight: 30px - $i * 2;
 
-.header-text_s {
-  font-size: 20px;
+  .h#{$i + 1} {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    font-style: normal;
+    font-weight: normal;    
+  }
 }
 
 // BUTTON TEXT
@@ -86,15 +87,7 @@
   color: $hintTextGrey;
 }
 
-
 // NOTIFICATION TEXT
-.notification-title-text {
-  font-size: 18px;
-  line-height: 23px;
-  font-weight: normal;
-  font-style: normal;
-}
-
 .notification-message-text {
   font-size: 12px;
   line-height: 20px;

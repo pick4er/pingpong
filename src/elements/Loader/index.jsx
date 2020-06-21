@@ -1,25 +1,26 @@
 import React from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
-import { ReactComponent as LoaderIconComponent } from 'assets/loader.svg'
+
+import Icon from 'elements/Icon'
+import Tag from 'elements/ThemeTag'
 
 import './index.scss'
 
-function Loader(props) {
-  const { size, color } = props
-
-  const classNames = cx({
-    loader: true,
-    [`loader_${size}`]: true,
-    [`loader_${color}`]: true,
-  })
-
-  return (
-    <span className={classNames}>
-      <LoaderIconComponent className="loading-animation" />
-    </span>
-  )
-}
+const Loader = ({ size, color }) => (
+  <Tag
+    tagName="span"
+    display="fr"
+    align="center"
+    height="hgt4"
+    className={cx([`loader_${size}`, `loader_${color}`])}
+  >
+    <Icon
+      iconName="LoaderIcon"
+      animation="loading-animation"
+    />
+  </Tag>
+)
 
 Loader.defaultProps = {
   size: 's',

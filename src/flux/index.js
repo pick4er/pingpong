@@ -12,9 +12,8 @@ import storage from 'redux-persist/lib/storage'
 import user from 'flux/modules/user'
 import requests from 'flux/modules/requests'
 import notifications from 'flux/modules/notifications'
-import { isProduction } from 'helpers'
+import { sendsay, isProduction } from 'helpers'
 import { TOKEN_KEY } from 'dictionary'
-import { sendsay } from 'api'
 import devTools from './devTools'
 
 Cookies.defaults.secure = isProduction

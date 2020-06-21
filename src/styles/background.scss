@@ -1,17 +1,42 @@
+@use "sass:color";
 @import 'styles/colors';
 
-.error-background {
+$iColors: (
+  "blue": $blue,
+);
+@each $colorName, $colorValue in $iColors {
+  $activeColor: darken($colorValue, 10%);
+
+  .ibutton_#{$colorName} {
+    &:hover {
+      @include svgFill($colorValue);
+    }
+
+    &:focus {
+      @include svgFill($colorValue);
+    }
+
+    &:active {
+      @include svgFill($activeColor);
+    }
+  }
+}
+
+.bg_error {
   background-color: $backgroundError;
 }
 
-.info-background {
+.bg_info {
   background-color: $backgroundInfo;
 }
 
-.warning-background {
-  background-color: $backgroundWarning;
+.bg_white {
+  background-color: $white;
 }
 
+.bg_main {
+  background-color: $backgroundMain;
+}
 
 .gradient-background_blue {
   background: linear-gradient($gradientBlueFrom, $gradientBlueTo);

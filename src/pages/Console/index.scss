@@ -1,12 +1,3 @@
-@import 'styles/colors';
-
 .console-page {
-  display: flex;
-  flex-flow: column nowrap;
-  background-color: $backgroundMain;
   height: 100vh;
-}
-
-.console-page__code-editor {
-  flex-grow: 1;
 }

@@ -1,5 +1,21 @@
 @import 'styles/colors';
 
+@for $i from 0 through 200 {
+  $value: $i * 5px;
+
+  .w#{$i} {
+    width: $value;
+  }
+}
+
+@for $i from 0 through 200 {
+  $value: $i * 5px;
+
+  .hgt#{$i} {
+    height: $value;
+  }
+}
+
 .tile-button_white {
   background-color: $white;
   border: none;

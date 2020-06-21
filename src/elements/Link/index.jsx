@@ -1,35 +1,24 @@
 import React from 'react'
 import T from 'prop-types'
-import cx from 'classnames'
 
-function Link(props) {
-  const { children, href, className } = props
+import { withTheme } from 'elements/ThemeTag'
 
-  const classNames = cx({
-    'link-text': true,
-    [className]: className,
-  })
-
-  return (
-    <a
-      target="_blank"
-      rel="noopener noreferrer"
-      href={href}
-      className={classNames}
-    >
-      {children}
-    </a>
-  )
-}
-
-Link.defaultProps = {
-  className: '',
-}
+const Link = ({ children, href, tag: LinkTag }) => (
+  <LinkTag
+    tagName="a"
+    target="_blank"
+    rel="noopener noreferrer"
+    href={href}
+    className="link-text"
+  >
+    {children}
+  </LinkTag>
+)
 
 Link.propTypes = {
   children: T.elementType.isRequired,
   href: T.string.isRequired,
-  className: T.string,
+  tag: T.elementType.isRequired,
 }
 
-export default Link
+export default withTheme(Link)

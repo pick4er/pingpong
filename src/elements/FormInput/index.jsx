@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react'
 import T from 'prop-types'
 import cx from 'classnames'
 
+import Tag, { withTheme } from 'elements/ThemeTag'
+
 import './index.scss'
 
 const validate = (value, validators, setError, error) => {
@@ -18,19 +20,16 @@ const validate = (value, validators, setError, error) => {
   }
 }
 
-function FormInput(props) {
+function FormInput({
+  name,
+  type,
+  label,
+  validators,
+  isRequired,
+  tag: FormInputTag,
+}) {
   const inputEl = useRef(null)
   const [error, setError] = useState(undefined)
-
-  const {
-    name,
-    type,
-    label,
-    validators,
-    isRequired,
-    className,
-    nativeInputClassName,
-  } = props
 
   useEffect(() => {
     const inputDomEl = inputEl.current
@@ -60,36 +59,47 @@ function FormInput(props) {
     }
   }, [error, setError, validators, name])
 
-  const classNames = cx({
-    input: true,
-    [className]: className,
-  })
+  const labelNameCl = cx([
+    'label-text',
+    error && 'error-text',
+  ])
 
-  const labelNameCl = cx({
-    'label-text': true,
-    'error-text': error,
-  })
-
-  const nativeInputCl = cx({
-    'input-text': true,
-    border: true,
-    border_error: error,
-    'native-input': true,
-    'native-input__input-text': true,
-    [nativeInputClassName]: nativeInputClassName,
-  })
+  const nativeInputCl = cx([
+    'input-text',
+    'border',
+    'native-input',
+    'p1_height',
+    'p2_width',
+    error && 'border_error',
+    type === 'password' && 'input-text_password',
+  ])
 
   return (
-    <label className={classNames} title={error}>
-      <div className="input-label input__input-label">
+    <FormInputTag
+      tagName="label"
+      className="input"
+      display="fc"
+      title={error}
+    >
+      <Tag
+        tagName="div"
+        margin="m1_bottom"
+        display="fr"
+        align="between"
+      >
         <span className={labelNameCl}>{label}</span>
 
         {!isRequired && (
-          <span className="hint-text input-label__hint">
+          <Tag
+            tagName="span"
+            display="fr"
+            align="fend"
+            className="hint-text"
+          >
             Опционально
-          </span>
+          </Tag>
         )}
-      </div>
+      </Tag>
       <input
         ref={inputEl}
         className={nativeInputCl}
@@ -98,25 +108,22 @@ function FormInput(props) {
         name={name}
         data-error={error}
       />
-    </label>
+    </FormInputTag>
   )
 }
 
 FormInput.defaultProps = {
   validators: [],
   isRequired: false,
-  className: '',
-  nativeInputClassName: '',
 }
 
 FormInput.propTypes = {
-  className: T.string,
   isRequired: T.bool,
-  nativeInputClassName: T.string,
   validators: T.arrayOf(T.func),
   label: T.string.isRequired,
   name: T.string.isRequired,
   type: T.oneOf(['text', 'password']).isRequired,
+  tag: T.elementType.isRequired,
 }
 
-export default FormInput
+export default withTheme(FormInput)

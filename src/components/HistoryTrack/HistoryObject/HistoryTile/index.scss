@@ -1,6 +1,7 @@
 @import 'styles/colors';
 @import 'styles/mixins';
 
+// TODO: refactor with theme tag
 .history-tile {
   display: flex;
   align-items: center;
@@ -18,7 +19,6 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  margin-right: 15px;
   outline: none;
 }
 
@@ -36,24 +36,14 @@
   margin-right: 5px;
 }
 
-.history-tile__list-toggler {
+.history-tile__separator {
   position: absolute;
   padding: 1px 4px;
   right: 5px;
-}
 
-.history-tile__list-toggler-outline {
   &:focus {
     @include outline($outlineBlue, 20px);
     position: absolute;
     right: 5px;
   }
-}
-
-.history-tile__notification {
-  position: absolute;
-  left: 5px;
-  right: 5px;
-  display: flex;
-  justify-content: center;
 }

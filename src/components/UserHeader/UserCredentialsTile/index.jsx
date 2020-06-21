@@ -1,73 +1,56 @@
 import React from 'react'
 import T from 'prop-types'
-import cx from 'classnames'
 import { connect } from 'react-redux'
 
+import Icon from 'elements/Icon'
+import Tag from 'elements/ThemeTag'
 import {
   selectLogin,
   selectSublogin,
 } from 'flux/modules/user'
-import SmallSeparatorIcon from 'assets/separatorS.svg'
 
 import './index.scss'
 
-function UserCredentialsTile(props) {
-  const { login, sublogin, className } = props
-
-  const classNames = cx({
-    'user-credentials-tile': true,
-    border: true,
-    [className]: className,
-  })
-
-  // if credantials lost in local storage
-  if (!login && !sublogin) {
-    return null
-  }
-
-  return (
-    <div className={classNames}>
+const UserCredentialsTile = ({ login, sublogin }) =>
+  !(login || sublogin) ? null : (
+    <Tag
+      tagName="div"
+      border="border"
+      className="user-credentials-tile"
+    >
       {login && (
-        <div
-          className={cx([
-            'user-credentials-tile__text',
-            'overflow-ellipsis',
-            'user-credentials-tile__login',
-          ])}
+        <Tag
+          tagName="div"
+          className="user-credentials-tile__text"
+          overflow="ellipsis"
         >
           {login}
-        </div>
+        </Tag>
       )}
       {login && sublogin && (
-        <img
-          src={SmallSeparatorIcon}
-          className="user-credentials-tile__separator"
-          alt="small-separator"
+        <Icon
+          iconName="SmallSeparatorIcon"
+          margin="m1_width"
         />
       )}
       {sublogin && (
-        <div
-          className={cx([
-            'user-credentials-tile__text',
-            'overflow-ellipsis',
-            'user-credentials-tile__sublogin',
-          ])}
+        <Tag
+          tagName="div"
+          overflow="ellipsis"
+          className="user-credentials-tile__text"
         >
           {sublogin}
-        </div>
+        </Tag>
       )}
-    </div>
+    </Tag>
   )
-}
 
 UserCredentialsTile.defaultProps = {
-  className: '',
   sublogin: '',
   login: '',
 }
 
 UserCredentialsTile.propTypes = {
-  className: T.string,
   login: T.string,
   sublogin: T.string,
 }

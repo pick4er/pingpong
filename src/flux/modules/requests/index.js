@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect'
-import { apiRequest } from 'api'
-import { RequestsHistory } from 'helpers'
+import { sendsay, RequestsHistory } from 'helpers'
 import { notifyAboutCopy } from 'flux/modules/notifications'
 import { NotificationTypes } from 'dictionary'
 
@@ -152,7 +151,7 @@ export const addRequestToHistory = (req = {}, res = {}) => (
     selectHistory(getState())
   )
 
-  requestsHistory.addRequest(req, res)
+  requestsHistory.add(req, res)
   dispatch(setHistory(requestsHistory.serialize()))
 }
 
@@ -164,7 +163,7 @@ export const requestAction = (req = {}) => async (
 
   let res
   try {
-    res = await apiRequest(req)
+    res = await sendsay.request(req)
   } catch ({ message }) {
     const parsedMessage = JSON.parse(message)
 
@@ -184,13 +183,13 @@ export const execRequestAction = (reqId) => async (
   const requestsHistory = new RequestsHistory(
     selectHistory(getState())
   )
-  const { request } = requestsHistory.findRequest(reqId)
+  const { request } = requestsHistory.find(reqId)
   await dispatch(requestAction(request))
 
   const requestsHistoryAfterAction = new RequestsHistory(
     selectHistory(getState())
   )
-  requestsHistoryAfterAction.removeRequest(reqId)
+  requestsHistoryAfterAction.remove(reqId)
   dispatch(
     setHistory(requestsHistoryAfterAction.serialize())
   )
@@ -204,7 +203,7 @@ export const copyRequestAction = (reqId) => (
   const requestsHistory = new RequestsHistory(
     selectHistory(getState())
   )
-  const { request } = requestsHistory.findRequest(reqId)
+  const { request } = requestsHistory.find(reqId)
 
   navigator.clipboard
     .writeText(JSON.stringify(request))
@@ -246,7 +245,7 @@ export const deleteRequestAction = (reqId) => (
       selectHistory(getState())
     )
 
-    requestsHistory.removeRequest(reqId)
+    requestsHistory.remove(reqId)
     dispatch(setHistory(requestsHistory.serialize()))
 
     dispatch(setDeleteActionTimer(undefined))
@@ -266,7 +265,7 @@ export const restoreRequestAction = (reqId) => (
   const requestsHistory = new RequestsHistory(
     selectHistory(getState())
   )
-  const { request } = requestsHistory.findRequest(reqId)
+  const { request } = requestsHistory.find(reqId)
   dispatch(setRequest(JSON.stringify(request)))
   dispatch(setResponse(initialState.response))
 }

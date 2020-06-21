@@ -3,22 +3,42 @@ import T from 'prop-types'
 import cx from 'classnames'
 
 import Loader from 'elements/Loader'
+import { withTheme } from 'elements/ThemeTag'
+import { toArray } from 'helpers'
 import { ButtonModes as Modes } from 'dictionary'
 
 import './index.scss'
 
-function Button(props) {
-  const {
-    type,
-    mode,
-    onClick,
-    children,
-    isLoading,
-    isDisabled,
-    className,
-    textClassName,
-    withOutline,
-  } = props
+// TODO: improve check via displayName or instanceof
+const isIcon = (element) => !!element?.props?.iconName
+const directionDisplays = {
+  right: {
+    display: 'fr',
+    align: 'center',
+  },
+  top: {
+    display: 'fcr',
+  },
+  bottom: {
+    display: 'fc',
+  },
+}
+
+/* eslint-disable no-nested-ternary, react/jsx-props-no-spreading */
+function Button({
+  type,
+  mode,
+  onClick,
+  children,
+  isLoading,
+  direction,
+  isDisabled,
+  tag: ButtonTag,
+}) {
+  const withIcon = toArray(children).find(isIcon)
+  const iconStyles = withIcon
+    ? directionDisplays[direction]
+    : {}
 
   const isTransparent = mode === Modes.Transparent
   const isBlue = mode === Modes.Blue
@@ -26,17 +46,14 @@ function Button(props) {
   const classNames = cx({
     /* service */
     button: true,
-    'button_with-outline': withOutline,
     button_disabled: isDisabled,
     button_transparent: isTransparent,
-    [className]: className,
 
     /* text */
     'button-text': true,
     text_white: !isTransparent,
     text_black: isTransparent,
     text_blue_active: isTransparent,
-    [textClassName]: textClassName,
 
     /* background */
     'gradient-background_blue': isBlue,
@@ -45,22 +62,23 @@ function Button(props) {
   })
 
   return (
-    <button
+    <ButtonTag
+      tagName="button"
       type={type} // eslint-disable-line react/button-has-type
       onClick={onClick}
       disabled={isDisabled}
       className={classNames}
+      {...iconStyles}
     >
       {isLoading ? <Loader /> : children}
-    </button>
+    </ButtonTag>
   )
 }
+/* eslint-enable no-nested-ternary, react/jsx-props-no-spreading */
 
 Button.defaultProps = {
+  direction: 'right',
   onClick: () => {},
-  className: '',
-  textClassName: '',
-  withOutline: true,
   mode: Modes.blue,
   isLoading: false,
   type: 'button',
@@ -70,14 +88,13 @@ Button.defaultProps = {
 
 Button.propTypes = {
   onClick: T.func,
-  className: T.string,
-  textClassName: T.string,
   isLoading: T.bool,
   isDisabled: T.bool,
   children: T.node,
-  withOutline: T.bool,
   mode: T.oneOf(Object.values(Modes)),
+  direction: T.oneOf(['left', 'right', 'top', 'bottom']),
   type: T.oneOf(['submit', 'button', 'reset']),
+  tag: T.elementType.isRequired,
 }
 
-export default Button
+export default withTheme(Button)

@@ -24,6 +24,7 @@
     "no-plusplus": "off",
     "no-console": "off",
     "import/prefer-default-export": "off",
-    "jsx-a11y/label-has-associated-control": "off"
+    "jsx-a11y/label-has-associated-control": "off",
+    "no-template-curly-in-string": "off"
   }
 }

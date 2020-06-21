@@ -3,26 +3,23 @@ import T from 'prop-types'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 
-import IconButton from 'elements/IconButton'
+import Tag from 'elements/ThemeTag'
+import Icon from 'elements/Icon'
+import Button from 'elements/Button'
 import {
   selectHistory,
   removeHistoryAction,
   selectIdToChange,
 } from 'flux/modules/requests'
-import { ReactComponent as CrossIconComponent } from 'assets/cross.svg'
 import HistoryObject from './HistoryObject'
 
 import './index.scss'
 
-function HistoryTrack(props) {
-  const {
-    requestsHistory,
-    removeHistory,
-    idToChange,
-  } = props
-
-  const isRequestsHistory = requestsHistory.length > 0
-
+function HistoryTrack({
+  requestsHistory,
+  removeHistory,
+  idToChange,
+}) {
   useEffect(() => {
     const listDomEl = document.getElementById('track-list')
 
@@ -36,36 +33,43 @@ function HistoryTrack(props) {
     }
   }, [])
 
-  const classNames = cx({
-    'requests-history': true,
-    'requests-history_increase-stack': true,
+  const isRequestsHistory = requestsHistory.length > 0
+  const cl = cx({
+    'history-track': true,
     // for soft transition on delete
-    'requests-history_hide': !isRequestsHistory,
-    'border-separator_bottom': isRequestsHistory,
+    'history-track_hide': !isRequestsHistory,
   })
   const listCl = cx({
-    'requests-history__list': true,
-    'request-history__list-reset': true,
+    'list-styles-reset': true,
+    'history-track__list': true,
   })
   const removeHistoryCl = cx({
     'history-track__remove-list-item': true,
-    'border-separator_left': true,
     'border-shadow_grey_left': true,
   })
 
   return (
-    <div className={classNames}>
+    <Tag
+      tagName="div"
+      separator={cx([isRequestsHistory && 'sep_bottom'])}
+      className={cl}
+      position="z3"
+      display="fr"
+      align="center"
+    >
       <ul className={listCl} id="track-list">
         {requestsHistory.map(
           ({ id, request, response }) => {
             const shouldDelete = idToChange === id
 
-            const listItemCl = cx({
-              'requests-history__list-item': true,
-              'tile-animation_left': shouldDelete,
-              animation_instant: shouldDelete,
-              'history-track_list-item_should-delete': shouldDelete,
-            })
+            const listItemCl = cx([
+              'history-track__list-item',
+              shouldDelete && [
+                'history-track__list-item_delete',
+                'tile-animation_left',
+                'animation_instant',
+              ],
+            ])
 
             return (
               <li key={id} className={listItemCl}>
@@ -80,15 +84,23 @@ function HistoryTrack(props) {
         )}
       </ul>
 
-      <div className={removeHistoryCl}>
-        <IconButton
+      <Tag
+        tagName="div"
+        separator="sep_left"
+        className={removeHistoryCl}
+      >
+        <Button
           onClick={removeHistory}
-          icon={CrossIconComponent}
           mode="transparent"
-          direction="right"
-        />
-      </div>
-    </div>
+          padding="p1_width"
+          bg="ibutton_blue"
+          height="hgt6"
+          outline="ioutline6_blue"
+        >
+          <Icon iconName="CrossIcon" />
+        </Button>
+      </Tag>
+    </Tag>
   )
 }
 

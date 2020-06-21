@@ -3,8 +3,10 @@ import T from 'prop-types'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 
-import IconButton from 'elements/IconButton'
+import Icon from 'elements/Icon'
+import Button from 'elements/Button'
 import Notification from 'elements/Notification'
+
 import { NotificationTypes } from 'dictionary'
 import {
   getRequestAction,
@@ -13,26 +15,17 @@ import {
 import { selectCopyNotification } from 'flux/modules/notifications'
 import { restoreRequestAction } from 'flux/modules/requests'
 
-import { ReactComponent as SuccessBadgeIcon } from 'assets/successbadge.svg'
-import { ReactComponent as ErrorBadgeIcon } from 'assets/errorbadge.svg'
-import { ReactComponent as SeparatorIcon } from 'assets/separator.svg'
-
 import './index.scss'
 
-function HistoryTile(props) {
-  const {
-    request,
-    response,
-    setIsOpen,
-    id,
-    isOpen,
-    copyNotification,
-    restoreRequest,
-  } = props
-
-  const isCopyNotification =
-    copyNotification.id && copyNotification.id === id
-
+function HistoryTile({
+  id,
+  isOpen,
+  setIsOpen,
+  request,
+  response,
+  copyNotification,
+  restoreRequest,
+}) {
   const onClick = () => {
     restoreRequest(id)
   }
@@ -40,71 +33,83 @@ function HistoryTile(props) {
     setIsOpen(!isOpen)
   }
 
-  const classNames = cx({
-    shadow: true,
-    'history-tile': true,
-    'history-tile_fit-notification': isCopyNotification,
-  })
-  const buttonCl = cx({
-    'history-tile__button': true,
-    'tile-button_white': true,
-    'tile-button_size-s': true,
-  })
-  const requestTextCl = cx({
-    'request-action-text': true,
-    'history-tile__action-text': true,
-    'overflow-ellipsis': true,
-  })
-  const separatorCl = cx({
-    'history-tile__list-toggler': true,
-    'history-tile__list-toggler-outline': true,
-  })
+  const isCopyNotification =
+    copyNotification.id && copyNotification.id === id
 
-  const notificationCl = cx({
-    'history-tile__notification': true,
-    'notification-animation_s': true,
-    hide: !isCopyNotification,
-  })
+  const requestActionName = getRequestAction(request)
+  // TODO: refactor with theme tag
+  const cl = cx([
+    'shadow',
+    'history-tile',
+    isCopyNotification && 'history-tile_fit-notification',
+  ])
+  const buttonCl = cx([
+    'history-tile__button',
+    'tile-button_white',
+    'tile-button_size-s',
+  ])
+  const requestTextCl = cx([
+    'request-action-text',
+    'history-tile__action-text',
+    'ellipsis',
+  ])
 
   return (
-    <div className={classNames}>
+    <div className={cl}>
       <button
         onClick={onClick}
         className={buttonCl}
         type="button"
       >
         {checkIsResponseError(response) ? (
-          <ErrorBadgeIcon className="history-tile__status_badge" />
+          <Icon
+            iconName="ErrorBadgeIcon"
+            margin="m1_right"
+          />
         ) : (
-          <SuccessBadgeIcon className="history-tile__status_badge" />
+          <Icon
+            iconName="SuccessBadgeIcon"
+            margin="m1_right"
+          />
         )}
         <div className={requestTextCl}>
-          {/* eslint-disable-next-line no-template-curly-in-string */}
-          {getRequestAction(request) || '`${нет_действия}`'}
+          {/* may be `true` */}
+          {typeof requestActionName === 'boolean'
+            ? '`${нет_действия}`'
+            : requestActionName || '`${нет_действия}`'}
         </div>
       </button>
-      <IconButton
-        withOutline={false}
-        icon={SeparatorIcon}
+      <Button
         onClick={onTileListOpen}
         mode="transparent"
-        className={separatorCl}
-      />
-      <Notification
-        size="s"
-        notification={copyNotification}
-        className={notificationCl}
-      />
+        height="hgt4"
+        outline="ioutline4_blue"
+        padding="p1_width"
+        margin="m1_right"
+      >
+        <Icon iconName="SeparatorIcon" />
+      </Button>
+
+      {isCopyNotification && (
+        <Notification
+          size="s"
+          notification={copyNotification}
+          animation="notification-animation_s"
+          position="abs1_width"
+          display="fr"
+          align="center"
+        />
+      )}
     </div>
   )
 }
 
 HistoryTile.propTypes = {
+  id: T.string.isRequired,
   isOpen: T.bool.isRequired,
+  setIsOpen: T.func.isRequired,
   request: T.shape({}).isRequired,
   response: T.shape({}).isRequired,
-  setIsOpen: T.func.isRequired,
-  id: T.string.isRequired,
   restoreRequest: T.func.isRequired,
   copyNotification: T.shape({
     id: T.string,

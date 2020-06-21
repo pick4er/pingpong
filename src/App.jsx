@@ -6,12 +6,16 @@ import { Redirect, withRouter } from 'react-router-dom'
 
 import { selectIsAuth } from 'flux/modules/user'
 
+let i = 0
 function App(props) {
   const {
     routes,
     isAuth,
     location: { pathname },
   } = props
+
+  i += 1
+  console.log(`App updated ${i} times`)
 
   if (!isAuth && pathname !== '/login') {
     return <Redirect to="/login" />

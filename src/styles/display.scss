@@ -1,9 +1,65 @@
+@use "sass:string";
 @import 'styles/colors';
+@import 'styles/mixins';
+@import 'styles/functions';
 
+// FLEX
+@each $direction in row, column, row-reverse, column-reverse {
+  $directionPrefix: str-shrink($direction);
+
+  .f#{$directionPrefix} {
+    display: flex;
+    flex-direction: #{$direction};
+    flex-wrap: nowrap;
+
+    &_wrap {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@for $i from 1 through 5 {
+  .grow#{$i} {
+    flex-grow: $i;
+  }
+}
+
+.fstart {
+  align-items: flex-start;
+}
+
+.fend {
+  align-items: flex-end;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.baseline {
+  align-items: baseline;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+// SYSTEM
 .hide {
   display: none;
 }
 
+.page {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: $backgroundMain;
+}
+
+// RESET
 .list-styles-reset {
   list-style: none;
   margin: 0;
@@ -15,6 +71,7 @@
   border: none;
 }
 
+// LIST
 .list-button {
   width: 100%;
   text-align: left;

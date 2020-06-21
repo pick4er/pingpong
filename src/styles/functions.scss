@@ -1,0 +1,18 @@
+@use "sass:string";
+
+@function str-shrink($str, $separator: '-') {
+  $strToShrink: $str;
+  $shrinkedStr: '';
+  $index: 0;
+
+  @while $index != null {
+    $index: $index + 1;
+    $letter: str-slice($strToShrink, $index, $index);
+    $shrinkedStr: str-insert($shrinkedStr, $letter, str-length($shrinkedStr));
+
+    $strToShrink: str-slice($strToShrink, $index);
+    $index: str-index($strToShrink, $separator);
+  }
+
+  @return $shrinkedStr;
+}

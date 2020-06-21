@@ -1,28 +1,18 @@
 import React from 'react'
 
+import Icon from 'elements/Icon'
 import LoginForm from 'components/LoginForm'
 import Link from 'elements/Link'
-import LogoIcon from 'assets/logo.svg'
+import Tag from 'elements/ThemeTag'
 
-import './index.scss'
-
-function LoginPage() {
-  return (
-    <div className="login-page">
-      <img
-        src={LogoIcon}
-        className="login-page__icon"
-        alt="pingpong-logo-icon"
-      />
-      <LoginForm className="login-page__login-form" />
-      <Link
-        href="https://github.com/pick4er"
-        className="login__link"
-      >
-        @pick4er
-      </Link>
-    </div>
-  )
-}
+const LoginPage = () => (
+  <Tag tagName="div" className="page">
+    <Icon iconName="LogoIcon" margin="m4_bottom" />
+    <LoginForm />
+    <Link href="https://github.com/pick4er" margin="m4_top">
+      @pick4er
+    </Link>
+  </Tag>
+)
 
 export default LoginPage

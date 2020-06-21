@@ -1,19 +1,5 @@
 import pluralizeWord from './pluralizeWord'
 
-export function validateValues(values, validators) {
-  return Object.keys(values).reduce((errors, fieldName) => {
-    const fieldValue = values[fieldName]
-    const fieldErrors = validators[fieldName]
-      .map((validate) => validate(fieldValue))
-      .filter((error) => typeof error === 'string')
-
-    return {
-      ...errors,
-      [fieldName]: fieldErrors,
-    }
-  }, {})
-}
-
 export function required(value) {
   if (typeof value === 'undefined' || value === '') {
     return 'Заполните, пожалуйста, поле'

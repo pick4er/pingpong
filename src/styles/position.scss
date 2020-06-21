@@ -1,0 +1,25 @@
+
+@for $i from 0 through 10 {
+  .z#{$i} {
+    z-index: $i;
+  }
+}
+
+.rel {
+  position: relative;
+}
+
+@for $i from -10 through 10 {
+  $value: $i * 5px;
+
+  .abs#{$i}_width {
+    position: absolute;
+    left: $value;
+    right: $value;
+  }
+}
+
+.abs {
+  position: absolute;
+}
+

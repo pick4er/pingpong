@@ -5,10 +5,8 @@ import Dropdown from 'elements/Dropdown'
 import TileList from './TileList'
 import HistoryTile from './HistoryTile'
 
-function HistoryObject(props) {
+function HistoryObject({ request, id, response }) {
   const [isOpen, setIsOpen] = useState(false)
-
-  const { request, id, response } = props
 
   return (
     <Dropdown

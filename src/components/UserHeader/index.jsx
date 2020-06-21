@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import cx from 'classnames'
 
-import IconButton from 'elements/IconButton'
+import Icon from 'elements/Icon'
+import Tag from 'elements/ThemeTag'
+import Heading from 'elements/Heading'
+import Button from 'elements/Button'
 import { logoutAction } from 'flux/modules/user'
-import { ReactComponent as LogoutIconComponent } from 'assets/logout.svg'
-import { ReactComponent as FullScreenIconComponent } from 'assets/fullscreen.svg'
-import { ReactComponent as SmallScreenIconComponent } from 'assets/smallscreen.svg'
-import LogoIcon from 'assets/logo.svg'
 import UserCredentialsTile from './UserCredentialsTile'
 
-import './index.scss'
-
-function UserHeader(props) {
+function UserHeader({ logout }) {
   const [isFullscreen, setIsFullscreen] = useState(false)
-
-  const { logout } = props
 
   // INIT FULL SCREEN
   useEffect(() => {
@@ -25,22 +19,9 @@ function UserHeader(props) {
     }
   }, [setIsFullscreen])
 
-  const toggleFullScreen = () => {
-    if (isFullscreen && document.fullscreenElement) {
-      document.exitFullscreen()
-      setIsFullscreen(false)
-    } else if (
-      !isFullscreen &&
-      !document.fullscreenElement &&
-      document.fullscreenEnabled
-    ) {
-      document.documentElement.requestFullscreen()
-      setIsFullscreen(true)
-    }
-  }
-
+  // SUBSCRIBE ON FULLSCREEN CHANGE
   useEffect(() => {
-    const onFullscreen = () => {
+    const onFullscreenChange = () => {
       if (isFullscreen && !document.fullscreenElement) {
         setIsFullscreen(false)
       }
@@ -48,63 +29,77 @@ function UserHeader(props) {
 
     document.addEventListener(
       'fullscreenchange',
-      onFullscreen
+      onFullscreenChange
     )
     return () => {
       document.removeEventListener(
         'fullscreenchange',
-        onFullscreen
+        onFullscreenChange
       )
     }
   }, [isFullscreen, setIsFullscreen])
 
-  const classNames = cx({
-    'user-header': true,
-    'border-separator_bottom': true,
-  })
-  const headerCl = cx({
-    'user-header__header-text': true,
-    'header-text': true,
-    'header-text_s': true,
-  })
-  const iconButtonCl = cx({
-    text_normal: true,
-    'user-header__logout-icon-button': true,
-  })
+  const toggleFullScreen = () => {
+    if (isFullscreen) {
+      document.exitFullscreen()
+      setIsFullscreen(false)
+    } else {
+      document.documentElement.requestFullscreen()
+      setIsFullscreen(true)
+    }
+  }
 
   return (
-    <div className={classNames}>
-      <img
-        src={LogoIcon}
-        className="user-header__icon"
-        alt="pingpong-logo-icon"
-      />
-
-      <h5 className={headerCl}>API-консолька</h5>
+    <Tag
+      tagName="div"
+      display="fr"
+      align="center"
+      padding="p2_height p3_width"
+      separator="sep_bottom"
+    >
+      <Icon iconName="LogoIcon" />
+      <Heading
+        tagName="h5"
+        text="h5"
+        margin="m0 m4_left"
+        fGrow="grow1"
+      >
+        API-консолька
+      </Heading>
 
       <UserCredentialsTile />
 
-      <IconButton
-        icon={LogoutIconComponent}
-        direction="right"
+      <Button
         mode="transparent"
         onClick={logout}
-        className={iconButtonCl}
+        margin="m2_left"
+        text="button-text text_normal"
+        bg="ibutton_blue"
+        height="hgt6"
+        outline="ioutline6_blue"
       >
         Выйти
-      </IconButton>
-      <IconButton
-        icon={
-          isFullscreen
-            ? SmallScreenIconComponent
-            : FullScreenIconComponent
-        }
-        direction="right"
+        <Icon iconName="LogoutIcon" margin="m1_left" />
+      </Button>
+
+      <Button
         mode="transparent"
         onClick={toggleFullScreen}
-        className="user-header__full-screen-button"
-      />
-    </div>
+        margin="m2_left m-1_right"
+        padding="p1_width"
+        bg="ibutton_blue"
+        height="hgt6"
+        outline="ioutline6_blue"
+      >
+        <Icon
+          iconName={
+            isFullscreen
+              ? 'SmallScreenIcon'
+              : 'FullScreenIcon'
+          }
+        />
+      </Button>
+    </Tag>
   )
 }
 

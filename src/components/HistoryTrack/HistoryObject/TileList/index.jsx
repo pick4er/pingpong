@@ -11,15 +11,13 @@ import {
 
 import './index.scss'
 
-function TileList(props) {
-  const {
-    id,
-    setIsOpen,
-    execRequest,
-    copyRequest,
-    deleteRequest,
-  } = props
-
+function TileList({
+  id,
+  setIsOpen,
+  execRequest,
+  copyRequest,
+  deleteRequest,
+}) {
   const onCopy = () => {
     copyRequest(id)
     setIsOpen(false)
@@ -40,10 +38,10 @@ function TileList(props) {
     'tile-list',
     'shadow',
   ])
-  const buttonCl = cx({
-    'button-styles-reset': true,
-    'tile-list__button': true,
-  })
+  const buttonCl = cx([
+    'button-styles-reset',
+    'tile-list__button',
+  ])
   const actionButtonCl = cx([buttonCl, 'list-button'])
   const deleteButtonCl = cx([
     buttonCl,

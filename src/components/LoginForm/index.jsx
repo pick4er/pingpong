@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import cx from 'classnames'
 
 import FormInput from 'elements/FormInput'
 import Button from 'elements/Button'
+import Heading from 'elements/Heading'
+import Tag from 'elements/ThemeTag'
 import Notification from 'elements/Notification'
 import {
   loginAction,
@@ -16,12 +17,9 @@ import {
   required,
   emailOrLogin,
   startsWithLetter,
-  validateValues,
   moreThanXSymbols,
 } from 'helpers/validators'
 import { NotificationTypes } from 'dictionary'
-
-import './index.scss'
 
 const validators = {
   login: [
@@ -36,119 +34,88 @@ const validators = {
     latinOnly,
     startsWithLetter,
   ],
-  password: [
-    required,
-    moreThanXSymbols(4),
-    latinOnly,
-    moreThanXSymbols,
-  ],
+  password: [required, moreThanXSymbols(4), latinOnly],
 }
 
-const checkIfFormError = (form, setIsError, isError) => {
-  const { login, sublogin, password } = form
+const getFormDomEl = () =>
+  document.getElementById('login-form')
 
-  const isNextError =
+const checkIfFormError = (isError, setIsError) => {
+  const formDomEl = getFormDomEl()
+
+  const { login, sublogin, password } = formDomEl
+  const nextIsError =
     [
       login.dataset.error,
       sublogin.dataset.error,
       password.dataset.error,
     ].filter(Boolean).length > 0
 
-  if (isError && !isNextError) {
-    setIsError(false)
-  } else if (!isError && isNextError) {
-    setIsError(true)
+  if (isError !== nextIsError) {
+    setIsError(nextIsError)
   }
-
-  return isNextError
 }
 
-function LoginForm(props) {
-  const formEl = useRef(null)
+function LoginForm({
+  isLoading,
+  loginUser,
+  loginNotification,
+}) {
   const [isError, setIsError] = useState(false)
 
-  const {
-    className,
-    isLoading,
-    loginUser,
-    loginNotification,
-  } = props
-
   useEffect(() => {
-    const formDomEl = formEl.current
+    const formDomEl = getFormDomEl()
 
-    const onChange = ($event) =>
-      checkIfFormError(
-        $event.target.form,
-        setIsError,
-        isError
-      )
+    const onChange = () =>
+      checkIfFormError(isError, setIsError)
     formDomEl.addEventListener('change', onChange)
-    return () =>
+    return () => {
       formDomEl.removeEventListener('change', onChange)
+    }
   }, [isError, setIsError])
 
   const onSubmit = ($event) => {
     $event.preventDefault()
-    if (isLoading) {
-      return undefined
-    }
+    const {
+      target: { login, sublogin, password },
+    } = $event
 
-    const { target } = $event
-    const data = {
-      login: target.login.value,
-      sublogin: target.sublogin.value,
-      password: target.password.value,
-    }
-
-    const errors = validateValues(data, validators)
-    const isFormError =
-      Object.values(errors).filter(
-        (errArr) => errArr.length > 0
-      ).length > 0
-
-    if (isFormError && !isError) {
-      setIsError(true)
-    } else if (!isFormError && !isError) {
-      loginUser(data)
-    }
-
-    return undefined
+    loginUser({
+      login: login.value,
+      sublogin: sublogin.value,
+      password: password.value,
+    })
   }
 
-  const classNames = cx({
-    'login-form': true,
-    [className]: className,
-  })
-  const headerCl = cx({
-    'header-text': true,
-    'login-form__header-text': true,
-  })
-  const notificationCl = cx({
-    'login-form__notification': true,
-    'notification-animation_l': true,
-    'error-background': true,
-  })
-
   return (
-    <form
+    <Tag
+      tagName="form"
       onSubmit={onSubmit}
-      className={classNames}
-      ref={formEl}
+      id="login-form"
+      display="fc"
+      width="w104"
+      padding="p8_height p6_width"
+      borderRadius="br3"
+      shadow="sh2"
+      bg="bg_white"
     >
-      <h5 className={headerCl}>API-консолька</h5>
+      <Heading tagName="h3" text="h3" margin="m0 m4_bottom">
+        API-консолька
+      </Heading>
 
       <Notification
         withIcon
         notification={loginNotification}
-        className={notificationCl}
+        margin="m4_bottom"
+        align="fstart"
+        animation="notification-animation_l"
       />
 
       <FormInput
         isRequired
         name="login"
         label="Логин"
-        className="login-form__input"
+        margin="m4_bottom"
         validators={validators.login}
         type="text"
       />
@@ -156,7 +123,7 @@ function LoginForm(props) {
       <FormInput
         name="sublogin"
         label="Сублогин"
-        className="login-form__input"
+        margin="m4_bottom"
         validators={validators.sublogin}
         type="text"
       />
@@ -165,8 +132,7 @@ function LoginForm(props) {
         isRequired
         label="Пароль"
         name="password"
-        className="login-form__input"
-        nativeInputClassName="input-text_password"
+        margin="m4_bottom"
         validators={validators.password}
         type="password"
       />
@@ -174,18 +140,17 @@ function LoginForm(props) {
       <Button
         type="submit"
         mode="blue"
+        width="w21"
         isDisabled={isError}
-        className="login-form__button"
         isLoading={isLoading}
       >
         Войти
       </Button>
-    </form>
+    </Tag>
   )
 }
 
 LoginForm.defaultProps = {
-  className: '',
   loginNotification: {
     type: undefined,
     message: '',
@@ -195,7 +160,6 @@ LoginForm.defaultProps = {
 
 LoginForm.propTypes = {
   loginUser: T.func.isRequired,
-  className: T.string,
   isLoading: T.bool.isRequired,
   loginNotification: T.shape({
     type: T.oneOf(Object.values(NotificationTypes)),
