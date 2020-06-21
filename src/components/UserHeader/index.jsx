@@ -84,6 +84,8 @@ function UserHeader({ logout }) {
         margin="m2_left"
         text="button-text text_normal"
         bg="ibutton_blue"
+        height="hgt6"
+        outline="ioutline6_blue"
       >
         Выйти
         <Icon iconName="LogoutIcon" margin="m1_left" />
@@ -93,7 +95,10 @@ function UserHeader({ logout }) {
         mode="transparent"
         onClick={toggleFullScreen}
         margin="m2_left m-1_right"
+        padding="p1_width"
         bg="ibutton_blue"
+        height="hgt6"
+        outline="ioutline6_blue"
       >
         <Icon
           iconName={

@@ -77,7 +77,7 @@ function HistoryTile({
             : requestActionName || '`${нет_действия}`'}
         </div>
       </button>
-      <Button onClick={onTileListOpen} mode="transparent">
+      <Button onClick={onTileListOpen} mode="transparent" height="hgt4" outline="ioutline4_blue" padding="p1_width" margin="m1_right">
         <Icon iconName="SeparatorIcon" />
       </Button>
 

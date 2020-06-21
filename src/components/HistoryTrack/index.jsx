@@ -92,6 +92,8 @@ function HistoryTrack({
           mode="transparent"
           padding="p1_width"
           bg="ibutton_blue"
+          height="hgt6"
+          outline="ioutline6_blue"
         >
           <Icon iconName="CrossIcon" />
         </Button>

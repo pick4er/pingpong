@@ -1,5 +1,7 @@
+@import 'styles/mixins';
 @import 'styles/colors';
 
+// BORDER RADIUS
 @for $i from 0 through 10 {
   $value: $i * 2px;
 
@@ -24,6 +26,7 @@
   }
 }
 
+// BOX SHADOW
 @for $i from 0 through 10 {
   $offsetX: 0;
   $offsetY: $i * 2px;
@@ -35,9 +38,21 @@
   }
 }
 
+// SEPARATOR BORDER
 @each $side in top, bottom, left, right {
   .sep_#{$side} {
     border-#{$side}: 1px solid $borderBlack;
+  }
+}
+
+// ICON OUTLINE
+@for $i from 1 through 6 {
+  $value: $i * 5px;
+
+  .ioutline#{$i}_blue {
+    &:focus {
+      @include outline($outlineBlue, $value);
+    }
   }
 }
 

@@ -12,7 +12,7 @@ const Loader = ({ size, color }) => (
     tagName="span"
     display="fr"
     align="center"
-    height="h4"
+    height="hgt4"
     className={cx([`loader_${size}`, `loader_${color}`])}
   >
     <Icon

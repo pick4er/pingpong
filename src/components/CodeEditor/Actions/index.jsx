@@ -35,8 +35,10 @@ const CodeEditorActions = ({
     <Button
       onClick={onBeautify}
       mode="transparent"
-      padding="p0_right"
+      margin="m-1_right"
       bg="ibutton_blue"
+      height="hgt6"
+      outline="ioutline6_blue"
     >
       <Icon iconName="FormatIcon" margin="m1_right" />
       Форматировать
