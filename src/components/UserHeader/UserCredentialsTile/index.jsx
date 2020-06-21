@@ -16,7 +16,9 @@ const UserCredentialsTile = ({ login, sublogin }) =>
     <Tag
       tagName="div"
       border="border"
-      className="user-credentials-tile"
+      padding="p1_height p3_width"
+      display="fr"
+      align="center"
     >
       {login && (
         <Tag
