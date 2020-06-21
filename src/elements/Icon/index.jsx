@@ -13,6 +13,7 @@ import { ReactComponent as LogoIcon } from 'assets/logo.svg'
 import { ReactComponent as FullScreenIcon } from 'assets/fullscreen.svg'
 import { ReactComponent as SmallScreenIcon } from 'assets/smallscreen.svg'
 import { ReactComponent as LoaderIcon } from 'assets/loader.svg'
+import { ReactComponent as SmallSeparatorIcon } from 'assets/separatorS.svg'
 
 import { withTheme } from 'elements/ThemeTag'
 
@@ -28,6 +29,7 @@ const icons = {
   LogoutIcon,
   FullScreenIcon,
   SmallScreenIcon,
+  SmallSeparatorIcon,
   LoaderIcon,
 }
 

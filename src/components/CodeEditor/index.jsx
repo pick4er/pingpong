@@ -245,9 +245,9 @@ function CodeEditor({
   return (
     <CodeEditorTag
       tagName="div"
-      className="code-editor"
       display="fc"
       bg="bg_white"
+      position="z0 rel"
     >
       <Tag
         tagName="div"

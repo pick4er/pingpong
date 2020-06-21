@@ -51,7 +51,7 @@ function HistoryTile({
   const requestTextCl = cx([
     'request-action-text',
     'history-tile__action-text',
-    'overflow-ellipsis',
+    'ellipsis',
   ])
 
   return (

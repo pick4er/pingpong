@@ -36,7 +36,6 @@ function HistoryTrack({
   const isRequestsHistory = requestsHistory.length > 0
   const cl = cx({
     'history-track': true,
-    'history-track_increase-stack': true,
     // for soft transition on delete
     'history-track_hide': !isRequestsHistory,
   })
@@ -54,6 +53,9 @@ function HistoryTrack({
       tagName="div"
       separator={cx([isRequestsHistory && 'sep_bottom'])}
       className={cl}
+      position="z3"
+      display="fr"
+      align="center"
     >
       <ul className={listCl} id="track-list">
         {requestsHistory.map(

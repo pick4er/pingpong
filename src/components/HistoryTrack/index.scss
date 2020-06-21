@@ -1,9 +1,6 @@
 @import 'styles/colors';
 
 .history-track {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
   opacity: 1;
   transition: all 1s ease;
   height: 52px;
@@ -36,12 +33,6 @@
     // to have the same padding as on left
     padding-right: 15px;
   }
-}
-
-// CodeMirror has z-index: 2; lines.
-// They cross dropdown
-.history-track_increase-stack {
-  z-index: 3;
 }
 
 .history-track__list-item {
