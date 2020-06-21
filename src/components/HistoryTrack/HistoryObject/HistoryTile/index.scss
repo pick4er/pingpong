@@ -1,6 +1,7 @@
 @import 'styles/colors';
 @import 'styles/mixins';
 
+// TODO: refactor with theme tag
 .history-tile {
   display: flex;
   align-items: center;
@@ -18,7 +19,6 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  margin-right: 15px;
   outline: none;
 }
 

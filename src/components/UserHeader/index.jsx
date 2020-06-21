@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import T from 'prop-types'
 import { connect } from 'react-redux'
-import cx from 'classnames'
 
 import Icon from 'elements/Icon'
 import Tag from 'elements/ThemeTag'
@@ -53,10 +52,6 @@ function UserHeader({ logout }) {
       setIsFullscreen(true)
     }
   }
-
-  const iconButtonCl = cx({
-    text_normal: true,
-  })
 
   return (
     <Tag

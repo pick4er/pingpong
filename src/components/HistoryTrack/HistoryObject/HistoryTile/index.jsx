@@ -37,7 +37,8 @@ function HistoryTile({
     copyNotification.id && copyNotification.id === id
 
   const requestActionName = getRequestAction(request)
-  const classNames = cx([
+  // TODO: refactor with theme tag
+  const cl = cx([
     'shadow',
     'history-tile',
     isCopyNotification && 'history-tile_fit-notification',
@@ -52,23 +53,24 @@ function HistoryTile({
     'history-tile__action-text',
     'overflow-ellipsis',
   ])
-  const notificationCl = cx([
-    'fit-notification-inside',
-    'notification-animation_s',
-    !isCopyNotification && 'hide',
-  ])
 
   return (
-    <div className={classNames}>
+    <div className={cl}>
       <button
         onClick={onClick}
         className={buttonCl}
         type="button"
       >
         {checkIsResponseError(response) ? (
-          <Icon iconName="ErrorBadgeIcon" />
+          <Icon
+            iconName="ErrorBadgeIcon"
+            margin="m1_right"
+          />
         ) : (
-          <Icon iconName="SuccessBadgeIcon" />
+          <Icon
+            iconName="SuccessBadgeIcon"
+            margin="m1_right"
+          />
         )}
         <div className={requestTextCl}>
           {/* may be `true` */}
@@ -77,14 +79,27 @@ function HistoryTile({
             : requestActionName || '`${нет_действия}`'}
         </div>
       </button>
-      <Button onClick={onTileListOpen} mode="transparent" height="hgt4" outline="ioutline4_blue" padding="p1_width" margin="m1_right">
+      <Button
+        onClick={onTileListOpen}
+        mode="transparent"
+        height="hgt4"
+        outline="ioutline4_blue"
+        padding="p1_width"
+        margin="m1_right"
+      >
         <Icon iconName="SeparatorIcon" />
       </Button>
 
-      <Notification
-        size="s"
-        notification={copyNotification}
-      />
+      {isCopyNotification && (
+        <Notification
+          size="s"
+          notification={copyNotification}
+          animation="notification-animation_s"
+          position="abs1_width"
+          display="fr"
+          align="center"
+        />
+      )}
     </div>
   )
 }

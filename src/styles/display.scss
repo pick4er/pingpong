@@ -37,6 +37,10 @@
   justify-content: center;
 }
 
+.baseline {
+  align-items: baseline;
+}
+
 .between {
   justify-content: space-between;
 }
@@ -103,12 +107,4 @@
   &:active {
     background-color: $deepRed;
   }
-}
-
-.fit-notification-inside {
-  position: absolute;
-  left: 5px;
-  right: 5px;
-  display: flex;
-  justify-content: center;
 }

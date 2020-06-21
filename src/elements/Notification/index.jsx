@@ -24,7 +24,6 @@ const Notification = ({
     tagName="div"
     display={cx(['fr', !type && 'hide'])}
     className={cx([size && `notification_size-${size}`])}
-    align="fstart"
     bg={`bg_${type}`}
     borderRadius="br3"
   >

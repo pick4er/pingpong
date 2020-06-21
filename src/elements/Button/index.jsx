@@ -3,7 +3,7 @@ import T from 'prop-types'
 import cx from 'classnames'
 
 import Loader from 'elements/Loader'
-import Tag, { withTheme } from 'elements/ThemeTag'
+import { withTheme } from 'elements/ThemeTag'
 import { toArray } from 'helpers'
 import { ButtonModes as Modes } from 'dictionary'
 
@@ -24,7 +24,7 @@ const directionDisplays = {
   },
 }
 
-/* eslint-disable no-nested-ternary */
+/* eslint-disable no-nested-ternary, react/jsx-props-no-spreading */
 function Button({
   type,
   mode,
@@ -74,7 +74,7 @@ function Button({
     </ButtonTag>
   )
 }
-/* eslint-enable no-nested-ternary */
+/* eslint-enable no-nested-ternary, react/jsx-props-no-spreading */
 
 Button.defaultProps = {
   direction: 'right',

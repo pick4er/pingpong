@@ -107,6 +107,7 @@ function LoginForm({
         withIcon
         notification={loginNotification}
         margin="m4_bottom"
+        align="fstart"
         animation="notification-animation_l"
       />
 
