@@ -1,0 +1,60 @@
+@import 'styles/colors';
+
+.history-track {
+  opacity: 1;
+  transition: all 1s ease;
+  height: 52px;
+  min-height: 52px;
+  overflow-y: hidden;
+}
+
+.history-track_hide {
+  height: 0px;
+  min-height: 0px;
+  padding: 0;
+  opacity: 0;
+}
+
+.history-track__list {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding-top: 17px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  height: 86px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.history-track__list {
+  & > li:last-child {
+    // to have the same padding as on left
+    padding-right: 15px;
+  }
+}
+
+.history-track__list-item {
+  margin-left: 10px;
+  width: auto;
+  max-width: 100%;
+  transition: width 1s ease, padding 1s ease, max-width 1s ease, margin 1s ease;
+}
+
+.history-track__list-item_delete {
+  width: 0;
+  padding: 0;
+  margin: 0;
+  max-width: 0;
+}
+
+.history-track__remove-list-item {
+  display: flex;
+  align-items: center;
+  background-color: $backgroundMain;
+  justify-content: center;
+  padding-right: 10px;
+  padding-left: 10px;
+  height: 51px;
+}

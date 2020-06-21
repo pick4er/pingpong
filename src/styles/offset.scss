@@ -1,0 +1,39 @@
+@use "sass:string";
+@import 'styles/functions';
+
+@each $rule in margin, padding {
+  @for $i from -8 through 8 {
+    $value: 5px * $i;
+    $prefix: str-shrink($rule);
+
+    .#{$prefix}#{$i} {
+      #{$rule}: $value;
+
+      &_top {
+        #{$rule}-top: $value;
+      }
+
+      &_bottom {
+        #{$rule}-bottom: $value;
+      }
+
+      &_left {
+        #{$rule}-left: $value;
+      }
+
+      &_right {
+        #{$rule}-right: $value;
+      }
+
+      &_height {
+        #{$rule}-top: $value;
+        #{$rule}-bottom: $value;
+      }
+
+      &_width {
+        #{$rule}-left: $value;
+        #{$rule}-right: $value;
+      }
+    }
+  }
+}

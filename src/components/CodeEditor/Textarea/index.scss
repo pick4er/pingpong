@@ -1,0 +1,27 @@
+@import 'styles/border';
+
+.code-editor__textarea {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 400px;
+}
+
+.code-editor__textarea-label {
+  margin-bottom: 3px;
+}
+
+.code-editor__textarea_error {
+  .cm-s-textarea {
+    @include borderError();
+  }
+}
+
+.cm-s-textarea {
+  flex-grow: 1;
+
+  &.CodeMirror {
+    min-height: 400px;
+  }
+
+  @include border();
+}

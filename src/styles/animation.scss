@@ -1,0 +1,46 @@
+
+@keyframes notification_animation_l {
+  0%   { transform: translate(0, 0); opacity: 1; height: 70px; }
+  80%   { transform: translate(0, -100px); opacity: 0; height: 70px; }
+  90%   { transform: translate(0, -100px); opacity: 0; height: 40px; }
+  100%  { transform: translate(0, -100px); opacity: 0; height: 0px; margin-top: -41px; }
+}
+
+@keyframes notification_animation_s {
+  0%   { transform: translate(0, 0); opacity: 1; height: 20px; }
+  100%   { transform: translate(0, -20px); opacity: 0; height: 20px; }
+}
+
+@keyframes tile_animation_left {
+  0%   { transform: translate(0, 0); opacity: 1; height: 30px; }
+  100%   { transform: translate(-100px, 0); opacity: 0; height: 30px; }
+}
+
+@keyframes loading_animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.notification-animation_l {
+  animation: notification_animation_l 1s linear 5s 1 normal forwards;
+}
+
+.notification-animation_s {
+  animation: notification_animation_s 0.5s linear .5s 1 normal forwards;
+}
+
+.tile-animation_left {
+  animation: tile_animation_left 0.5s linear 2s 1 normal forwards;
+}
+
+.animation_instant {
+  animation-delay: 0s;
+}
+
+.loading-animation {
+  animation: loading_animation 1.2s linear infinite;
+}

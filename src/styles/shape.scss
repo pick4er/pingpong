@@ -1,0 +1,29 @@
+@import 'styles/colors';
+
+@for $i from 0 through 200 {
+  $value: $i * 5px;
+
+  .w#{$i} {
+    width: $value;
+  }
+}
+
+@for $i from 0 through 200 {
+  $value: $i * 5px;
+
+  .hgt#{$i} {
+    height: $value;
+  }
+}
+
+.tile-button_white {
+  background-color: $white;
+  border: none;
+  cursor: pointer;
+}
+
+.tile-button_size-s {
+  padding: 5px 10px;
+  border-radius: 5px;
+  max-height: 29px;
+}

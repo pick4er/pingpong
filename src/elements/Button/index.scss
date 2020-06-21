@@ -1,0 +1,28 @@
+@import 'styles/colors';
+@import 'styles/mixins';
+
+.button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px;
+  opacity: 1;
+  width: min-content;
+
+  &:focus {
+    @include outline($outlineBlue);
+  }
+}
+
+.button_disabled {
+  cursor: default;
+
+  &:focus {
+    @include outline(transparent);
+  }
+}
+
+.button_transparent {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}

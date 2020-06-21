@@ -1,0 +1,22 @@
+@import 'styles/colors';
+@import 'styles/mixins';
+
+.input {
+  @include outline($outlineGray);
+  // to keep focus on input, not &:after
+  &:after {
+    visibility: hidden;
+  }
+}
+
+.input:focus-within {
+  &:after {
+    visibility: visible;
+  }
+}
+
+/* NATIVE INPUT */
+.native-input {
+  background-color: white;
+  height: 40px;
+}

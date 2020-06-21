@@ -1,0 +1,110 @@
+@use "sass:string";
+@import 'styles/colors';
+@import 'styles/mixins';
+@import 'styles/functions';
+
+// FLEX
+@each $direction in row, column, row-reverse, column-reverse {
+  $directionPrefix: str-shrink($direction);
+
+  .f#{$directionPrefix} {
+    display: flex;
+    flex-direction: #{$direction};
+    flex-wrap: nowrap;
+
+    &_wrap {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@for $i from 1 through 5 {
+  .grow#{$i} {
+    flex-grow: $i;
+  }
+}
+
+.fstart {
+  align-items: flex-start;
+}
+
+.fend {
+  align-items: flex-end;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.baseline {
+  align-items: baseline;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+// SYSTEM
+.hide {
+  display: none;
+}
+
+.page {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: $backgroundMain;
+}
+
+// RESET
+.list-styles-reset {
+  list-style: none;
+  margin: 0;
+}
+
+.button-styles-reset {
+  background: none;
+  outline: none;
+  border: none;
+}
+
+// LIST
+.list-button {
+  width: 100%;
+  text-align: left;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.05s ease; 
+
+  &:hover {
+    color: $white;
+    background-color: $blue;
+  }
+
+  &:focus {
+    color: $white;
+    background-color: $blue;
+  }
+
+  &:active {
+    color: $white;
+    background-color: $deepBlue;
+  }
+}
+
+.list-button_error {
+  &:hover {
+    background-color: $errorRed;
+  }
+
+  &:focus {
+    background-color: $errorRed;
+  }
+
+  &:active {
+    background-color: $deepRed;
+  }
+}

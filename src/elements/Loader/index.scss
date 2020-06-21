@@ -1,0 +1,19 @@
+@import 'styles/colors';
+@import 'styles/mixins';
+
+.loader_white {
+  @include svgFill($white);
+}
+
+.loader_s {
+  height: 20px;
+}
+
+.loader_black {
+  @include svgFill($black);
+}
+
+.loader_l {
+  height: 60px;
+  @include svgSize(60px, 60px);
+}

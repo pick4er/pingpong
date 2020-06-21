@@ -1,0 +1,37 @@
+
+@mixin outline($color, $height: 40px) {
+  position: relative;
+  outline: none;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: $height;
+    bottom: -2px;
+    left: -2px;
+    right: -2px;
+    border: 2px solid $color;
+    border-radius: 7px;
+  }
+}
+
+@mixin overflowEllipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin svgFill($color) {
+  // Actually, customizing svg sprites is true way
+  path {
+    stroke: $color;
+  }
+}
+
+@mixin svgSize($width: 30px, $height: 30px) {
+  svg {
+    width: $width;
+    height: $height;
+  }
+}

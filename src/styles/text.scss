@@ -1,0 +1,119 @@
+@import 'styles/colors';
+
+// SERVICE
+.error-text {
+  color: $errorRed;
+}
+
+.info-text {
+  color: $textBlack;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// HEADER TEXT
+@for $i from 0 through 6 {
+  $fontSize: 30px - $i * 3;
+  $lineHeight: 30px - $i * 2;
+
+  .h#{$i + 1} {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    font-style: normal;
+    font-weight: normal;    
+  }
+}
+
+// BUTTON TEXT
+.button-text {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.text_black {
+  color: $textBlack;
+}
+
+.text_normal {
+  font-weight: normal;
+}
+
+.text_white {
+  color: $white;
+}
+
+.text_blue {
+  color: $blue;
+}
+
+.text_blue_active {
+  &:hover {
+    color: $blue;
+  }
+
+  &:focus {
+    color: $blue;
+  }
+
+  &:active {
+    color: $deepBlue;
+  }
+}
+
+// INPUT TEXT
+.input-text {
+  font-size: 18px;
+  line-height: 30px;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.input-text_password {
+  font-size: 25px;
+}
+
+.label-text {
+  font-size: 16px;
+}
+
+.hint-text {
+  font-size: 12px;
+  color: $hintTextGrey;
+}
+
+// NOTIFICATION TEXT
+.notification-message-text {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: normal;
+  font-style: normal;
+}
+
+// REQUEST TEXT
+.request-action-text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+}
+
+// LINK TEXT
+.link-text {
+  text-decoration: none;
+  color: $linkGray;
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    color: $linkGrayHover;
+  }
+
+  &:focus {
+    color: $linkGrayFocus;
+  }
+}
